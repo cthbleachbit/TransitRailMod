@@ -1,0 +1,16 @@
+[
+{
+  "modid": "transitrailmod",
+  "name": "Transit Rail Mod",
+  "description": "cth451's transit railway mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["cth451"],
+  "credits": "cth451",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"facing=north, powered=true": { "model": "transitrailmod:closed_platform_top" },
+		"facing=north, powered=false": { "model": "transitrailmod:closed_platform_top" },
+		"facing=east, powered=true": {"model": "transitrailmod:closed_platform_top", "y": 90 },
+		"facing=east, powered=false": {"model": "transitrailmod:closed_platform_top", "y": 90 },
+		"facing=south, powered=true": {"model": "transitrailmod:closed_platform_top", "y": 180 },
+		"facing=south, powered=false": {"model": "transitrailmod:closed_platform_top", "y": 180 },
+		"facing=west, power=true": {"model": "transitrailmod:closed_platform_top", "y": 270 },
+		"facing=west, power=false": {"model": "transitrailmod:closed_platform_top", "y": 270 }
+    }
+}

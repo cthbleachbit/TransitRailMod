@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures" : {
+        "side": "transitrailmod:blocks/logo_block/side",
+        "end": "transitrailmod:blocks/logo_block/end"
+    }
+}

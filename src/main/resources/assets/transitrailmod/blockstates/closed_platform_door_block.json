@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "upper=true, powered=true": { "model": "transitrailmod:closed_platform_door_upper" },
+        "upper=true, powered=false": { "model": "transitrailmod:closed_platform_door_upper" },
+        "upper=false, powered=true": { "model": "transitrailmod:closed_platform_door_lower" },
+        "upper=false, powered=false": { "model": "transitrailmod:closed_platform_door_lower" }
+    }
+}
