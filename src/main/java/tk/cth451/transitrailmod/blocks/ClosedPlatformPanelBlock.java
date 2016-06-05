@@ -12,6 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class ClosedPlatformPanelBlock extends Block{
@@ -41,15 +42,18 @@ public class ClosedPlatformPanelBlock extends Block{
     }
 	
 	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		boolean isUpper = worldIn.getBlockState(pos.down()).getBlock().equals(this);
+		return state.withProperty(UPPER, isUpper);
+	}
+	
+	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		if (state.getValue(UPPER).equals(false)) {
-			worldIn.setBlockState(pos.up(), state.withProperty(UPPER, true).withProperty(FACING, placer.getHorizontalFacing()));
-			return state.withProperty(UPPER, false).withProperty(FACING, placer.getHorizontalFacing());
-		} else {
-			return state.withProperty(UPPER, true).withProperty(FACING, placer.getHorizontalFacing());
-		}
+		EnumFacing thisFacing = placer.getHorizontalFacing();
+		// check if the block below is a platform panel
+		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
 	}
 	
 	@Override
@@ -59,15 +63,11 @@ public class ClosedPlatformPanelBlock extends Block{
 	
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		int keyFacing = ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
-		int keyUpper = state.getValue(UPPER).equals(true) ? 1 : 0;
-		return keyFacing * 2 + keyUpper;
+		return ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
 	}
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		int keyFacing = meta / 2;
-		int keyUpper = meta % 2;
-		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(keyFacing)).withProperty(UPPER, keyUpper==1);
+		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
 	}
 }
