@@ -19,19 +19,15 @@ import net.minecraft.world.World;
 
 public class ClosedPlatformTop extends Block{
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing");
+	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
+	
 	
 	public ClosedPlatformTop(Material materialIn) {
 		super(Material.iron);
 		this.setLightLevel(1F);
 		// Full brightness
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, 0));
-	}
-	
-	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, POWERED});
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 	}
 	
 	@Override
@@ -56,20 +52,21 @@ public class ClosedPlatformTop extends Block{
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		return state.withProperty(FACING, facing.getHorizontalIndex());
+		return state.withProperty(FACING, placer.getHorizontalFacing());
+	}
+	
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+	}
+
+	@Override
+	public BlockState createBlockState() {
+		return new BlockState(this, new IProperty[] {FACING, POWERED});
 	}
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		int keyFacing = meta/2;
-		boolean keyPowered = (meta % 2 == 1) ? true : false;
-		return this.getDefaultState().withProperty(FACING, keyFacing).withProperty(POWERED, keyPowered);
-	}
-
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		int keyFacing = ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
-		int keyPowered = (Integer) state.getValue(POWERED);
-		return keyFacing*2+keyPowered;
+		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
 	}
 }
