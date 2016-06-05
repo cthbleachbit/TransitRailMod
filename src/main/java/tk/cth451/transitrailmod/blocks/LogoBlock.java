@@ -11,6 +11,7 @@ public class LogoBlock extends Block {
 		setHardness(1.5F);
 		setResistance(50);
 		setLightLevel(1F);
+		setUnlocalizedName("logo_block");
 		setHarvestLevel("pickaxe", 1);
 		setCreativeTab(TransitRailMod.tabTransitRail);
 	}

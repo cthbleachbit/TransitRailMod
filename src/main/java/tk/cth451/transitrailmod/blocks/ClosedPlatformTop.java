@@ -27,15 +27,15 @@ public class ClosedPlatformTop extends Block{
 		super(Material.iron);
 		this.setLightLevel(1F);
 		// Full brightness
+		this.setUnlocalizedName("closed_platform_top");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
-    {
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
-		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-    }
+	public void setBlockBoundsBasedOnState(net.minecraft.world.IBlockAccess worldIn, BlockPos pos) 
+	{
+		
+	}
 	
 	@Override
 	public boolean isOpaqueCube()
