@@ -8,6 +8,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -43,8 +44,7 @@ public class ClosedPlatformPanelBlock extends Block{
 	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		boolean isUpper = worldIn.getBlockState(pos.down()).getBlock().equals(this);
-		return state.withProperty(UPPER, isUpper);
+		return state.withProperty(UPPER, isUpper(worldIn, pos));
 	}
 	
 	@Override
@@ -69,5 +69,22 @@ public class ClosedPlatformPanelBlock extends Block{
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+	}
+	
+	@Override
+	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		if (isUpper(world, pos)) {
+			world.setBlockToAir(pos.up());
+			world.setBlockToAir(pos.down());
+		} else {
+			world.setBlockToAir(pos.up());
+			world.setBlockToAir(pos.up(2));
+		}
+		world.setBlockToAir(pos);
+		return true;
+	}
+	
+	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
+		return worldIn.getBlockState(pos.down()).getBlock().equals(this);
 	}
 }

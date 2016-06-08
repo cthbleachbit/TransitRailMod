@@ -11,6 +11,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -23,19 +24,12 @@ public class ClosedPlatformTop extends Block{
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	
-	
 	public ClosedPlatformTop(Material materialIn) {
 		super(Material.iron);
 		this.setLightLevel(1F);
 		// Full brightness
 		this.setUnlocalizedName("closed_platform_top");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
-	}
-	
-	@Override
-	public void setBlockBoundsBasedOnState(net.minecraft.world.IBlockAccess worldIn, BlockPos pos) 
-	{
-		
 	}
 	
 	@Override
@@ -49,11 +43,6 @@ public class ClosedPlatformTop extends Block{
     {
         return false;
     }
-	
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return super.getActualState(state, worldIn, pos);
-	}
 	
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
@@ -74,5 +63,13 @@ public class ClosedPlatformTop extends Block{
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+	}
+	
+	@Override
+	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		world.setBlockToAir(pos);
+		world.setBlockToAir(pos.down());
+		world.setBlockToAir(pos.down(2));
+		return true;
 	}
 }
