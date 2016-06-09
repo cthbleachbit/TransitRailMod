@@ -1,8 +1,0 @@
-language: java
-script:
- - gradle setupDecompWorkspace
- - gradle build
-cache:
- directories:
-  - $HOME/.gradle/caches
-  - $HOME/.gradle/wrapper
