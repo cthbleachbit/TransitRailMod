@@ -8,10 +8,8 @@ bin
 
 # gradle
 build
-.gradle
 gradle
-gradlew
-build.gradle
+.gradle
 
 # other
 eclipse
