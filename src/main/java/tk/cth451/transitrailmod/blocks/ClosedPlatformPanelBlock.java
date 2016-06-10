@@ -26,10 +26,22 @@ public class ClosedPlatformPanelBlock extends Block{
 		this.setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(UPPER, false));
 	}
 	
+	// Properties
+	
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, UPPER});
-	}
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    {
+		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+		if (facing == EnumFacing.NORTH) {
+			this.setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.25F);
+		} else if (facing == EnumFacing.EAST) {
+			this.setBlockBounds(0.75F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
+		} else if (facing == EnumFacing.SOUTH) {
+			this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 0.875F);
+		} else if (facing == EnumFacing.WEST) {
+			this.setBlockBounds(0.125F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+		}
+    }
 	
 	@Override
 	public boolean isOpaqueCube() {
@@ -43,23 +55,22 @@ public class ClosedPlatformPanelBlock extends Block{
     }
 	
 	@Override
+	public EnumWorldBlockLayer getBlockLayer() {
+		return EnumWorldBlockLayer.CUTOUT;
+	}
+	
+	// Block State Methods
+	@Override
+	protected BlockState createBlockState() {
+		return new BlockState(this, new IProperty[] {FACING, UPPER});
+	}
+	
+
+	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		return state.withProperty(UPPER, isUpper(worldIn, pos));
 	}
 	
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-		// set facing to the direction player is facing
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		// check if the block below is a platform panel
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
-	}
-	
-	@Override
-	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.CUTOUT;
-	}
 	
 	@Override
 	public int getMetaFromState(IBlockState state) {
@@ -69,6 +80,17 @@ public class ClosedPlatformPanelBlock extends Block{
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+	}
+	
+	// Interactions
+	
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
+		// set facing to the direction player is facing
+		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
+		EnumFacing thisFacing = placer.getHorizontalFacing();
+		// check if the block below is a platform panel
+		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
 	}
 	
 	@Override

@@ -32,6 +32,8 @@ public class ClosedPlatformTop extends Block{
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
 	}
 	
+	// Properties
+	
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
     {
@@ -80,6 +82,8 @@ public class ClosedPlatformTop extends Block{
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
 	}
+	
+	// Interactions
 	
 	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
