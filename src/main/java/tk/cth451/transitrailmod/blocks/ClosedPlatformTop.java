@@ -15,9 +15,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClosedPlatformTop extends Block{
 	
@@ -50,6 +53,39 @@ public class ClosedPlatformTop extends Block{
     }
 	
 	@Override
+	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
+			Entity collidingEntity) {
+		this.setBlockBoundsBasedOnState(worldIn, pos);
+		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+	}
+	
+	@Override
+	public boolean isTranslucent() {
+		return true;
+	}
+	
+	@Override
+	public int getMobilityFlag()
+    {
+        return 1;
+    }
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
+    {
+        this.setBlockBoundsBasedOnState(worldIn, pos);
+        return super.getSelectedBoundingBox(worldIn, pos);
+    }
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    {
+        this.setBlockBoundsBasedOnState(worldIn, pos);
+        return super.getCollisionBoundingBox(worldIn, pos, state);
+    }
+	
+	@Override
 	public boolean isOpaqueCube()
     {
         return false;
@@ -62,10 +98,11 @@ public class ClosedPlatformTop extends Block{
     }
 	
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		return state.withProperty(FACING, placer.getHorizontalFacing());
-	}
+    @SideOnly(Side.CLIENT)
+    public EnumWorldBlockLayer getBlockLayer()
+    {
+        return EnumWorldBlockLayer.CUTOUT;
+    }
 	
 	// Block state related
 	@Override
@@ -84,6 +121,12 @@ public class ClosedPlatformTop extends Block{
 	}
 	
 	// Interactions
+	
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
+		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
+		return state.withProperty(FACING, placer.getHorizontalFacing());
+	}
 	
 	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {

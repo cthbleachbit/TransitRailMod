@@ -1,5 +1,7 @@
 package tk.cth451.transitrailmod.blocks;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -7,14 +9,18 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClosedPlatformPanelBlock extends Block{
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -27,6 +33,21 @@ public class ClosedPlatformPanelBlock extends Block{
 	}
 	
 	// Properties
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
+    {
+        this.setBlockBoundsBasedOnState(worldIn, pos);
+        return super.getSelectedBoundingBox(worldIn, pos);
+    }
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
+    {
+        this.setBlockBoundsBasedOnState(worldIn, pos);
+        return super.getCollisionBoundingBox(worldIn, pos, state);
+    }
 	
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
@@ -44,6 +65,24 @@ public class ClosedPlatformPanelBlock extends Block{
     }
 	
 	@Override
+	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
+			Entity collidingEntity) {
+		this.setBlockBoundsBasedOnState(worldIn, pos);
+		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+	}
+	
+	@Override
+	public boolean isTranslucent() {
+		return true;
+	}
+	
+	@Override
+	public int getMobilityFlag()
+    {
+        return 1;
+    }
+	
+	@Override
 	public boolean isOpaqueCube() {
         return false;
     }
@@ -55,9 +94,11 @@ public class ClosedPlatformPanelBlock extends Block{
     }
 	
 	@Override
-	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.CUTOUT;
-	}
+    @SideOnly(Side.CLIENT)
+    public EnumWorldBlockLayer getBlockLayer()
+    {
+        return EnumWorldBlockLayer.CUTOUT;
+    }
 	
 	// Block State Methods
 	@Override
