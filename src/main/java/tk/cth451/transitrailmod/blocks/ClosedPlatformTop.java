@@ -33,6 +33,21 @@ public class ClosedPlatformTop extends Block{
 	}
 	
 	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    {
+		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+		if (facing == EnumFacing.NORTH) {
+			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
+		} else if (facing == EnumFacing.EAST) {
+			this.setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		} else if (facing == EnumFacing.SOUTH) {
+			this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
+		} else if (facing == EnumFacing.WEST) {
+			this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+		}
+    }
+	
+	@Override
 	public boolean isOpaqueCube()
     {
         return false;
@@ -50,6 +65,7 @@ public class ClosedPlatformTop extends Block{
 		return state.withProperty(FACING, placer.getHorizontalFacing());
 	}
 	
+	// Block state related
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
