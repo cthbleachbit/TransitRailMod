@@ -65,24 +65,14 @@ public class ClosedPlatformTop extends Block{
 	}
 	
 	@Override
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+		return true;
+	}
+	
+	@Override
 	public int getMobilityFlag()
     {
         return 1;
-    }
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-    public AxisAlignedBB getSelectedBoundingBox(World worldIn, BlockPos pos)
-    {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
-        return super.getSelectedBoundingBox(worldIn, pos);
-    }
-	
-	@Override
-	public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state)
-    {
-        this.setBlockBoundsBasedOnState(worldIn, pos);
-        return super.getCollisionBoundingBox(worldIn, pos, state);
     }
 	
 	@Override
@@ -92,7 +82,7 @@ public class ClosedPlatformTop extends Block{
     }
 	
 	@Override
-	public boolean isSolidFullCube()
+	public boolean isFullCube()
     {
         return false;
     }
