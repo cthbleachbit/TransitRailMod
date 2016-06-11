@@ -75,7 +75,6 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	}
 	
 	// Interactions
-	
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
@@ -85,7 +84,9 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
 		world.setBlockToAir(pos);
-		world.setBlockToAir(pos.down());
+		// TODO: A dirty hack here.
+		boolean isCreative = player.capabilities.isCreativeMode;
+		world.destroyBlock(pos.down(), !isCreative);
 		world.setBlockToAir(pos.down(2));
 		return true;
 	}

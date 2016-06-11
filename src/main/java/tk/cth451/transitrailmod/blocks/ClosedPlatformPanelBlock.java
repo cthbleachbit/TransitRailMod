@@ -121,7 +121,7 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
-		return state.getValue(UPPER).equals(true) ? null : this.getItem();
+		return this.getItem();
 	}
 	
 	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
