@@ -1,8 +1,10 @@
 package tk.cth451.transitrailmod.blocks;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -13,6 +15,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -21,6 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tk.cth451.transitrailmod.init.ModItems;
 
 public class ClosedPlatformPanelBlock extends Block{
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
@@ -135,6 +140,22 @@ public class ClosedPlatformPanelBlock extends Block{
 		}
 		world.setBlockToAir(pos);
 		return true;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World worldIn, BlockPos pos)
+	{
+		return this.getItem();
+	}
+	
+	private Item getItem() {
+		return ModItems.closed_platform_panel_item;
+	}
+	
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	{
+		return state.getValue(UPPER).equals(true) ? null : this.getItem();
 	}
 	
 	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){

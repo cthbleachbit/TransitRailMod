@@ -20,7 +20,7 @@ public class ClosedPlatformPanelItem extends Item {
 	private Block panel = ModBlocks.closed_platform_panel_block;
 	private Block top = ModBlocks.closed_platform_top;
 	
-	public ClosedPlatformPanelItem(){
+	public ClosedPlatformPanelItem() {
 		super();
 		setUnlocalizedName("closed_platform_panel_item");
 		setCreativeTab(TransitRailMod.tabTransitRail);
@@ -31,7 +31,7 @@ public class ClosedPlatformPanelItem extends Item {
 		if (side != EnumFacing.UP) {
 			return false;
 		} else {
-			if (!worldIn.getBlockState(pos).getBlock().isFullBlock()){
+			if (!worldIn.getBlockState(pos).getBlock().isNormalCube()){
 				return false;
 			} else {
 				IBlockState block1 = worldIn.getBlockState(pos.up());
@@ -48,6 +48,7 @@ public class ClosedPlatformPanelItem extends Item {
 					worldIn.setBlockState(pos.up(2), panelState.withProperty(ClosedPlatformPanelBlock.UPPER, true));
 					IBlockState topState = top.getDefaultState().withProperty(ClosedPlatformTop.FACING, playerIn.getHorizontalFacing());
 					worldIn.setBlockState(pos.up(3), topState);
+					--stack.stackSize;
 					return true;
 				} else {
 					return false;
