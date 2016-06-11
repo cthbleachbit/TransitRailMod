@@ -7,6 +7,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import tk.cth451.transitrailmod.References;
+import tk.cth451.transitrailmod.blocks.ClosedPlatformDoorBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformPanelBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformTop;
 import tk.cth451.transitrailmod.blocks.LogoBlock;
@@ -20,6 +21,7 @@ public class ModBlocks {
 	
 	public static void init() {
 		closed_platform_top = new ClosedPlatformTop(Material.cloth);
+		closed_platform_door_block = new ClosedPlatformDoorBlock(Material.glass);
 		closed_platform_panel_block = new ClosedPlatformPanelBlock(Material.glass);
 		logo_block = new LogoBlock(Material.iron);
 		//platform_sign = new PlatformSign(Material.iron);
@@ -27,6 +29,7 @@ public class ModBlocks {
 	
 	public static void register() {
 		GameRegistry.registerBlock(closed_platform_top, closed_platform_top.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(closed_platform_door_block, closed_platform_door_block.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(closed_platform_panel_block, closed_platform_panel_block.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(logo_block, logo_block.getUnlocalizedName().substring(5));
 		//GameRegistry.registerBlock(platform_sign, platform_sign.getUnlocalizedName().substring(5));
@@ -34,6 +37,7 @@ public class ModBlocks {
 	
 	public static void registerRenders(){
 		registerRender(closed_platform_top);
+		registerRender(closed_platform_door_block);
 		registerRender(closed_platform_panel_block);
 		registerRender(logo_block);
 		//registerRender(platform_sign);

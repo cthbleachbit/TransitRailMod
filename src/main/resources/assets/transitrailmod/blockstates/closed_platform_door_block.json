@@ -1,8 +1,20 @@
 {
-    "variants": {
-        "upper=true, powered=true": { "model": "transitrailmod:closed_platform_door_upper" },
-        "upper=true, powered=false": { "model": "transitrailmod:closed_platform_door_upper" },
-        "upper=false, powered=true": { "model": "transitrailmod:closed_platform_door_lower" },
-        "upper=false, powered=false": { "model": "transitrailmod:closed_platform_door_lower" }
+	"variants": {
+		"facing=north,powered=false,upper=true": { "model": "transitrailmod:closed_platform_door_upper" },
+		"facing=north,powered=false,upper=false": { "model": "transitrailmod:closed_platform_door_lower" },
+		"facing=east,powered=false,upper=true": {"model": "transitrailmod:closed_platform_door_upper", "y": 90 },
+		"facing=east,powered=false,upper=false": {"model": "transitrailmod:closed_platform_door_lower", "y": 90 },
+		"facing=south,powered=false,upper=true": {"model": "transitrailmod:closed_platform_door_upper", "y": 180 },
+		"facing=south,powered=false,upper=false": {"model": "transitrailmod:closed_platform_door_lower", "y": 180 },
+		"facing=west,powered=false,upper=true": {"model": "transitrailmod:closed_platform_door_upper", "y": 270 },
+		"facing=west,powered=false,upper=false": {"model": "transitrailmod:closed_platform_door_lower", "y": 270 },
+		"facing=north,powered=true,upper=true": { "model": "transitrailmod:closed_platform_door_upper" },
+		"facing=north,powered=true,upper=false": { "model": "transitrailmod:closed_platform_door_lower" },
+		"facing=east,powered=true,upper=true": {"model": "transitrailmod:closed_platform_door_upper", "y": 90 },
+		"facing=east,powered=true,upper=false": {"model": "transitrailmod:closed_platform_door_lower", "y": 90 },
+		"facing=south,powered=true,upper=true": {"model": "transitrailmod:closed_platform_door_upper", "y": 180 },
+		"facing=south,powered=true,upper=false": {"model": "transitrailmod:closed_platform_door_lower", "y": 180 },
+		"facing=west,powered=true,upper=true": {"model": "transitrailmod:closed_platform_door_upper", "y": 270 },
+		"facing=west,powered=true,upper=false": {"model": "transitrailmod:closed_platform_door_lower", "y": 270 }
     }
 }

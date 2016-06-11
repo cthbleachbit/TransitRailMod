@@ -70,6 +70,11 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	}
 	
 	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		return state;
+	}
+	
+	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
 	}
@@ -83,11 +88,11 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	
 	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-		world.setBlockToAir(pos);
 		// TODO: A dirty hack here.
 		boolean isCreative = player.capabilities.isCreativeMode;
 		world.destroyBlock(pos.down(), !isCreative);
 		world.setBlockToAir(pos.down(2));
+		world.setBlockToAir(pos);
 		return true;
 	}
 }
