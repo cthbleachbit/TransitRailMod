@@ -27,7 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.init.ModItems;
 
-public class ClosedPlatformPanelBlock extends Block{
+public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool UPPER = PropertyBool.create("upper");
 	
@@ -60,40 +60,6 @@ public class ClosedPlatformPanelBlock extends Block{
 		this.setBlockBoundsBasedOnState(worldIn, pos);
 		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 	}
-	
-	@Override
-	public boolean isTranslucent() {
-		return true;
-	}
-	
-	@Override
-	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-		return true;
-	}
-	
-	@Override
-	public int getMobilityFlag()
-    {
-        return 1;
-    }
-	
-	@Override
-	public boolean isOpaqueCube() {
-        return false;
-    }
-	
-	@Override
-	public boolean isFullCube()
-    {
-        return false;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public EnumWorldBlockLayer getBlockLayer()
-    {
-        return EnumWorldBlockLayer.CUTOUT;
-    }
 	
 	// Block State Methods
 	@Override

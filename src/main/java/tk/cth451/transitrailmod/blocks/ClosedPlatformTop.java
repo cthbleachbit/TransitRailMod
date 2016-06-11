@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ClosedPlatformTop extends Block{
+public class ClosedPlatformTop extends ClosedPlatformBlock{
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
@@ -36,7 +36,6 @@ public class ClosedPlatformTop extends Block{
 	}
 	
 	// Properties
-	
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
     {
@@ -58,41 +57,6 @@ public class ClosedPlatformTop extends Block{
 		this.setBlockBoundsBasedOnState(worldIn, pos);
 		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 	}
-	
-	@Override
-	public boolean isTranslucent() {
-		return true;
-	}
-	
-	@Override
-	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-		return true;
-	}
-	
-	@Override
-	public int getMobilityFlag()
-    {
-        return 1;
-    }
-	
-	@Override
-	public boolean isOpaqueCube()
-    {
-        return false;
-    }
-	
-	@Override
-	public boolean isFullCube()
-    {
-        return false;
-    }
-	
-	@Override
-    @SideOnly(Side.CLIENT)
-    public EnumWorldBlockLayer getBlockLayer()
-    {
-        return EnumWorldBlockLayer.CUTOUT;
-    }
 	
 	// Block state related
 	@Override
