@@ -44,14 +44,38 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
     {
 		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
-		if (facing == EnumFacing.NORTH) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
-		} else if (facing == EnumFacing.EAST) {
-			this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		} else if (facing == EnumFacing.SOUTH) {
-			this.setBlockBounds(0.0F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
-		} else if (facing == EnumFacing.WEST) {
-			this.setBlockBounds(0F, 0.0F, 0.0F, 0.125F, 1.0F, 1.0F);
+		boolean isOpen = (Boolean) worldIn.getBlockState(pos).getValue(POWERED);
+		boolean leftOrNot = this.isLeft(worldIn, pos, facing);
+		if (!isOpen) {
+			if (facing == EnumFacing.NORTH) {
+				this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+			} else if (facing == EnumFacing.EAST) {
+				this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+			} else if (facing == EnumFacing.SOUTH) {
+				this.setBlockBounds(0.0F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+			} else if (facing == EnumFacing.WEST) {
+				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 1.0F);
+			}
+		} else if (leftOrNot) {
+			if (facing == EnumFacing.NORTH) {
+				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 0.125F);
+			} else if (facing == EnumFacing.EAST) {
+				this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+			} else if (facing == EnumFacing.SOUTH) {
+				this.setBlockBounds(0.875F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+			} else if (facing == EnumFacing.WEST) {
+				this.setBlockBounds(0.0F, 0.0F, 0.875F, 0.125F, 1.0F, 1.0F);
+			}
+		} else {
+			if (facing == EnumFacing.NORTH) {
+				this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+			} else if (facing == EnumFacing.EAST) {
+				this.setBlockBounds(0.875F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+			} else if (facing == EnumFacing.SOUTH) {
+				this.setBlockBounds(0.0F, 0.0F, 0.875F, 0.125F, 1.0F, 1.0F);
+			} else if (facing == EnumFacing.WEST) {
+				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 0.125F);
+			}
 		}
     }
 	
@@ -71,8 +95,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		EnumFacing direc = (EnumFacing) state.getValue(FACING);
-		boolean leftOrNot = isLeft(worldIn, pos, direc);
-		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, leftOrNot);
+		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, isLeft(worldIn, pos, direc));
 	}
 	
 	@Override
