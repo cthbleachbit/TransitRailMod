@@ -27,11 +27,16 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool UPPER = PropertyBool.create("upper");
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
+	public static final PropertyBool LEFT = PropertyBool.create("left"); 
 	
 	public ClosedPlatformDoorBlock(Material materialIn) {
 		super(Material.glass);
 		this.setUnlocalizedName("closed_platform_door_block");
-		this.setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(UPPER, false).withProperty(POWERED, false));
+		this.setDefaultState(getDefaultState()
+				.withProperty(FACING, EnumFacing.NORTH)
+				.withProperty(UPPER, false)
+				.withProperty(POWERED, false)
+				.withProperty(LEFT, false));
 	}
 	
 	// Properties
@@ -60,7 +65,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	// BlockStates
 	@Override
 	public BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, UPPER, POWERED});
+		return new BlockState(this, new IProperty[] {FACING, UPPER, POWERED, LEFT});
 	}
 	
 	@Override
