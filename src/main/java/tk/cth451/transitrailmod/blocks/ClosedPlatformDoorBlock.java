@@ -70,8 +70,9 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		// TODO: implement POWERED
-		return state.withProperty(UPPER, isUpper(worldIn, pos));
+		EnumFacing direc = (EnumFacing) state.getValue(FACING);
+		boolean leftOrNot = isLeft(worldIn, pos, direc);
+		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, leftOrNot);
 	}
 	
 	@Override
@@ -86,6 +87,10 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	
 	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
 		return worldIn.getBlockState(pos.down()).getBlock().equals(this);
+	}
+	
+	public boolean isLeft(IBlockAccess worldIn, BlockPos pos, EnumFacing direc){
+		return worldIn.getBlockState(pos.offset(direc.rotateY())).getBlock().equals(this);
 	}
 	
 	// Interactions
