@@ -3,12 +3,14 @@ package tk.cth451.transitrailmod.blocks;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tk.cth451.transitrailmod.init.ModBlocks;
 import tk.cth451.transitrailmod.init.ModItems;
 
 public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
@@ -94,7 +97,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		EnumFacing direc = (EnumFacing) state.getValue(FACING);
-		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, isLeft(worldIn, pos, direc));
+		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, isLeft(worldIn, pos, direc)).withProperty(POWERED, this.shouldBePowered((World) worldIn, pos, state));
 	}
 	
 	@Override
@@ -146,5 +149,19 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	}
 	
 	// Redstone
+	@Override
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+		if (neighborBlock.equals(ModBlocks.closed_platform_top)) {
+			System.out.println(shouldBePowered(worldIn, pos, state));
+			Minecraft.getMinecraft().renderGlobal.markBlockForUpdate(pos);
+			super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
+		}
+	}
+	
+	public boolean shouldBePowered (World worldIn, BlockPos pos, IBlockState state) {
+		BlockPos pos1 = pos.up((Boolean) state.getValue(UPPER) ? 1 : 2);
+		EnumFacing direc = (EnumFacing) state.getValue(FACING);
+		return worldIn.isBlockPowered(pos1.up()) || worldIn.isBlockPowered(pos1.offset(direc));
+	}
 	
 }

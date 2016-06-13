@@ -54,6 +54,12 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 	}
 	
+	@Override
+	public boolean canProvidePower() {
+		// TODO Auto-generated method stub
+		return super.canProvidePower();
+	}
+	
 	// Block state related
 	@Override
 	public int getMetaFromState(IBlockState state) {
@@ -72,6 +78,7 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		((World) worldIn).notifyBlockOfStateChange(pos.down(), this);
 		return super.getActualState(state, worldIn, pos).withProperty(POWERED, shouldBePowered((World)worldIn, pos, state));
 	}
 	
@@ -90,5 +97,11 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	public boolean shouldBePowered (World worldIn, BlockPos pos, IBlockState state) {
 		EnumFacing direc = (EnumFacing) state.getValue(FACING);
 		return worldIn.isBlockPowered(pos.up()) || worldIn.isBlockPowered(pos.offset(direc));
+	}
+	
+	@Override
+	public int isProvidingWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+		// TODO Auto-generated method stub
+		return super.isProvidingWeakPower(worldIn, pos, state, side);
 	}
 }
