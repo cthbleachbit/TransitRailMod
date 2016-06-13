@@ -85,16 +85,6 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 	}
 	
 	// Interactions
-	
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-		// set facing to the direction player is facing
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		// check if the block below is a platform panel
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
-	}
-	
 	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
 		if (isUpper(world, pos)) {

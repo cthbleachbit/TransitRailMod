@@ -24,7 +24,6 @@ import tk.cth451.transitrailmod.init.ModItems;
 
 public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool UPPER = PropertyBool.create("upper");
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	public static final PropertyBool LEFT = PropertyBool.create("left"); 
@@ -85,7 +84,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 		this.setBlockBoundsBasedOnState(worldIn, pos);
 		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 	}
-	
+		
 	// BlockStates
 	@Override
 	public BlockState createBlockState() {
@@ -118,15 +117,6 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	
 	// Interactions
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-		// set facing to the direction player is facing
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		// check if the block below is a platform panel
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
-	}
-	
-	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
 		if (isUpper(world, pos)) {
 			world.setBlockToAir(pos.up());
@@ -139,7 +129,6 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 		return true;
 	}
 	
-
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World worldIn, BlockPos pos)
 	{
@@ -155,4 +144,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	{
 		return this.getItem();
 	}
+	
+	// Redstone
+	
 }

@@ -1,6 +1,7 @@
 package tk.cth451.transitrailmod.blocks;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -15,16 +16,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ClosedPlatformTop extends ClosedPlatformBlock{
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	
 	public ClosedPlatformTop(Material materialIn) {
@@ -63,15 +59,10 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	public int getMetaFromState(IBlockState state) {
 		return ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
 	}
-
+	
 	@Override
 	public BlockState createBlockState() {
 		return new BlockState(this, new IProperty[] {FACING, POWERED});
-	}
-	
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state;
 	}
 	
 	@Override
@@ -79,13 +70,12 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
 	}
 	
-	// Interactions
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		return state.withProperty(FACING, placer.getHorizontalFacing());
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		return super.getActualState(state, worldIn, pos).withProperty(POWERED, shouldBePowered((World)worldIn, pos, state));
 	}
 	
+	// Interactions
 	@Override
 	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
 		// TODO: A dirty hack here.
@@ -94,5 +84,11 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 		world.setBlockToAir(pos.down(2));
 		world.setBlockToAir(pos);
 		return true;
+	}
+	
+	// Redstone
+	public boolean shouldBePowered (World worldIn, BlockPos pos, IBlockState state) {
+		EnumFacing direc = (EnumFacing) state.getValue(FACING);
+		return worldIn.isBlockPowered(pos.up()) || worldIn.isBlockPowered(pos.offset(direc));
 	}
 }
