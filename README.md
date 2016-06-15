@@ -27,10 +27,19 @@ Block List Shown
 Block List Hidden
 -----------------
 * Closed Platform Top Block `ClosedPlatformTop`
+
+Properties: `FACING` (Inherited) `POWERED`
+
 * Closed Platform Door `ClosedPlatformDoorBlock`
 
-`FACING` `UPPER` `POWERED`
+Properties: `FACING` (Inherited) `UPPER` `POWERED` `LEFT`
 
 * Closed Platform Panel `ClosedPlatformPanelBlock`
 
-`FACING` `POWERED`
+Properties: `FACING` (Inherited) `UPPER`
+
+Abstract Block Class List
+-------------------------
+* `ClosedPlatformBlock`
+
+Subclasses: `ClosedPlatformPanelBlock` `ClosedPlatformTop` `ClosedPlatformDoorBlock`
