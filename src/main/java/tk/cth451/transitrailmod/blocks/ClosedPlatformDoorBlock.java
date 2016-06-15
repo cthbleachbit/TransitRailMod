@@ -128,20 +128,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 		return worldIn.getBlockState(pos.offset(direc.rotateY())).getBlock().equals(this);
 	}
 	
-	// Interactions
-	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-		if (isUpper(world, pos)) {
-			world.setBlockToAir(pos.up());
-			world.setBlockToAir(pos.down());
-		} else {
-			world.setBlockToAir(pos.up());
-			world.setBlockToAir(pos.up(2));
-		}
-		world.setBlockToAir(pos);
-		return true;
-	}
-	
+	// Interactions	
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World worldIn, BlockPos pos)
 	{
@@ -161,13 +148,25 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	// Redstone
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-		Boolean flag = (Boolean) worldIn.getBlockState(pos.up()).getValue(POWERED);
-		System.out.println(flag);
-		System.out.println((Boolean) state.getValue(POWERED));
-		if (flag != (Boolean) state.getValue(POWERED)) {
-			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
-			worldIn.markBlockRangeForRenderUpdate(pos, pos);
+		boolean flagUpper = isUpper(worldIn, pos);
+		BlockPos pos1 = flagUpper ? pos.down() : pos.up();
+		Boolean flagOkay = (worldIn.getBlockState(pos1).getBlock() == this);
+		if (flagOkay) {
+			Boolean flag = (Boolean) worldIn.getBlockState(pos.up()).getValue(POWERED);
+			if (flag != (Boolean) state.getValue(POWERED)) {
+				worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
+				worldIn.markBlockRangeForRenderUpdate(pos, pos);
+			}
+			super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
+		} else {
+			if (flagUpper) {
+				worldIn.setBlockToAir(pos.up());
+				worldIn.setBlockToAir(pos.down());
+			} else {
+				worldIn.setBlockToAir(pos.up());
+				worldIn.setBlockToAir(pos.up(2));
+			}
+			worldIn.setBlockToAir(pos);
 		}
-		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 	}
 }
