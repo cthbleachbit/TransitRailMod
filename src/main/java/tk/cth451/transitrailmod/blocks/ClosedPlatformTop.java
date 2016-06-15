@@ -61,9 +61,14 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	}
 	
 	// Block state related
+	// meta: 0211
+	// 2: powered
+	// 11 : facing
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+		int mFacing = ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+		int mPowered = (Boolean) state.getValue(POWERED) ? 1 : 0;
+		return mPowered *4 + mFacing;
 	}
 	
 	@Override
@@ -71,15 +76,14 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 		return new BlockState(this, new IProperty[] {FACING, POWERED});
 	}
 	
+	// meta: 0211
+	// 2: powered
+	// 11 : facing
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
-	}
-	
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		((World) worldIn).notifyBlockOfStateChange(pos.down(), this);
-		return super.getActualState(state, worldIn, pos).withProperty(POWERED, shouldBePowered((World)worldIn, pos, state));
+		EnumFacing pFacing = EnumFacing.getHorizontal(meta % 4); 
+		boolean pPowered = meta / 4 == 1;
+		return this.getDefaultState().withProperty(FACING, pFacing).withProperty(POWERED, pPowered);
 	}
 	
 	// Interactions
@@ -94,14 +98,22 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 	}
 	
 	// Redstone
-	public boolean shouldBePowered (World worldIn, BlockPos pos, IBlockState state) {
-		EnumFacing direc = (EnumFacing) state.getValue(FACING);
-		return worldIn.isBlockPowered(pos.up()) || worldIn.isBlockPowered(pos.offset(direc));
+	@Override
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+		Boolean flag = worldIn.isBlockPowered(pos);
+		if (flag != (Boolean) state.getValue(POWERED)) {
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
+			worldIn.markBlockRangeForRenderUpdate(pos, pos);
+		}
+		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 	}
 	
 	@Override
 	public int isProvidingWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-		// TODO Auto-generated method stub
-		return super.isProvidingWeakPower(worldIn, pos, state, side);
+		if (side == EnumFacing.DOWN) {
+			return (Boolean) state.getValue(POWERED) ? 15 : 0;
+		} else {
+			return 0;
+		}
 	}
 }

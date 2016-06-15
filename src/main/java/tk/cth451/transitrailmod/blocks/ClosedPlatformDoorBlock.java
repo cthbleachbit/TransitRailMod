@@ -37,7 +37,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 		this.setDefaultState(getDefaultState()
 				.withProperty(FACING, EnumFacing.NORTH)
 				.withProperty(UPPER, false)
-				.withProperty(POWERED, false)
+				.withProperty(POWERED, true)
 				.withProperty(LEFT, false));
 	}
 	
@@ -97,17 +97,27 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		EnumFacing direc = (EnumFacing) state.getValue(FACING);
-		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, isLeft(worldIn, pos, direc)).withProperty(POWERED, this.shouldBePowered((World) worldIn, pos, state));
+		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, isLeft(worldIn, pos, direc));
 	}
 	
+	// meta: 0211
+	// 2: powered
+	// 11 : facing
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+		int mFacing = ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
+		int mPowered = (Boolean) state.getValue(POWERED) ? 1 : 0;
+		return mPowered *4 + mFacing;
 	}
 	
+	// meta: 0211
+	// 2: powered
+	// 11 : facing
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+		EnumFacing pFacing = EnumFacing.getHorizontal(meta % 4); 
+		boolean pPowered = meta / 4 == 1;
+		return this.getDefaultState().withProperty(FACING, pFacing).withProperty(POWERED, pPowered);
 	}
 	
 	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
@@ -151,17 +161,13 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	// Redstone
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-		if (neighborBlock.equals(ModBlocks.closed_platform_top)) {
-			System.out.println(shouldBePowered(worldIn, pos, state));
-			Minecraft.getMinecraft().renderGlobal.markBlockForUpdate(pos);
-			super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
+		Boolean flag = (Boolean) worldIn.getBlockState(pos.up()).getValue(POWERED);
+		System.out.println(flag);
+		System.out.println((Boolean) state.getValue(POWERED));
+		if (flag != (Boolean) state.getValue(POWERED)) {
+			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
+			worldIn.markBlockRangeForRenderUpdate(pos, pos);
 		}
+		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 	}
-	
-	public boolean shouldBePowered (World worldIn, BlockPos pos, IBlockState state) {
-		BlockPos pos1 = pos.up((Boolean) state.getValue(UPPER) ? 1 : 2);
-		EnumFacing direc = (EnumFacing) state.getValue(FACING);
-		return worldIn.isBlockPowered(pos1.up()) || worldIn.isBlockPowered(pos1.offset(direc));
-	}
-	
 }
