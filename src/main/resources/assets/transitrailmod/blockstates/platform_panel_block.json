@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"facing=north,upper=true": { "model": "transitrailmod:platform_panel_upper" },
+		"facing=north,upper=false": { "model": "transitrailmod:platform_panel_lower" },
+		"facing=east,upper=true": {"model": "transitrailmod:platform_panel_upper", "y": 90 },
+		"facing=east,upper=false": {"model": "transitrailmod:platform_panel_lower", "y": 90 },
+		"facing=south,upper=true": {"model": "transitrailmod:platform_panel_upper", "y": 180 },
+		"facing=south,upper=false": {"model": "transitrailmod:latform_panel_lower", "y": 180 },
+		"facing=west,upper=true": {"model": "transitrailmod:platform_panel_upper", "y": 270 },
+		"facing=west,upper=false": {"model": "transitrailmod:platform_panel_lower", "y": 270 }
+    }
+}

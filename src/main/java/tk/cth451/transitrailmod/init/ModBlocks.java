@@ -11,11 +11,15 @@ import tk.cth451.transitrailmod.blocks.ClosedPlatformDoorBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformPanelBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformTop;
 import tk.cth451.transitrailmod.blocks.LogoBlock;
+import tk.cth451.transitrailmod.blocks.PlatformGateBlock;
+import tk.cth451.transitrailmod.blocks.PlatformPanelBlock;
 
 public class ModBlocks {
 	public static Block closed_platform_top;
 	public static Block closed_platform_door_block;
 	public static Block closed_platform_panel_block;
+	public static Block platform_gate_block;
+	public static Block platform_panel_block;
 	public static Block logo_block;
 	public static Block platform_sign;
 	
@@ -23,6 +27,8 @@ public class ModBlocks {
 		closed_platform_top = new ClosedPlatformTop(Material.cloth);
 		closed_platform_door_block = new ClosedPlatformDoorBlock(Material.glass);
 		closed_platform_panel_block = new ClosedPlatformPanelBlock(Material.glass);
+		platform_gate_block = new PlatformGateBlock(Material.glass);
+		platform_panel_block = new PlatformPanelBlock(Material.iron);
 		logo_block = new LogoBlock(Material.iron);
 		//platform_sign = new PlatformSign(Material.iron);
 	}
@@ -31,6 +37,8 @@ public class ModBlocks {
 		GameRegistry.registerBlock(closed_platform_top, closed_platform_top.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(closed_platform_door_block, closed_platform_door_block.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(closed_platform_panel_block, closed_platform_panel_block.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(platform_gate_block, platform_gate_block.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(platform_panel_block, platform_panel_block.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(logo_block, logo_block.getUnlocalizedName().substring(5));
 		//GameRegistry.registerBlock(platform_sign, platform_sign.getUnlocalizedName().substring(5));
 	}
@@ -39,6 +47,8 @@ public class ModBlocks {
 		registerRender(closed_platform_top);
 		registerRender(closed_platform_door_block);
 		registerRender(closed_platform_panel_block);
+		registerRender(platform_gate_block);
+		registerRender(platform_panel_block);
 		registerRender(logo_block);
 		//registerRender(platform_sign);
 	}
