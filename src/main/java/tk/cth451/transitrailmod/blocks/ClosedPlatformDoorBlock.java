@@ -130,8 +130,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	
 	// Interactions	
 	@SideOnly(Side.CLIENT)
-	public Item getItem(World worldIn, BlockPos pos)
-	{
+	public Item getItem(World worldIn, BlockPos pos) {
 		return this.getItem();
 	}
 	
@@ -140,8 +139,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	}
 	
 	@Override
-	public Item getItemDropped(IBlockState state, Random rand, int fortune)
-	{
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)	{
 		return this.getItem();
 	}
 	
