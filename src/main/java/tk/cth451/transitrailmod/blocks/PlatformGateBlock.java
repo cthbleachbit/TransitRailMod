@@ -1,13 +1,21 @@
 package tk.cth451.transitrailmod.blocks;
 
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import tk.cth451.transitrailmod.init.ModItems;
 
 public class PlatformGateBlock extends PlatformBlock {
 	
@@ -136,5 +144,30 @@ public class PlatformGateBlock extends PlatformBlock {
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		EnumFacing direc = (EnumFacing) state.getValue(FACING);
 		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, isLeft(worldIn, pos, direc));
+	}
+	
+	// Redstone and interactions
+	@SideOnly(Side.CLIENT)
+	public Item getItem(World worldIn, BlockPos pos)
+	{
+		return this.getItem();
+	}
+	
+	private Item getItem() {
+		return ModItems.platform_gate_item;
+	}
+	
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune)
+	{
+		return this.getItem();
+	}
+	
+	@Override
+	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		BlockPos posToCheck = isUpper(world, pos) ? pos.down() : pos.up();
+		world.setBlockToAir(pos);
+		world.setBlockToAir(posToCheck);
+		return true;
 	}
 }

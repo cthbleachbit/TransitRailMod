@@ -38,8 +38,20 @@ Properties: `FACING` (Inherited) `UPPER` `POWERED` `LEFT`
 
 Properties: `FACING` (Inherited) `UPPER`
 
+* Platform Gate `PlatformGateBlock`
+
+Properties: `FACING` (Inherited) `UPPER` `POWERED` `LEFT`
+
+* Platform Panel `PlatformPanelBlock`
+
+Properties: `FACING` (Inherited) `UPPER`
+
 Abstract Block Class List
 -------------------------
 * `ClosedPlatformBlock`
 
 Subclasses: `ClosedPlatformPanelBlock` `ClosedPlatformTop` `ClosedPlatformDoorBlock`
+
+* `PlatformBlock`
+
+Subclasses: `PlatformPanelBlock` `PlatformGateBlock`
