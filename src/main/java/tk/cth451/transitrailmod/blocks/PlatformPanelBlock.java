@@ -72,11 +72,6 @@ public class PlatformPanelBlock extends PlatformBlock {
 	}
 	
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state.withProperty(UPPER, isUpper(worldIn, pos));
-	}
-	
-	@Override
 	public int getMetaFromState(IBlockState state) {
 		return ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
 	}
@@ -101,13 +96,5 @@ public class PlatformPanelBlock extends PlatformBlock {
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
 		return this.getItem();
-	}
-	
-	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-		BlockPos posToCheck = isUpper(world, pos) ? pos.down() : pos.up();
-		world.setBlockToAir(pos);
-		world.setBlockToAir(posToCheck);
-		return true;
 	}
 }

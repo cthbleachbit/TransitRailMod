@@ -6,6 +6,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -58,6 +59,16 @@ public abstract class PlatformBlock extends Block {
         return EnumWorldBlockLayer.CUTOUT;
     }
 	
+	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
+		return worldIn.getBlockState(pos.down()).getBlock().equals(this);
+	}
+	
+	// Block States
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		return state.withProperty(UPPER, isUpper(worldIn, pos));
+	}
+	
 	// Interactions
 	@Override
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
@@ -65,6 +76,14 @@ public abstract class PlatformBlock extends Block {
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
 		EnumFacing thisFacing = placer.getHorizontalFacing();
 		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
+	}
+	
+	@Override
+	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		BlockPos posToCheck = isUpper(world, pos) ? pos.down() : pos.up();
+		world.setBlockToAir(pos);
+		world.setBlockToAir(posToCheck);
+		return true;
 	}
 	
 	@Override

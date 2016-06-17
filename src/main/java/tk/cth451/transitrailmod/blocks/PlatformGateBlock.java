@@ -33,11 +33,6 @@ public class PlatformGateBlock extends PlatformBlock {
 				.withProperty(LEFT, false));
 	}
 	
-	// Properties
-	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
-		return worldIn.getBlockState(pos.down()).getBlock().equals(this);
-	}
-	
 	public boolean isLeft(IBlockAccess worldIn, BlockPos pos, EnumFacing direc){
 		return worldIn.getBlockState(pos.offset(direc.rotateY())).getBlock().equals(this);
 	}
@@ -144,7 +139,7 @@ public class PlatformGateBlock extends PlatformBlock {
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
 		EnumFacing direc = (EnumFacing) state.getValue(FACING);
-		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, isLeft(worldIn, pos, direc));
+		return super.getActualState(state, worldIn, pos).withProperty(LEFT, isLeft(worldIn, pos, direc));
 	}
 	
 	// Redstone and interactions
@@ -162,14 +157,6 @@ public class PlatformGateBlock extends PlatformBlock {
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
 	{
 		return this.getItem();
-	}
-	
-	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-		BlockPos posToCheck = isUpper(world, pos) ? pos.down() : pos.up();
-		world.setBlockToAir(pos);
-		world.setBlockToAir(posToCheck);
-		return true;
 	}
 	
 	@Override
