@@ -2,6 +2,7 @@ package tk.cth451.transitrailmod.blocks;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -169,5 +170,18 @@ public class PlatformGateBlock extends PlatformBlock {
 		world.setBlockToAir(pos);
 		world.setBlockToAir(posToCheck);
 		return true;
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+		if (!isUpper(worldIn, pos)){
+			state = state.withProperty(POWERED, worldIn.isBlockPowered(pos));
+		} else {
+			Boolean isLowerPowered = (Boolean) worldIn.getBlockState(pos.down()).getValue(POWERED);
+			state = state.withProperty(POWERED, isLowerPowered);
+		}
+		worldIn.setBlockState(pos, state);
+		worldIn.markBlockRangeForRenderUpdate(pos, pos);
+		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 	}
 }

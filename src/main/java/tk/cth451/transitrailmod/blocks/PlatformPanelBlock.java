@@ -110,9 +110,4 @@ public class PlatformPanelBlock extends PlatformBlock {
 		world.setBlockToAir(posToCheck);
 		return true;
 	}
-	
-	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-		
-	}
 }

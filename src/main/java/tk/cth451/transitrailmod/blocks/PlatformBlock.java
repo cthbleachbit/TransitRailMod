@@ -66,4 +66,9 @@ public abstract class PlatformBlock extends Block {
 		EnumFacing thisFacing = placer.getHorizontalFacing();
 		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
 	}
+	
+	@Override
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+		worldIn.notifyBlockOfStateChange(pos.up(), this);
+	}
 }
