@@ -50,11 +50,11 @@ public abstract class ClosedPlatformBlock extends Block {
     }
 	
 	@Override
-    @SideOnly(Side.CLIENT)
-    public EnumWorldBlockLayer getBlockLayer()
-    {
-        return EnumWorldBlockLayer.CUTOUT;
-    }
+	@SideOnly(Side.CLIENT)
+	public EnumWorldBlockLayer getBlockLayer()
+	{
+		return EnumWorldBlockLayer.TRANSLUCENT;
+	}
 	
 	// Interactions
 	@Override
