@@ -24,6 +24,33 @@ public class PlatformPanelBlock extends PlatformBlock {
 		return worldIn.getBlockState(pos.down()).getBlock().equals(this);
 	}
 	
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    {
+		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+		if (isUpper(worldIn, pos)) {
+			if (facing == EnumFacing.NORTH) {
+				this.setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 0.5F, 0.25F);
+			} else if (facing == EnumFacing.EAST) {
+				this.setBlockBounds(0.75F, 0.0F, 0.0F, 0.875F, 0.5F, 1.0F);
+			} else if (facing == EnumFacing.SOUTH) {
+				this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 0.5F, 0.875F);
+			} else if (facing == EnumFacing.WEST) {
+				this.setBlockBounds(0.125F, 0.0F, 0.0F, 0.25F, 0.5F, 1.0F);
+			}
+		} else {
+			if (facing == EnumFacing.NORTH) {
+				this.setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.25F);
+			} else if (facing == EnumFacing.EAST) {
+				this.setBlockBounds(0.75F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
+			} else if (facing == EnumFacing.SOUTH) {
+				this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 0.875F);
+			} else if (facing == EnumFacing.WEST) {
+				this.setBlockBounds(0.125F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+			}
+		}
+    }
+	
 	// Blockstates
 	@Override
 	public BlockState createBlockState() {

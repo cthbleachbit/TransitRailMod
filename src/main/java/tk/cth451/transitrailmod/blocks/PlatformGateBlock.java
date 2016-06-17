@@ -33,6 +33,79 @@ public class PlatformGateBlock extends PlatformBlock {
 		return worldIn.getBlockState(pos.offset(direc.rotateY())).getBlock().equals(this);
 	}
 	
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
+    {
+		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+		boolean isOpen = (Boolean) worldIn.getBlockState(pos).getValue(POWERED);
+		boolean leftOrNot = this.isLeft(worldIn, pos, facing);
+		if (isUpper(worldIn, pos)) {
+			if (!isOpen) {
+				if (facing == EnumFacing.NORTH) {
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 0.125F);
+				} else if (facing == EnumFacing.EAST) {
+					this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+				} else if (facing == EnumFacing.SOUTH) {
+					this.setBlockBounds(0.0F, 0.0F, 0.875F, 1.0F, 0.5F, 1.0F);
+				} else if (facing == EnumFacing.WEST) {
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 0.5F, 1.0F);
+				}
+			} else if (leftOrNot) {
+				if (facing == EnumFacing.NORTH) {
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 0.5F, 0.125F);
+				} else if (facing == EnumFacing.EAST) {
+					this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 0.5F, 0.125F);
+				} else if (facing == EnumFacing.SOUTH) {
+					this.setBlockBounds(0.875F, 0.0F, 0.875F, 1.0F, 0.5F, 1.0F);
+				} else if (facing == EnumFacing.WEST) {
+					this.setBlockBounds(0.0F, 0.0F, 0.875F, 0.125F, 0.5F, 1.0F);
+				}
+			} else {
+				if (facing == EnumFacing.NORTH) {
+					this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 0.5F, 0.125F);
+				} else if (facing == EnumFacing.EAST) {
+					this.setBlockBounds(0.875F, 0.0F, 0.875F, 1.0F, 0.5F, 1.0F);
+				} else if (facing == EnumFacing.SOUTH) {
+					this.setBlockBounds(0.0F, 0.0F, 0.875F, 0.125F, 0.5F, 1.0F);
+				} else if (facing == EnumFacing.WEST) {
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 0.5F, 0.125F);
+				}
+			}
+		} else {
+			if (!isOpen) {
+				if (facing == EnumFacing.NORTH) {
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+				} else if (facing == EnumFacing.EAST) {
+					this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+				} else if (facing == EnumFacing.SOUTH) {
+					this.setBlockBounds(0.0F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+				} else if (facing == EnumFacing.WEST) {
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 1.0F);
+				}
+			} else if (leftOrNot) {
+				if (facing == EnumFacing.NORTH) {
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 0.125F);
+				} else if (facing == EnumFacing.EAST) {
+					this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+				} else if (facing == EnumFacing.SOUTH) {
+					this.setBlockBounds(0.875F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+				} else if (facing == EnumFacing.WEST) {
+					this.setBlockBounds(0.0F, 0.0F, 0.875F, 0.125F, 1.0F, 1.0F);
+				}
+			} else {
+				if (facing == EnumFacing.NORTH) {
+					this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+				} else if (facing == EnumFacing.EAST) {
+					this.setBlockBounds(0.875F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+				} else if (facing == EnumFacing.SOUTH) {
+					this.setBlockBounds(0.0F, 0.0F, 0.875F, 0.125F, 1.0F, 1.0F);
+				} else if (facing == EnumFacing.WEST) {
+					this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 0.125F);
+				}
+			}
+		}
+    }
+	
 	// BlockStates
 	@Override
 	public BlockState createBlockState() {
@@ -64,5 +137,4 @@ public class PlatformGateBlock extends PlatformBlock {
 		EnumFacing direc = (EnumFacing) state.getValue(FACING);
 		return state.withProperty(UPPER, isUpper(worldIn, pos)).withProperty(LEFT, isLeft(worldIn, pos, direc));
 	}
-		
 }
