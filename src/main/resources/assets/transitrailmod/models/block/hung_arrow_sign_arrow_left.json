@@ -1,5 +1,5 @@
 {
-    "parent": "block/hung_icon_sign",
+    "parent": "transitrailmod:block/hung_arrow_sign",
     "textures": {
         "1": "transitrailmod:blocks/platform_sign/arrow_sign/arrow_left"
     }

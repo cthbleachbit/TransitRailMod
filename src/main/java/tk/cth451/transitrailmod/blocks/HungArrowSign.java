@@ -20,10 +20,10 @@ public class HungArrowSign extends Block {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyEnum ARROW = PropertyEnum.create("arrow", EnumArrow.class);
 	
-	public HungArrowSign() {
+	public HungArrowSign(Material materialIn) {
 		super(Material.iron);
 		this.setLightLevel(1.0F);
-		this.setUnlocalizedName("hung_icon_sign");
+		this.setUnlocalizedName("hung_arrow_sign");
 		this.setDefaultState(getDefaultState()
 				.withProperty(ARROW, EnumArrow.ARROW_UP)
 				.withProperty(FACING, EnumFacing.NORTH));
