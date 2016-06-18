@@ -16,6 +16,6 @@
 		"arrow=arrow_down,facing=west": { "model": "transitrailmod:hung_arrow_sign_arrow_down", "y": 270 },
 		"arrow=arrow_left,facing=west": { "model": "transitrailmod:hung_arrow_sign_arrow_left", "y": 270 },
 		"arrow=arrow_right,facing=west": { "model": "transitrailmod:hung_arrow_sign_arrow_right", "y": 270 },
-		"inventory": {"model": "transitrailmod:hung_arrow_sign_arrow_up"}
+		"inventory": {"model": "transitrailmod:hung_arrow_sign_arrow_up", "y": 90}
 	}
 }
