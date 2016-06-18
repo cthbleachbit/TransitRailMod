@@ -21,6 +21,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tk.cth451.transitrailmod.blocks.prototype.ClosedPlatformBlock;
 
 public class ClosedPlatformTop extends ClosedPlatformBlock{
 	

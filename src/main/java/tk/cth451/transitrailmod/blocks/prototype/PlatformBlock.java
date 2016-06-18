@@ -1,4 +1,4 @@
-package tk.cth451.transitrailmod.blocks;
+package tk.cth451.transitrailmod.blocks.prototype;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

@@ -7,6 +7,4 @@ public class ModTileEntities {
 	public static void register() {
 		GameRegistry.registerTileEntity(PlatformSignEntity.class, "platform_sign_entity");
 	}
-	
-	
 }

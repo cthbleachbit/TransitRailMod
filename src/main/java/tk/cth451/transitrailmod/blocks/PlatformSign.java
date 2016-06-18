@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
 import tk.cth451.transitrailmod.tileentities.PlatformSignEntity;
 
-public class PlatformSign extends BlockContainer{
+public class PlatformSign extends BlockContainer {
 
 	public PlatformSign(Material materialIn) {
 		super(materialIn);

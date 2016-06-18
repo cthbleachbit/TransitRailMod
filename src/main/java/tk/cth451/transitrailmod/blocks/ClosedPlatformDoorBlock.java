@@ -22,6 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tk.cth451.transitrailmod.blocks.prototype.ClosedPlatformBlock;
 import tk.cth451.transitrailmod.init.ModBlocks;
 import tk.cth451.transitrailmod.init.ModItems;
 
@@ -87,7 +88,14 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 		this.setBlockBoundsBasedOnState(worldIn, pos);
 		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 	}
-		
+	
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		boolean original = super.shouldSideBeRendered(worldIn, pos, side);
+		boolean isSideConnected = (worldIn.getBlockState(pos.offset(side)).getBlock() == this);
+		return original && isSideConnected;
+	}
+	
 	// BlockStates
 	@Override
 	public BlockState createBlockState() {
