@@ -24,3 +24,13 @@ Implemented:
 Changed:
 
 * Changed to white glass
+
+Added crafting receipes:
+
+* Closed Platform Door
+* Closed Platform Panel
+* Platform Panel
+* Platform Gate 
+* Logo Block
+* Hung Arrow Sign
+* Platform Arrow Sign

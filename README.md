@@ -24,7 +24,12 @@ Block List Shown
 * Logo Block `logo_block`
 * Hung Arrow Sign `hung_arrow_sign`
 * Platform Arrow Sign `platform_arrow_sign`
+
+Properties: `FACING` (Inherited) `ARRROW` (Inherited)
+
 * Platform Sign `platform_sign`
+
+Properties: `FACING` (Inherited) `ARRROW` (Inherited)
 
 Block List Hidden
 -----------------

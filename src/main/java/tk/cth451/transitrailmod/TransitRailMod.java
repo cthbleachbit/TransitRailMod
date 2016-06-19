@@ -33,7 +33,8 @@ public class TransitRailMod
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
-		ModRecipe.addRecipe();
+		ModRecipe.addItemsRecipe();
+		ModRecipe.addBlocksRecipe();
 		proxy.registerRenders();
 	}
 	
