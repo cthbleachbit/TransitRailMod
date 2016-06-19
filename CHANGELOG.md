@@ -19,6 +19,7 @@ Implemented item and block functions:
 Implemented:
 
 * Hung Arrow Sign
+* Platform Arrow Sign
 
 Changed:
 

@@ -11,4 +11,5 @@ item.ticket_machine_item.name=Ticket Machine
 
 tile.logo_block.name=Logo Block
 tile.hung_arrow_sign.name=Hung Arrow Sign
+tile.platform_arrow_sign.name=Platform Arrow Sign
 tile.platform_sign.name=Platform Sign
