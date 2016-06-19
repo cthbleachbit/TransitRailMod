@@ -12,3 +12,14 @@ Implemented item and block functions:
 * Closed Platform Panel
 * Platform Panel
 * Platform Gate 
+
+0.6
+---
+
+Implemented:
+
+* Hung Arrow Sign
+
+Changed:
+
+* Changed to white glass

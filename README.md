@@ -22,6 +22,7 @@ Item List Shown
 Block List Shown
 ----------------
 * Logo Block `logo_block`
+* Hung Arrow Sign `hung_arrow_sign`
 * Platform Sign `platform_sign`
 
 Block List Hidden
