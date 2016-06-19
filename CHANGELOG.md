@@ -34,3 +34,7 @@ Added crafting receipes:
 * Logo Block
 * Hung Arrow Sign
 * Platform Arrow Sign
+
+Known caveats
+
+* Optifine renders platform panels and gates as opaque blocks
