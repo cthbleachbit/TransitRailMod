@@ -1,0 +1,15 @@
+itemGroup.tabTransitRail=Transit Rail Mod
+
+item.style_changer.name=Style Changer
+item.closed_platform_door_item.name=Closed Platform Door
+item.closed_platform_panel_item.name=Closed Platform Panel
+item.platform_panel_item.name=Platform Panel
+item.platform_gate_item.name=Platform Gate
+item.ticketing_gate_item.name=Ticketing Gate
+item.train_ticket.name=Ticket
+item.ticket_machine_item.name=Ticket Machine
+
+tile.logo_block.name=Logo Block
+tile.hung_arrow_sign.name=Hung Arrow Sign
+tile.platform_arrow_sign.name=Platform Arrow Sign
+tile.platform_sign.name=Platform Sign
