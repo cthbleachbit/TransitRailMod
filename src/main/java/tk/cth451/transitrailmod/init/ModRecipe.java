@@ -67,5 +67,14 @@ public class ModRecipe {
 		// platform arrow sign
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.platform_arrow_sign, 2),
 				new Object[] {Blocks.iron_block, Items.arrow});
+		
+		// fluorescent lamp
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
+				" A",
+				" B ",
+				" C ",
+				'A', Blocks.glass,
+				'B', Blocks.glowstone,
+				'C', Blocks.iron_block);
 	}
 }
