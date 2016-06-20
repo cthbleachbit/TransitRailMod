@@ -1,17 +1,12 @@
 Change Log
 ==========
 
-0.5
+0.7
 ---
 
-Initial stable testing release
+Added:
 
-Implemented item and block functions:
-
-* Closed Platform Door
-* Closed Platform Panel
-* Platform Panel
-* Platform Gate 
+* Fluorescent Lamp
 
 0.6
 ---
@@ -38,3 +33,16 @@ Added crafting receipes:
 Known caveats
 
 * Optifine renders platform panels and gates as opaque blocks
+
+0.5
+---
+
+Initial stable testing release
+
+Implemented item and block functions:
+
+* Closed Platform Door
+* Closed Platform Panel
+* Platform Panel
+* Platform Gate 
+

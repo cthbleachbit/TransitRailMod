@@ -13,6 +13,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -22,6 +24,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.blocks.prototype.ClosedPlatformBlock;
+import tk.cth451.transitrailmod.init.ModItems;
+import tk.cth451.transitrailmod.blocks.PlatformPanelBlock;
 
 public class ClosedPlatformTop extends ClosedPlatformBlock{
 	
@@ -126,5 +130,14 @@ public class ClosedPlatformTop extends ClosedPlatformBlock{
 		} else {
 			return 0;
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public Item getItem(IBlockAccess worldIn, BlockPos pos){
+		return this.getItem();
+	}
+	
+	private Item getItem(){
+		return ModItems.closed_platform_panel_item;
 	}
 }

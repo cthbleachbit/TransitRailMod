@@ -53,6 +53,10 @@ Properties: `FACING` (Inherited) `UPPER` `POWERED` `LEFT`
 
 Properties: `FACING` (Inherited) `UPPER`
 
+* Fluorescent Lamp `Fluorescent Lamp`
+
+Properties: `FACING` `ATTACH`
+
 Abstract Block Class List
 -------------------------
 * `ClosedPlatformBlock`
