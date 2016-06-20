@@ -70,7 +70,7 @@ public class ModRecipe {
 		
 		// fluorescent lamp
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
-				" A",
+				" A ",
 				" B ",
 				" C ",
 				'A', Blocks.glass,
