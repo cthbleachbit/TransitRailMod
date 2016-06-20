@@ -11,6 +11,7 @@ Added:
 Fixed:
 
 * Blocks and Item in hand rendering
+* Update platform gate bounding boxes on BlockState change
 
 0.6
 ---
