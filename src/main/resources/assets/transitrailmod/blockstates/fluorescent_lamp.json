@@ -11,8 +11,6 @@
 		"attach=ceiling,facing=north": { "model": "transitrailmod:fluorescent_lamp_ceiling" },
 		"attach=ceiling,facing=east": { "model": "transitrailmod:fluorescent_lamp_ceiling", "y": 90 },
 		"attach=ceiling,facing=south": { "model": "transitrailmod:fluorescent_lamp_ceiling" },
-		"attach=ceiling,facing=west": { "model": "transitrailmod:fluorescent_lamp_ceiling", "y": 90 },
-		"inventory": {"model": "transitrailmod:fluorescent_lamp_ground" },
-		"normal": {"model": "transitrailmod:fluorescent_lamp_wall"}
+		"attach=ceiling,facing=west": { "model": "transitrailmod:fluorescent_lamp_ceiling", "y": 90 }
 	}
 }

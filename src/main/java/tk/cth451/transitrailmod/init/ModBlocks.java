@@ -63,20 +63,12 @@ public class ModBlocks {
 		registerRender(platform_panel_block);
 		registerRender(logo_block);
 		registerRender(hung_arrow_sign);
-		registerInventoryRender(hung_arrow_sign);
 		registerRender(platform_arrow_sign);
-		registerInventoryRender(platform_arrow_sign);
 		registerRender(fluorescent_lamp);
-		registerInventoryRender(fluorescent_lamp);
 		//registerRender(platform_sign);
 	}
 	
 	public static void registerRender(Block block){
-		Item item = Item.getItemFromBlock(block);
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(References.MOD_ID + ":" + item.getUnlocalizedName().substring(5)));
-	}
-	
-	public static void registerInventoryRender(Block block){
 		Item item = Item.getItemFromBlock(block);
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, new ModelResourceLocation(References.MOD_ID + ":" + item.getUnlocalizedName().substring(5), "inventory"));
 	}
