@@ -10,6 +10,7 @@ import tk.cth451.transitrailmod.References;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformDoorBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformPanelBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformTop;
+import tk.cth451.transitrailmod.blocks.FluorescentLamp;
 import tk.cth451.transitrailmod.blocks.HungArrowSign;
 import tk.cth451.transitrailmod.blocks.LogoBlock;
 import tk.cth451.transitrailmod.blocks.PlatformArrowSign;
@@ -25,6 +26,7 @@ public class ModBlocks {
 	public static Block logo_block;
 	public static Block hung_arrow_sign;
 	public static Block platform_arrow_sign;
+	public static Block fluorescent_lamp;
 	public static Block platform_sign;
 	
 	public static void init() {
@@ -35,6 +37,7 @@ public class ModBlocks {
 		platform_panel_block = new PlatformPanelBlock(Material.iron);
 		logo_block = new LogoBlock(Material.iron);
 		hung_arrow_sign = new HungArrowSign(Material.iron);
+		fluorescent_lamp = new FluorescentLamp(Material.glass);
 		platform_arrow_sign = new PlatformArrowSign(Material.iron);
 		//platform_sign = new PlatformSign(Material.iron);
 	}
@@ -48,6 +51,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(logo_block, logo_block.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(hung_arrow_sign, hung_arrow_sign.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(platform_arrow_sign, platform_arrow_sign.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(fluorescent_lamp, fluorescent_lamp.getUnlocalizedName().substring(5));
 		//GameRegistry.registerBlock(platform_sign, platform_sign.getUnlocalizedName().substring(5));
 	}
 	
@@ -62,6 +66,8 @@ public class ModBlocks {
 		registerInventoryRender(hung_arrow_sign);
 		registerRender(platform_arrow_sign);
 		registerInventoryRender(platform_arrow_sign);
+		registerRender(fluorescent_lamp);
+		registerInventoryRender(fluorescent_lamp);
 		//registerRender(platform_sign);
 	}
 	
