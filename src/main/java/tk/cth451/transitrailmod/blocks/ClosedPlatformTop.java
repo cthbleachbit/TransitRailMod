@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.blocks.prototype.ClosedPlatformBlock;
+import tk.cth451.transitrailmod.init.ModBlocks;
 import tk.cth451.transitrailmod.init.ModItems;
 
 public class ClosedPlatformTop extends ClosedPlatformBlock {
@@ -67,8 +68,7 @@ public class ClosedPlatformTop extends ClosedPlatformBlock {
 
 	@Override
 	public boolean canProvidePower() {
-		// TODO Auto-generated method stub
-		return super.canProvidePower();
+		return true;
 	}
 
 	// Block state related
@@ -140,18 +140,16 @@ public class ClosedPlatformTop extends ClosedPlatformBlock {
 		Item item = null;
 		Block blockBelow = this.getBlockBelow(world, pos);
 
-		if (blockBelow.getUnlocalizedName().equals("tile.closed_platform_door_block")) {
+		if (blockBelow == ModBlocks.closed_platform_door_block) {
 			item = ModItems.closed_platform_door_item;
-		}
-
-		if (blockBelow.getUnlocalizedName().equals("tile.closed_platform_panel_block")) {
+		} else if (blockBelow == ModBlocks.closed_platform_panel_block) {
 			item = ModItems.closed_platform_panel_item;
 		}
 
 		if (item == null)
 			return null;
 
-		return new ItemStack(item, 1, this.getDamageValue(world, pos));
+		return new ItemStack(item, 1);
 	}
 
 	private Block getBlockBelow(IBlockAccess worldIn, BlockPos pos) {
