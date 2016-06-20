@@ -15,6 +15,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import tk.cth451.transitrailmod.TransitRailMod;
 import tk.cth451.transitrailmod.enums.EnumArrow;
 import tk.cth451.transitrailmod.enums.EnumAttachTo;
 
@@ -27,6 +28,7 @@ public class FluorescentLamp extends Block {
 		super(Material.glass);
 		this.setUnlocalizedName("fluorescent_lamp");
 		this.setLightLevel(0.95F);
+		this.setCreativeTab(TransitRailMod.tabTransitRail);
 		this.setDefaultState(getDefaultState()
 				.withProperty(ATTACH, EnumAttachTo.WALL)
 				.withProperty(FACING, EnumFacing.NORTH));

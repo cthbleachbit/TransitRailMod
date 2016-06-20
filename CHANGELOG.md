@@ -8,6 +8,10 @@ Added:
 
 * Fluorescent Lamp
 
+Fixed:
+
+* Blocks and Item in hand rendering
+
 0.6
 ---
 
