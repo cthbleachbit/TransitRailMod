@@ -114,6 +114,11 @@ public class ClosedPlatformTop extends ClosedPlatformBlock {
 		return true;
 	}
 
+	@Override
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return false;
+	}
+	
 	// Redstone
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {

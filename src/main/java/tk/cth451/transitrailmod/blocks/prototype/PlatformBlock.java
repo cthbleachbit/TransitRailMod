@@ -96,4 +96,9 @@ public abstract class PlatformBlock extends Block {
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
 		worldIn.notifyBlockOfStateChange(pos.up(), this);
 	}
+	
+	@Override
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return true;
+	}
 }
