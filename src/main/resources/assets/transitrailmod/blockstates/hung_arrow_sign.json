@@ -6,7 +6,7 @@
 		"arrow=arrow_right,facing=north": { "model": "transitrailmod:hung_arrow_sign_arrow_right" },
 		"arrow=arrow_up,facing=east": { "model": "transitrailmod:hung_arrow_sign_arrow_up", "y": 90 },
 		"arrow=arrow_down,facing=east": { "model": "transitrailmod:hung_arrow_sign_arrow_down", "y": 90 },
-		"arrow=arrow_left,facing=east": { "model": "transitrailmod:hung_arrow_sign", "y": 90 },
+		"arrow=arrow_left,facing=east": { "model": "transitrailmod:hung_arrow_sign_arrow_left", "y": 90 },
 		"arrow=arrow_right,facing=east": { "model": "transitrailmod:hung_arrow_sign_arrow_right", "y": 90 },
 		"arrow=arrow_up,facing=south": { "model": "transitrailmod:hung_arrow_sign_arrow_up", "y": 180 },
 		"arrow=arrow_down,facing=south": { "model": "transitrailmod:hung_arrow_sign_arrow_down", "y": 180 },

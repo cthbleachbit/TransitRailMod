@@ -12,6 +12,8 @@ Fixed:
 
 * Blocks and Item in hand rendering
 * Update platform gate bounding boxes on BlockState change
+* canHarvestBlock() for Arrow Signs and some others are explicitly set to true
+* Hung Arrow Sign texture error
 
 0.6
 ---
