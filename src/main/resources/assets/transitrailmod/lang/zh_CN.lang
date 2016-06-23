@@ -13,4 +13,5 @@ tile.logo_block.name=Logo 方块
 tile.hung_arrow_sign.name=悬挂箭头标识
 tile.platform_arrow_sign.name=站台箭头标识
 tile.fluorescent_lamp.name=日光灯
+tile.wire_panel.name=电缆架
 tile.platform_sign.name=站台标识

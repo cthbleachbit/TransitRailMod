@@ -76,5 +76,13 @@ public class ModRecipe {
 				'A', Blocks.glass,
 				'B', Blocks.glowstone,
 				'C', Blocks.iron_block);
+		
+		// fluorescent lamp
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.wire_panel, 4),
+				"ABA",
+				"ABA",
+				"ABA",
+				'A', Items.iron_ingot,
+				'B', Items.redstone);
 	}
 }

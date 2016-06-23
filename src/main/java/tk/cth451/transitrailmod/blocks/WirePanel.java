@@ -11,6 +11,7 @@ import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -66,6 +67,11 @@ public class WirePanel extends Block  {
 			Entity collidingEntity) {
 		this.setBlockBoundsBasedOnState(worldIn, pos);
 		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+	}
+	
+	@Override
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return true;
 	}
 	
 	// Block States
