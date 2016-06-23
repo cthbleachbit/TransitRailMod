@@ -13,9 +13,13 @@ Fixed:
 
 * Blocks and Item in hand rendering
 * Update platform gate bounding boxes on BlockState change
-* canHarvestBlock() for Arrow Signs and some others are explicitly set to true
+* `canHarvestBlock()` for Arrow Signs and some others are explicitly set to true
 * Hung Arrow Sign texture error
 * Platform gates and doors now have indicator lights
+
+Optimized:
+
+* Reduce `getActualState()` method call
 
 0.6
 ---

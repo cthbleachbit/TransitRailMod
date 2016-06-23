@@ -88,18 +88,17 @@ public class WirePanel extends Block  {
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int mFacing = ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
-		return mFacing;
+		int mLamp = (Boolean) state.getValue(LAMP) ? 1 : 0;
+		return mLamp * 4 + mFacing;
 	}
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing pFacing = EnumFacing.getHorizontal(meta);
-		return this.getDefaultState().withProperty(FACING, pFacing);
-	}
-	
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state.withProperty(LAMP, this.checkLampPresent(worldIn, pos));
+		EnumFacing pFacing = EnumFacing.getHorizontal(meta % 4);
+		boolean pLamp = meta % 4 > 0;
+		return this.getDefaultState()
+				.withProperty(FACING, pFacing)
+				.withProperty(LAMP, pLamp);
 	}
 	
 	// Interactions
@@ -108,15 +107,16 @@ public class WirePanel extends Block  {
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
 		EnumFacing thisFacing = placer.getHorizontalFacing();
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
+		return this.getActualState(state, worldIn, pos)
+				.withProperty(FACING, thisFacing)
+				.withProperty(LAMP, this.checkLampPresent(worldIn, pos));
 	}
 	
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
 		EnumFacing sideToProvide = ((EnumFacing) state.getValue(FACING)).getOpposite();
+		worldIn.setBlockState(pos, state.withProperty(LAMP, this.checkLampPresent(worldIn, pos)));
 		worldIn.notifyBlockOfStateChange(pos.offset(sideToProvide), this);
-		worldIn.markBlockForUpdate(pos);
-		worldIn.markBlockForUpdate(pos.offset(sideToProvide));
 	}
 	
 	@Override
