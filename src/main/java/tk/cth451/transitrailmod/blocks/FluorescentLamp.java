@@ -18,6 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.TransitRailMod;
 import tk.cth451.transitrailmod.enums.EnumArrow;
 import tk.cth451.transitrailmod.enums.EnumAttachTo;
+import tk.cth451.transitrailmod.init.ModBlocks;
 
 public class FluorescentLamp extends Block {
 	
@@ -88,18 +89,23 @@ public class FluorescentLamp extends Block {
 	}
 	
 	public IBlockState getAttached (World worldIn, BlockPos pos, IBlockState state){
-		EnumFacing thisFacing = (EnumFacing) state.getValue(FACING);
-		boolean pWall = worldIn.getBlockState(pos.offset(thisFacing)).getBlock().isSideSolid(worldIn, pos.offset(thisFacing), thisFacing.getOpposite());
-		boolean pGround = worldIn.getBlockState(pos.down()).getBlock().isSideSolid(worldIn, pos.down(), EnumFacing.UP);
-		boolean pCeiling = worldIn.getBlockState(pos.up()).getBlock().isSideSolid(worldIn, pos.up(), EnumFacing.DOWN);
-		if (pWall) {
-			state = state.withProperty(ATTACH, EnumAttachTo.WALL);
-		} else if (pGround) {
-			state = state.withProperty(ATTACH, EnumAttachTo.GROUND);
-		} else if (pCeiling) {
-			state = state.withProperty(ATTACH, EnumAttachTo.CEILING);
-		} else {
-			state = state.withProperty(ATTACH, EnumAttachTo.WALL);
+		boolean pPanel = worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.wire_panel;
+		if (pPanel) {
+			state = state.withProperty(ATTACH, EnumAttachTo.PANEL);
+		} else{
+			EnumFacing thisFacing = (EnumFacing) state.getValue(FACING);
+			boolean pWall = worldIn.getBlockState(pos.offset(thisFacing)).getBlock().isSideSolid(worldIn, pos.offset(thisFacing), thisFacing.getOpposite());
+			boolean pGround = worldIn.getBlockState(pos.down()).getBlock().isSideSolid(worldIn, pos.down(), EnumFacing.UP);
+			boolean pCeiling = worldIn.getBlockState(pos.up()).getBlock().isSideSolid(worldIn, pos.up(), EnumFacing.DOWN);
+			if (pWall) {
+				state = state.withProperty(ATTACH, EnumAttachTo.WALL);
+			} else if (pGround) {
+				state = state.withProperty(ATTACH, EnumAttachTo.GROUND);
+			} else if (pCeiling) {
+				state = state.withProperty(ATTACH, EnumAttachTo.CEILING);
+			} else {
+				state = state.withProperty(ATTACH, EnumAttachTo.WALL);
+			}
 		}
 		return state;
 	}
@@ -124,7 +130,9 @@ public class FluorescentLamp extends Block {
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
 		IBlockState state = worldIn.getBlockState(pos);
-		if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.GROUND){
+		if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.GROUND) {
+			this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
+		} else if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.PANEL){
 			this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
 		} else if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.CEILING) {
 			switch ((EnumFacing) state.getValue(FACING)) {

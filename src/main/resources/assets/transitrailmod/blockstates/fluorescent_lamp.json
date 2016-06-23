@@ -11,6 +11,10 @@
 		"attach=ceiling,facing=north": { "model": "transitrailmod:fluorescent_lamp_ceiling" },
 		"attach=ceiling,facing=east": { "model": "transitrailmod:fluorescent_lamp_ceiling", "y": 90 },
 		"attach=ceiling,facing=south": { "model": "transitrailmod:fluorescent_lamp_ceiling" },
-		"attach=ceiling,facing=west": { "model": "transitrailmod:fluorescent_lamp_ceiling", "y": 90 }
+		"attach=ceiling,facing=west": { "model": "transitrailmod:fluorescent_lamp_ceiling", "y": 90 },
+		"attach=panel,facing=north": { "model": "transitrailmod:fluorescent_lamp_wire_panel" },
+		"attach=panel,facing=east": { "model": "transitrailmod:fluorescent_lamp_wire_panel" },
+		"attach=panel,facing=south": { "model": "transitrailmod:fluorescent_lamp_wire_panel" },
+		"attach=panel,facing=west": { "model": "transitrailmod:fluorescent_lamp_wire_panel" }
 	}
 }

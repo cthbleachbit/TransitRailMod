@@ -5,15 +5,18 @@ import net.minecraft.util.IStringSerializable;
 public enum EnumAttachTo implements IStringSerializable {
 	WALL,
 	GROUND,
-	CEILING;
+	CEILING,
+	PANEL;
 	
 	public int toMeta() {
 		if (this == WALL) {
 			return 0;
 		} else if (this == GROUND) {
 			return 1;
-		} else {
+		} else if (this == CEILING){
 			return 2;
+		} else { // PANEL
+			return 3;
 		}
 	}
 	
@@ -23,8 +26,10 @@ public enum EnumAttachTo implements IStringSerializable {
 			result = WALL;
 		} else if (metaIn == 1) {
 			result = GROUND;
-		} else {
+		} else if (metaIn == 2) {
 			result = CEILING;
+		} else {
+			result = PANEL;
 		}
 		return result;
 	}
@@ -35,8 +40,10 @@ public enum EnumAttachTo implements IStringSerializable {
 			return "wall";
 		} else if (this == GROUND) {
 			return "ground";
-		} else {
+		} else if (this == CEILING) {
 			return "ceiling";
+		} else {
+			return "PANEL";
 		}
 	}
 	
