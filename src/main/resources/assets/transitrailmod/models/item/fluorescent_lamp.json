@@ -1,5 +1,5 @@
 {
-    "parent": "transitrailmod:block/fluorescent_lamp_ground",
+    "parent": "transitrailmod:block/fluorescent_lamp_extending",
     "display": {
         "thirdperson": {
             "rotation": [ -90, 0, 0 ],

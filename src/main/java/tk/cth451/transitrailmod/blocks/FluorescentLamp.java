@@ -1,5 +1,7 @@
 package tk.cth451.transitrailmod.blocks;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -7,7 +9,9 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -44,12 +48,6 @@ public class FluorescentLamp extends Block {
 	@Override
 	public boolean isOpaqueCube() {
         return false;
-    }
-	
-	@Override
-	public int getMobilityFlag()
-    {
-        return 1;
     }
 	
 	@Override
@@ -90,8 +88,9 @@ public class FluorescentLamp extends Block {
 	
 	public IBlockState getAttached (World worldIn, BlockPos pos, IBlockState state){
 		boolean pPanel = worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.wire_panel;
-		if (pPanel) {
-			state = state.withProperty(ATTACH, EnumAttachTo.PANEL);
+		boolean pAbove = worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.fluorescent_lamp;
+		if (pPanel || pAbove) {
+			state = state.withProperty(ATTACH, EnumAttachTo.EXTENDING);
 		} else{
 			EnumFacing thisFacing = (EnumFacing) state.getValue(FACING);
 			boolean pWall = worldIn.getBlockState(pos.offset(thisFacing)).getBlock().isSideSolid(worldIn, pos.offset(thisFacing), thisFacing.getOpposite());
@@ -132,7 +131,7 @@ public class FluorescentLamp extends Block {
 		IBlockState state = worldIn.getBlockState(pos);
 		if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.GROUND) {
 			this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
-		} else if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.PANEL){
+		} else if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.EXTENDING){
 			this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
 		} else if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.CEILING) {
 			switch ((EnumFacing) state.getValue(FACING)) {
@@ -162,5 +161,12 @@ public class FluorescentLamp extends Block {
 				break;
 			}
 		}
+	}
+
+	@Override
+	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
+			Entity collidingEntity) {
+		this.setBlockBoundsBasedOnState(worldIn, pos);
+		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 	}
 }

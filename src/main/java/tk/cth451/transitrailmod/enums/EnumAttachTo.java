@@ -6,7 +6,7 @@ public enum EnumAttachTo implements IStringSerializable {
 	WALL,
 	GROUND,
 	CEILING,
-	PANEL;
+	EXTENDING;
 	
 	public int toMeta() {
 		if (this == WALL) {
@@ -29,7 +29,7 @@ public enum EnumAttachTo implements IStringSerializable {
 		} else if (metaIn == 2) {
 			result = CEILING;
 		} else {
-			result = PANEL;
+			result = EXTENDING;
 		}
 		return result;
 	}
@@ -43,7 +43,7 @@ public enum EnumAttachTo implements IStringSerializable {
 		} else if (this == CEILING) {
 			return "ceiling";
 		} else {
-			return "PANEL";
+			return "extending";
 		}
 	}
 	
