@@ -7,6 +7,7 @@ Change Log
 Added:
 
 * Fluorescent Lamp
+* Wire Panel
 
 Fixed:
 
