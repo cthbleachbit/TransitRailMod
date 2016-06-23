@@ -74,6 +74,11 @@ public class WirePanel extends Block  {
 		return true;
 	}
 	
+	@Override
+	public boolean canProvidePower() {
+		return true;
+	}
+	
 	// Block States
 	@Override
 	protected BlockState createBlockState() {
@@ -94,8 +99,7 @@ public class WirePanel extends Block  {
 	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		boolean isLampPresent = worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.fluorescent_lamp;
-		return state.withProperty(LAMP, isLampPresent);
+		return state.withProperty(LAMP, this.checkLampPresent(worldIn, pos));
 	}
 	
 	// Interactions
@@ -105,5 +109,27 @@ public class WirePanel extends Block  {
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
 		EnumFacing thisFacing = placer.getHorizontalFacing();
 		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+		EnumFacing sideToProvide = ((EnumFacing) state.getValue(FACING)).getOpposite();
+		worldIn.notifyBlockOfStateChange(pos.offset(sideToProvide), this);
+		worldIn.markBlockForUpdate(pos);
+		worldIn.markBlockForUpdate(pos.offset(sideToProvide));
+	}
+	
+	@Override
+	public int isProvidingWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+		if (this.checkLampPresent(worldIn, pos)) {
+			EnumFacing sideToProvide = ((EnumFacing) state.getValue(FACING));
+			return sideToProvide == side ? 15 : 0;
+		} else {
+			return 0;
+		}
+	}
+	
+	protected boolean checkLampPresent(IBlockAccess worldIn, BlockPos pos){
+		return worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.fluorescent_lamp;
 	}
 }

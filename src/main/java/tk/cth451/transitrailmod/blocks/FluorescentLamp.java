@@ -117,6 +117,7 @@ public class FluorescentLamp extends Block {
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
 		state = this.getAttached(worldIn, pos, state);
 		EnumFacing thisFacing = placer.getHorizontalFacing();
+		worldIn.notifyBlockOfStateChange(pos.down(), this);
 		return state.withProperty(FACING, thisFacing);
 	}
 	
