@@ -20,11 +20,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.TransitRailMod;
-import tk.cth451.transitrailmod.enums.EnumArrow;
+import tk.cth451.transitrailmod.blocks.prototype.CustomDirectionBlock;
 import tk.cth451.transitrailmod.enums.EnumAttachTo;
 import tk.cth451.transitrailmod.init.ModBlocks;
 
-public class FluorescentLamp extends Block {
+public class FluorescentLamp extends CustomDirectionBlock {
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyEnum ATTACH = PropertyEnum.create("attach", EnumAttachTo.class);
@@ -116,9 +116,7 @@ public class FluorescentLamp extends Block {
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
 		state = this.getAttached(worldIn, pos, state);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		worldIn.notifyBlockOfStateChange(pos.down(), this);
-		return state.withProperty(FACING, thisFacing);
+		return this.getFacingState(state, placer);
 	}
 	
 	@Override
@@ -162,12 +160,5 @@ public class FluorescentLamp extends Block {
 				break;
 			}
 		}
-	}
-
-	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
-			Entity collidingEntity) {
-		this.setBlockBoundsBasedOnState(worldIn, pos);
-		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 	}
 }

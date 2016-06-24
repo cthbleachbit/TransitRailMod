@@ -39,8 +39,7 @@ public class PlatformGateBlock extends PlatformBlock {
 	}
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-    {
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
 		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
 		boolean isOpen = (Boolean) worldIn.getBlockState(pos).getValue(POWERED);
 		boolean leftOrNot = this.isLeft(worldIn, pos, facing);
@@ -109,7 +108,7 @@ public class PlatformGateBlock extends PlatformBlock {
 				}
 			}
 		}
-    }
+	}
 	
 	// BlockStates
 	@Override

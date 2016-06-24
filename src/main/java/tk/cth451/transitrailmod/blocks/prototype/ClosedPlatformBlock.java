@@ -18,9 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class ClosedPlatformBlock extends Block {
-	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+public abstract class ClosedPlatformBlock extends CustomDirectionBlock {
 	
 	public ClosedPlatformBlock(Material materialIn) {
 		super(materialIn);
@@ -29,11 +27,6 @@ public abstract class ClosedPlatformBlock extends Block {
 	// Common Properties
 	@Override
 	public boolean isTranslucent() {
-		return true;
-	}
-	
-	@Override
-	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
 		return true;
 	}
 	
@@ -61,25 +54,10 @@ public abstract class ClosedPlatformBlock extends Block {
 		return EnumWorldBlockLayer.TRANSLUCENT;
 	}
 	
-	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
-			Entity collidingEntity) {
-		this.setBlockBoundsBasedOnState(worldIn, pos);
-		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-	}
-	
 	// Interactions
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
 		worldIn.notifyBlockOfStateChange(pos.down(), this);
-	}
-	
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-		// set facing to the direction player is facing
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
 	}
 	
 	@Override

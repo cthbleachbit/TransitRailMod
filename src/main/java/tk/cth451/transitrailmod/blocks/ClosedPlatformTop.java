@@ -9,6 +9,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,14 +22,14 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import tk.cth451.transitrailmod.blocks.prototype.ClosedPlatformBlock;
+import tk.cth451.transitrailmod.blocks.prototype.CustomDirectionBlock;
 import tk.cth451.transitrailmod.init.ModBlocks;
 import tk.cth451.transitrailmod.init.ModItems;
 
-public class ClosedPlatformTop extends ClosedPlatformBlock {
+public class ClosedPlatformTop extends CustomDirectionBlock {
 
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
-
+	
 	public ClosedPlatformTop(Material materialIn) {
 		super(Material.iron);
 		this.setLightLevel(1F);
@@ -53,6 +54,28 @@ public class ClosedPlatformTop extends ClosedPlatformBlock {
 		}
 	}
 
+	@Override
+	public boolean isTranslucent() {
+		return true;
+	}
+	
+	@Override
+	public int getMobilityFlag()
+    {
+        return 1;
+    }
+	
+	@Override
+	public boolean isOpaqueCube() {
+        return false;
+    }
+	
+	@Override
+	public boolean isFullCube()
+    {
+        return false;
+    }
+	
 	@Override
 	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
 			Entity collidingEntity) {
@@ -126,8 +149,8 @@ public class ClosedPlatformTop extends ClosedPlatformBlock {
 		if (flag != (Boolean) state.getValue(POWERED)) {
 			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
 			worldIn.markBlockRangeForRenderUpdate(pos, pos);
+			worldIn.notifyBlockOfStateChange(pos.down(), this);
 		}
-		super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 	}
 
 	@Override
@@ -156,7 +179,7 @@ public class ClosedPlatformTop extends ClosedPlatformBlock {
 
 		return new ItemStack(item, 1);
 	}
-
+	
 	private Block getBlockBelow(IBlockAccess worldIn, BlockPos pos) {
 		return worldIn.getBlockState(pos.down()).getBlock();
 	}

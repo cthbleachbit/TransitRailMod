@@ -19,9 +19,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.enums.EnumArrow;
 import tk.cth451.transitrailmod.init.ModItems;
 
-public abstract class ArrowSign extends Block {
+public abstract class ArrowSign extends CustomDirectionBlock {
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyEnum ARROW = PropertyEnum.create("arrow", EnumArrow.class);
 	
 	public ArrowSign(Material materialIn) {
@@ -78,8 +77,7 @@ public abstract class ArrowSign extends Block {
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
+		return this.getFacingState(state, placer);
 	}
 	
 	@Override

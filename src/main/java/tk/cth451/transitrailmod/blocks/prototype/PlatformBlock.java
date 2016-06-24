@@ -19,9 +19,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class PlatformBlock extends Block {
+public abstract class PlatformBlock extends CustomDirectionBlock {
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool UPPER = PropertyBool.create("upper");
 	
 	public PlatformBlock(Material materialIn) {
@@ -35,12 +34,6 @@ public abstract class PlatformBlock extends Block {
 	}
 	
 	@Override
-	public int getMobilityFlag()
-    {
-        return 1;
-    }
-	
-	@Override
 	public boolean isOpaqueCube() {
         return false;
     }
@@ -50,13 +43,6 @@ public abstract class PlatformBlock extends Block {
     {
         return false;
     }
-	
-	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
-			Entity collidingEntity) {
-		this.setBlockBoundsBasedOnState(worldIn, pos);
-		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-	}
 	
 	@Override
     @SideOnly(Side.CLIENT)
@@ -80,21 +66,16 @@ public abstract class PlatformBlock extends Block {
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
-	}
-	
-	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-		BlockPos posToCheck = isUpper(world, pos) ? pos.down() : pos.up();
-		world.setBlockToAir(pos);
-		world.setBlockToAir(posToCheck);
-		return true;
+		return this.getFacingState(state, placer);
 	}
 	
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-		worldIn.notifyBlockOfStateChange(pos.up(), this);
+		BlockPos posToCheck = this.isUpper(worldIn, pos) ? pos.down() : pos.up();
+		if (worldIn.getBlockState(posToCheck).getBlock() != this) {
+			worldIn.setBlockToAir(pos);
+			worldIn.notifyBlockOfStateChange(pos.up(), this);
+		}
 	}
 	
 	@Override

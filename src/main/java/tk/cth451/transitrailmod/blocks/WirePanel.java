@@ -18,11 +18,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
+import tk.cth451.transitrailmod.blocks.prototype.CustomDirectionBlock;
 import tk.cth451.transitrailmod.init.ModBlocks;
 
-public class WirePanel extends Block  {
+public class WirePanel extends CustomDirectionBlock {
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool LAMP = PropertyBool.create("lamp");
 	
 	public WirePanel(Material materialIn) {
@@ -32,12 +32,6 @@ public class WirePanel extends Block  {
 	}
 	
 	// Properties
-	@Override
-	public int getMobilityFlag()
-    {
-        return 1;
-    }
-	
 	public boolean isOpaqueCube() {
 		return false;
 	}
@@ -60,13 +54,6 @@ public class WirePanel extends Block  {
 		} else { // WEST
 			this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.5F, 1.0F, 1.0F);
 		}
-	}
-	
-	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
-			Entity collidingEntity) {
-		this.setBlockBoundsBasedOnState(worldIn, pos);
-		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
 	}
 	
 	@Override
@@ -106,9 +93,7 @@ public class WirePanel extends Block  {
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		return this.getActualState(state, worldIn, pos)
-				.withProperty(FACING, thisFacing)
+		return this.getFacingState(state, placer)
 				.withProperty(LAMP, this.checkLampPresent(worldIn, pos));
 	}
 	
