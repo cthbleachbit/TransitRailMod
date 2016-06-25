@@ -19,7 +19,8 @@ Fixed:
 
 Optimized:
 
-* Reduce `getActualState()` method call
+* Reduced `getActualState()` method call
+* Utilized abstract blocks and items
 
 0.6
 ---
