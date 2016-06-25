@@ -35,12 +35,6 @@ public class HungArrowSign extends ArrowSign {
 	}
 	
 	@Override
-	public int getMobilityFlag()
-    {
-        return 1;
-    }
-	
-	@Override
 	public boolean isFullCube()
     {
         return false;

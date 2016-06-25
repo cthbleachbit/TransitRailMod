@@ -1,6 +1,5 @@
 {
 	"variants": {
-		"normal": { "model": "transitrailmod:logo_block" },
-		"inventory": { "model": "transitrailmod:logo_block" }
+		"normal": { "model": "transitrailmod:logo_block" }
 	}
 }

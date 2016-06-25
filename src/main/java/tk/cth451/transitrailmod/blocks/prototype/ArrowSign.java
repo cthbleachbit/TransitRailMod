@@ -12,15 +12,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.enums.EnumArrow;
 import tk.cth451.transitrailmod.init.ModItems;
 
-public class ArrowSign extends Block {
+public abstract class ArrowSign extends CustomDirectionBlock {
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyEnum ARROW = PropertyEnum.create("arrow", EnumArrow.class);
 	
 	public ArrowSign(Material materialIn) {
@@ -77,8 +77,7 @@ public class ArrowSign extends Block {
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
+		return this.getFacingState(state, placer);
 	}
 	
 	@Override
@@ -91,5 +90,10 @@ public class ArrowSign extends Block {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return true;
 	}
 }

@@ -56,13 +56,6 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
     }
 	
 	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
-			Entity collidingEntity) {
-		this.setBlockBoundsBasedOnState(worldIn, pos);
-		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
-	}
-	
-	@Override
 	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
 		boolean original = super.shouldSideBeRendered(worldIn, pos, side);
 		boolean isSideConnected = (worldIn.getBlockState(pos.offset(side)).getBlock() != Blocks.air);

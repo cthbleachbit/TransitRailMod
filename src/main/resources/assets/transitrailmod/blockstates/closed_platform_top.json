@@ -7,7 +7,6 @@
 		"facing=south,powered=true": {"model": "transitrailmod:closed_platform_top", "y": 180 },
 		"facing=south,powered=false": {"model": "transitrailmod:closed_platform_top", "y": 180 },
 		"facing=west,powered=true": {"model": "transitrailmod:closed_platform_top", "y": 270 },
-		"facing=west,powered=false": {"model": "transitrailmod:closed_platform_top", "y": 270 },
-		"inventory": {"model": "transitrailmod:closed_platform_top"}
+		"facing=west,powered=false": {"model": "transitrailmod:closed_platform_top", "y": 270 }
     }
 }

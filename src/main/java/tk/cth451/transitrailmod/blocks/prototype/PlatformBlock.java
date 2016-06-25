@@ -1,12 +1,16 @@
 package tk.cth451.transitrailmod.blocks.prototype;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -15,9 +19,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class PlatformBlock extends Block {
+public abstract class PlatformBlock extends CustomDirectionBlock {
 	
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool UPPER = PropertyBool.create("upper");
 	
 	public PlatformBlock(Material materialIn) {
@@ -29,17 +32,6 @@ public abstract class PlatformBlock extends Block {
 	public boolean isTranslucent() {
 		return true;
 	}
-	
-	@Override
-	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-		return true;
-	}
-	
-	@Override
-	public int getMobilityFlag()
-    {
-        return 1;
-    }
 	
 	@Override
 	public boolean isOpaqueCube() {
@@ -74,20 +66,20 @@ public abstract class PlatformBlock extends Block {
 	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
-	}
-	
-	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-		BlockPos posToCheck = isUpper(world, pos) ? pos.down() : pos.up();
-		world.setBlockToAir(pos);
-		world.setBlockToAir(posToCheck);
-		return true;
+		return this.getFacingState(state, placer);
 	}
 	
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
-		worldIn.notifyBlockOfStateChange(pos.up(), this);
+		BlockPos posToCheck = this.isUpper(worldIn, pos) ? pos.down() : pos.up();
+		if (worldIn.getBlockState(posToCheck).getBlock() != this) {
+			worldIn.setBlockToAir(pos);
+			worldIn.notifyBlockOfStateChange(pos.up(), this);
+		}
+	}
+	
+	@Override
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return true;
 	}
 }

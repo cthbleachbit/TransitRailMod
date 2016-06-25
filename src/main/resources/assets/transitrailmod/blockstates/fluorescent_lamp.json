@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"attach=wall,facing=north": { "model": "transitrailmod:fluorescent_lamp_wall" },
+		"attach=wall,facing=east": { "model": "transitrailmod:fluorescent_lamp_wall", "y": 90 },
+		"attach=wall,facing=south": { "model": "transitrailmod:fluorescent_lamp_wall", "y": 180 },
+		"attach=wall,facing=west": { "model": "transitrailmod:fluorescent_lamp_wall", "y": 270 },
+		"attach=ground,facing=north": { "model": "transitrailmod:fluorescent_lamp_ground" },
+		"attach=ground,facing=east": { "model": "transitrailmod:fluorescent_lamp_ground" },
+		"attach=ground,facing=south": { "model": "transitrailmod:fluorescent_lamp_ground" },
+		"attach=ground,facing=west": { "model": "transitrailmod:fluorescent_lamp_ground" },
+		"attach=ceiling,facing=north": { "model": "transitrailmod:fluorescent_lamp_ceiling" },
+		"attach=ceiling,facing=east": { "model": "transitrailmod:fluorescent_lamp_ceiling", "y": 90 },
+		"attach=ceiling,facing=south": { "model": "transitrailmod:fluorescent_lamp_ceiling" },
+		"attach=ceiling,facing=west": { "model": "transitrailmod:fluorescent_lamp_ceiling", "y": 90 },
+		"attach=extending,facing=north": { "model": "transitrailmod:fluorescent_lamp_extending" },
+		"attach=extending,facing=east": { "model": "transitrailmod:fluorescent_lamp_extending" },
+		"attach=extending,facing=south": { "model": "transitrailmod:fluorescent_lamp_extending" },
+		"attach=extending,facing=west": { "model": "transitrailmod:fluorescent_lamp_extending" }
+	}
+}

@@ -4,13 +4,13 @@
         "particle": "blocks/glass_white",
         "0": "blocks/iron_block",
         "1": "blocks/glass_white",
-        "2": "transitrailmod:blocks/materials/orange"
+        "2": "transitrailmod:blocks/materials/orange_dim"
     },
     "elements": [
         {
             "name": "Frame_horizontal",
-            "from": [ 16.0, 14.0, 0.0 ], 
-            "to": [ 28.0, 16.0, 2.0 ], 
+            "from": [ 2.0, 14.0, 0.0 ], 
+            "to": [ 14.0, 16.0, 2.0 ], 
             "faces": {
                 "north": { "texture": "#0", "uv": [ 2.0, 0.0, 14.0, 2.0 ] },
                 "east": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
@@ -22,8 +22,8 @@
         },
         {
             "name": "Frame_vertical_w",
-            "from": [ 14.0, 0.0, 0.0 ], 
-            "to": [ 16.0, 16.0, 2.0 ], 
+            "from": [ 0.0, 0.0, 0.0 ], 
+            "to": [ 2.0, 16.0, 2.0 ], 
             "faces": {
                 "north": { "texture": "#0", "uv": [ 14.0, 0.0, 16.0, 16.0 ] },
                 "east": { "texture": "#0", "uv": [ 14.0, 0.0, 16.0, 16.0 ] },
@@ -34,8 +34,8 @@
         },
         {
             "name": "Frame_vertical_e",
-            "from": [ 28.0, 0.0, 0.0 ], 
-            "to": [ 30.0, 16.0, 2.0 ], 
+            "from": [ 14.0, 0.0, 0.0 ], 
+            "to": [ 16.0, 16.0, 2.0 ], 
             "faces": {
                 "north": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 16.0 ] },
                 "east": { "texture": "#0", "uv": [ 14.0, 0.0, 16.0, 16.0 ] },
@@ -46,8 +46,8 @@
         },
         {
             "name": "Glass",
-            "from": [ 16.0, 0.0, 0.0 ], 
-            "to": [ 28.0, 14.0, 1.0 ], 
+            "from": [ 2.0, 0.0, 0.0 ], 
+            "to": [ 14.0, 14.0, 1.0 ], 
             "faces": {
                 "north": { "texture": "#1", "uv": [ 2.0, 1.0, 14.0, 15.0 ] },
                 "south": { "texture": "#1", "uv": [ 2.0, 1.0, 14.0, 15.0 ] }

@@ -1,17 +1,26 @@
 Change Log
 ==========
 
-0.5
+0.7
 ---
 
-Initial stable testing release
+Added:
 
-Implemented item and block functions:
+* Fluorescent Lamp
+* Wire Panel
 
-* Closed Platform Door
-* Closed Platform Panel
-* Platform Panel
-* Platform Gate 
+Fixed:
+
+* Blocks and Item in hand rendering
+* Update platform gate bounding boxes on BlockState change
+* `canHarvestBlock()` for Arrow Signs and some others are explicitly set to true
+* Hung Arrow Sign texture error
+* Platform gates and doors now have indicator lights
+
+Optimized:
+
+* Reduced `getActualState()` method call
+* Utilized abstract blocks and items
 
 0.6
 ---
@@ -38,3 +47,16 @@ Added crafting receipes:
 Known caveats
 
 * Optifine renders platform panels and gates as opaque blocks
+
+0.5
+---
+
+Initial stable testing release
+
+Implemented item and block functions:
+
+* Closed Platform Door
+* Closed Platform Panel
+* Platform Panel
+* Platform Gate 
+
