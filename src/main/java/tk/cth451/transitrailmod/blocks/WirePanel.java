@@ -29,6 +29,9 @@ public class WirePanel extends CustomDirectionBlock {
 		super(Material.iron);
 		this.setUnlocalizedName("wire_panel");
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
+		this.setDefaultState(this.getDefaultState()
+				.withProperty(LAMP, false)
+				.withProperty(FACING, EnumFacing.NORTH));
 	}
 	
 	// Properties

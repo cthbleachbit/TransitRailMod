@@ -17,6 +17,7 @@ import tk.cth451.transitrailmod.blocks.PlatformArrowSign;
 import tk.cth451.transitrailmod.blocks.PlatformGateBlock;
 import tk.cth451.transitrailmod.blocks.PlatformPanelBlock;
 import tk.cth451.transitrailmod.blocks.WirePanel;
+import tk.cth451.transitrailmod.blocks.WirePanelCorner;
 
 public class ModBlocks {
 	public static Block closed_platform_top;
@@ -29,6 +30,7 @@ public class ModBlocks {
 	public static Block platform_arrow_sign;
 	public static Block fluorescent_lamp;
 	public static Block wire_panel;
+	public static Block wire_panel_corner;
 	public static Block platform_sign;
 	
 	public static void init() {
@@ -42,6 +44,7 @@ public class ModBlocks {
 		platform_arrow_sign = new PlatformArrowSign(Material.iron);
 		fluorescent_lamp = new FluorescentLamp(Material.glass);
 		wire_panel = new WirePanel(Material.iron);
+		wire_panel_corner = new WirePanelCorner(Material.iron);
 		//platform_sign = new PlatformSign(Material.iron);
 	}
 	
@@ -56,6 +59,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(platform_arrow_sign, platform_arrow_sign.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(fluorescent_lamp, fluorescent_lamp.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(wire_panel, wire_panel.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(wire_panel_corner, wire_panel_corner.getUnlocalizedName().substring(5));
 		//GameRegistry.registerBlock(platform_sign, platform_sign.getUnlocalizedName().substring(5));
 	}
 	
@@ -70,6 +74,7 @@ public class ModBlocks {
 		registerRender(platform_arrow_sign);
 		registerRender(fluorescent_lamp);
 		registerRender(wire_panel);
+		registerRender(wire_panel_corner);
 		//registerRender(platform_sign);
 	}
 	

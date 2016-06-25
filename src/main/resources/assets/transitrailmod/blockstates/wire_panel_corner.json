@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"concave=false,corner=se": { "model": "transitrailmod:wire_panel_with_lamp" },
+		"concave=true,corner=se": { "model": "transitrailmod:wire_panel" },
+		"concave=false,corner=sw": {"model": "transitrailmod:wire_panel_with_lamp", "y": 90 },
+		"concave=true,corner=sw": {"model": "transitrailmod:wire_panel", "y": 90 },
+		"concave=false,corner=nw": {"model": "transitrailmod:wire_panel_with_lamp", "y": 180 },
+		"concave=true,corner=nw": {"model": "transitrailmod:wire_panel", "y": 180 },
+		"concave=false,corner=ne": {"model": "transitrailmod:wire_panel_with_lamp", "y": 270 },
+		"concave=true,corner=ne": {"model": "transitrailmod:wire_panel", "y": 270 }
+    }
+}
