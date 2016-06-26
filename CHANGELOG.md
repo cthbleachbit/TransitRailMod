@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+0.8
+---
+
+Added:
+* Wire Panel Corner
+
 0.7
 ---
 

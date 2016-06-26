@@ -77,12 +77,18 @@ public class ModRecipe {
 				'B', Blocks.glowstone,
 				'C', Blocks.iron_block);
 		
-		// fluorescent lamp
+		// wire panel
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.wire_panel, 4),
 				"ABA",
 				"ABA",
 				"ABA",
 				'A', Items.iron_ingot,
 				'B', Items.redstone);
+		
+		// wire panel corner, 1 to 1 conversion with wire panel
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.wire_panel_corner),
+				new Object[] {ModBlocks.wire_panel});
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.wire_panel),
+				new Object[] {ModBlocks.wire_panel_corner});
 	}
 }
