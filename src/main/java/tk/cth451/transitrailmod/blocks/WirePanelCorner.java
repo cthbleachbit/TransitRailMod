@@ -34,6 +34,25 @@ public class WirePanelCorner extends Block {
 				.withProperty(CONCAVE, false));
 	}
 	
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
+		IBlockState state = worldIn.getBlockState(pos);
+		EnumCorner corner = (EnumCorner) state.getValue(CORNER);
+		if ((Boolean) state.getValue(CONCAVE)) {
+			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		} else {
+			if (corner == EnumCorner.SE) {
+				this.setBlockBounds(0.5F, 0.0F, 0.5F, 1.0F, 1.0F, 1.0F);
+			} else if (corner == EnumCorner.SW) {
+				this.setBlockBounds(0.0F, 0.0F, 0.5F, 0.5F, 1.0F, 1.0F);
+			} else if (corner == EnumCorner.NW) {
+				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.5F, 1.0F, 0.5F);
+			} else { // NE
+				this.setBlockBounds(0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 0.5F);
+			}
+		}
+	}
+	
 	public boolean isOpaqueCube() {
 		return false;
 	}
