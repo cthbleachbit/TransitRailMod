@@ -3,6 +3,8 @@ TransitRailMod
 
 A mod featuring platform doors and other elements of transit railway systems, now on Minecraft 1.8.
 
+Refer to project wiki for documentation, guides and crafting recipes.
+
 Get this mod
 ------------
 
