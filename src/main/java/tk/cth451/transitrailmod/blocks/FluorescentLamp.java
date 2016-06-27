@@ -87,15 +87,22 @@ public class FluorescentLamp extends CustomDirectionBlock {
 	}
 	
 	public IBlockState getAttached (World worldIn, BlockPos pos, IBlockState state){
-		boolean pPanel = worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.wire_panel;
 		boolean pAbove = worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.fluorescent_lamp;
+		boolean pPanel;
+		if (worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.wire_panel) {
+			pPanel = !((Boolean) worldIn.getBlockState(pos.down()).getValue(WirePanel.SHUT));
+		} else {
+			pPanel = false;
+		}
+		
 		if (pPanel || pAbove) {
 			state = state.withProperty(ATTACH, EnumAttachTo.EXTENDING);
-		} else{
+		} else {
 			EnumFacing thisFacing = (EnumFacing) state.getValue(FACING);
 			boolean pWall = worldIn.getBlockState(pos.offset(thisFacing)).getBlock().isSideSolid(worldIn, pos.offset(thisFacing), thisFacing.getOpposite());
 			boolean pGround = worldIn.getBlockState(pos.down()).getBlock().isSideSolid(worldIn, pos.down(), EnumFacing.UP);
 			boolean pCeiling = worldIn.getBlockState(pos.up()).getBlock().isSideSolid(worldIn, pos.up(), EnumFacing.DOWN);
+			
 			if (pWall) {
 				state = state.withProperty(ATTACH, EnumAttachTo.WALL);
 			} else if (pGround) {
