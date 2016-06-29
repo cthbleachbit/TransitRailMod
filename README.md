@@ -12,11 +12,11 @@ Get this mod
 
 * Unstable builds on [my website](https://cth451.tk/transitrailmod-updates)
 
-* Build it yourself from source codes, guide on [wiki](https://github.com/cthbleachbit/TransitRailMod/wiki/How-To-Setup-Environment)
+* Build it yourself from source codes, guide on [wiki](http://transitrailmod.cth451.tk/How-to-setup-environment)
 
 Testing
 -------
 
-Follow the guide on [wiki](https://github.com/cthbleachbit/TransitRailMod/wiki/How-To-Setup-Environment) to set up eclipse and forge development environment, then run the client from eclipse to test.
+Follow the guide on [wiki](http://transitrailmod.cth451.tk/How-to-setup-environment) to set up eclipse and forge development environment, then run the client from eclipse to test.
 
 For multiplayer testing, see #5 issue.
