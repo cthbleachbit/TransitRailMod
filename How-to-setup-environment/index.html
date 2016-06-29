@@ -10,6 +10,14 @@
 
     <!--Description-->
     
+        <meta name="description" content="Step 1 Grab codes
+
+Download Minecraft Forge mdk and clone this repository
+
+Step 2 Dependencies
+
+Dependencies: openjdk-8 (package name may vary) on Lin">
+    
 
     <!--Author-->
     
@@ -18,7 +26,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="TransitRailMod Wiki"/>
+        <meta property="og:title" content="How to setup environment"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +37,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +48,7 @@
 
     <!-- Title -->
     
-    <title>TransitRailMod Wiki</title>
+    <title>How to setup environment - TransitRailMod Wiki</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -124,81 +132,100 @@
 
     <!-- Main Content -->
     <!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
 <header class="intro-header" style="background-image: url('/img/bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>TransitRailMod Wiki</h1>
-                    <hr class="small">
-                    <span class="subheading"></span>
+                <div class="post-heading">
+                    <h1>How to setup environment</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-06-29
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            
-                <div class="post-preview">
-    <a href="/Repository-structure/">
-        <h2 class="post-title">
-            Repository structure
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2016-06-29
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/Recipe-templates/">
-        <h2 class="post-title">
-            Recipe templates
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2016-06-29
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/How-to-setup-environment/">
-        <h2 class="post-title">
-            How to setup environment
-        </h2>
-        
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-        2016-06-29
-    </p>
-</div>
-<hr>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+
+<a href="/tags/Guides/">#Guides</a> <a href="/tags/Informational/">#Informational</a>
+
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                        
+
+<a href="/categories/Getting-Started/">Getting Started</a>
+
+                    
+                </div>
             
 
-            <ul class="pager">
-    
-    
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul>
+<li>Step 1 Grab codes</li>
 </ul>
+<p>Download Minecraft Forge <a href="http://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.8.html" target="_blank" rel="external"><strong>mdk</strong></a> and clone this repository</p>
+<ul>
+<li>Step 2 Dependencies</li>
+</ul>
+<p>Dependencies: <code>openjdk-8</code> (package name may vary) on Linux, Oracle jdk 8 on Windows and Eclipse installed</p>
+<p>Extract folders <code>gradle</code> <code>eclipse</code> and file <code>gradlew</code> on *nix or <code>gradlew.bat</code> on Windows into the repository.</p>
+<ul>
+<li>Step 3 <code>gradle</code> auto configuration</li>
+</ul>
+<p>In *nix terminal, change directory to the repo and type <code>./gradlew setupDecompWorkspace</code> (or <code>gradlew.bat setupDecompWorkspace</code> in <code>cmd</code> on Windows). This step takes a lot of time, depending on your Internet connection speed.</p>
+<ul>
+<li>Step 4 Eclipse configuration</li>
+</ul>
+<p>Before starting Eclipse, run <code>./gradlew eclipse</code> on *nix and <code>gradlew.bat eclipse</code> on Windows.</p>
+<p>Fire up Eclipse, select <code>eclipse</code> folder in the repository for workspace.</p>
+<h2 id="Hints"><a href="#Hints" class="headerlink" title="Hints"></a>Hints</h2><ul>
+<li><p>Find decompiled and deobfuscated Minecraft source in “Referenced Libraries/forgeSrc” within Eclipse IDE</p>
+</li>
+<li><p>All source codes and <code>json</code> files are in <code>LF</code> (unix) line endings. If you are using Windows, <strong>Make sure <code>git</code> recognizes this and performs line ending conversion from <code>CRLF</code> to <code>LF</code> on every commit</strong> or things can go wrong.</p>
+</li>
+<li><p>Don’t try to load other mods if you are running Minecraft from eclipse. Minecraft in eclipse is a deobfuscated dev version so it would throw exceptions everywhere if you try to load a jar meant for release version of the game.</p>
+</li>
+</ul>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />
