@@ -28,7 +28,6 @@ import tk.cth451.transitrailmod.init.ModItems;
 
 public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	
-	public static final PropertyBool UPPER = PropertyBool.create("upper");
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	public static final PropertyBool LEFT = PropertyBool.create("left"); 
 	
@@ -121,10 +120,6 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 		return this.getDefaultState().withProperty(FACING, pFacing).withProperty(POWERED, pPowered);
 	}
 	
-	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
-		return worldIn.getBlockState(pos.down()).getBlock().equals(this);
-	}
-	
 	public boolean isLeft(IBlockAccess worldIn, BlockPos pos, EnumFacing direc){
 		return worldIn.getBlockState(pos.offset(direc.rotateY())).getBlock().equals(this);
 	}
@@ -148,9 +143,15 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
 		boolean flagUpper = isUpper(worldIn, pos);
+		// check whether the block triggered is the upper part
+		
 		BlockPos pos1 = flagUpper ? pos.down() : pos.up();
+		// get the other part
+		
 		Boolean flagOkay = (worldIn.getBlockState(pos1).getBlock() == this);
+		// check whether the other part gets destroyed
 		if (flagOkay) {
+			// if not triggered by player breaking parts, update redstone status
 			Boolean flag = (Boolean) worldIn.getBlockState(pos.up()).getValue(POWERED);
 			if (flag != (Boolean) state.getValue(POWERED)) {
 				worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
@@ -158,14 +159,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 			}
 			super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
 		} else {
-			if (flagUpper) {
-				worldIn.setBlockToAir(pos.up());
-				worldIn.setBlockToAir(pos.down());
-			} else {
-				worldIn.setBlockToAir(pos.up());
-				worldIn.setBlockToAir(pos.up(2));
-			}
-			worldIn.setBlockToAir(pos);
+			this.destroyParts(flagUpper, worldIn, pos);
 		}
 	}
 }

@@ -30,7 +30,6 @@ import tk.cth451.transitrailmod.init.ModItems;
 
 public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-	public static final PropertyBool UPPER = PropertyBool.create("upper");
 	
 	public ClosedPlatformPanelBlock(Material materialIn) {
 		super(Material.glass);
@@ -86,19 +85,6 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 	}
 	
 	// Interactions
-	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-		if (isUpper(world, pos)) {
-			world.setBlockToAir(pos.up());
-			world.setBlockToAir(pos.down());
-		} else {
-			world.setBlockToAir(pos.up());
-			world.setBlockToAir(pos.up(2));
-		}
-		world.setBlockToAir(pos);
-		return true;
-	}
-	
 	@SideOnly(Side.CLIENT)
 	public Item getItem(World worldIn, BlockPos pos)
 	{
@@ -115,7 +101,16 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 		return this.getItem();
 	}
 	
-	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
-		return worldIn.getBlockState(pos.down()).getBlock().equals(this);
+	@Override
+	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+		boolean flagUpper = isUpper(worldIn, pos);
+		// check whether the block triggered is the upper part
+		BlockPos pos1 = flagUpper ? pos.down() : pos.up();
+		// get the other part
+		Boolean flagOkay = (worldIn.getBlockState(pos1).getBlock() == this);
+		// check whether the other part gets destroyed
+		if (!flagOkay) {
+			this.destroyParts(flagUpper, worldIn, pos);
+		}
 	}
 }
