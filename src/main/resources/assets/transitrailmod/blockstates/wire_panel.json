@@ -1,12 +1,20 @@
 {
 	"variants": {
-		"facing=north,lamp=true": { "model": "transitrailmod:wire_panel_with_lamp" },
-		"facing=north,lamp=false": { "model": "transitrailmod:wire_panel" },
-		"facing=east,lamp=true": {"model": "transitrailmod:wire_panel_with_lamp", "y": 90 },
-		"facing=east,lamp=false": {"model": "transitrailmod:wire_panel", "y": 90 },
-		"facing=south,lamp=true": {"model": "transitrailmod:wire_panel_with_lamp", "y": 180 },
-		"facing=south,lamp=false": {"model": "transitrailmod:wire_panel", "y": 180 },
-		"facing=west,lamp=true": {"model": "transitrailmod:wire_panel_with_lamp", "y": 270 },
-		"facing=west,lamp=false": {"model": "transitrailmod:wire_panel", "y": 270 }
+		"facing=north,lamp=true,shut=false": { "model": "transitrailmod:wire_panel_with_lamp" },
+		"facing=north,lamp=false,shut=false": { "model": "transitrailmod:wire_panel" },
+		"facing=east,lamp=true,shut=false": {"model": "transitrailmod:wire_panel_with_lamp", "y": 90 },
+		"facing=east,lamp=false,shut=false": {"model": "transitrailmod:wire_panel", "y": 90 },
+		"facing=south,lamp=true,shut=false": {"model": "transitrailmod:wire_panel_with_lamp", "y": 180 },
+		"facing=south,lamp=false,shut=false": {"model": "transitrailmod:wire_panel", "y": 180 },
+		"facing=west,lamp=true,shut=false": {"model": "transitrailmod:wire_panel_with_lamp", "y": 270 },
+		"facing=west,lamp=false,shut=false": {"model": "transitrailmod:wire_panel", "y": 270 },
+		"facing=north,lamp=true,shut=true": { "model": "transitrailmod:wire_panel_shut" },
+		"facing=north,lamp=false,shut=true": { "model": "transitrailmod:wire_panel_shut" },
+		"facing=east,lamp=true,shut=true": {"model": "transitrailmod:wire_panel_shut", "y": 90 },
+		"facing=east,lamp=false,shut=true": {"model": "transitrailmod:wire_panel_shut", "y": 90 },
+		"facing=south,lamp=true,shut=true": {"model": "transitrailmod:wire_panel_shut", "y": 180 },
+		"facing=south,lamp=false,shut=true": {"model": "transitrailmod:wire_panel_shut", "y": 180 },
+		"facing=west,lamp=true,shut=true": {"model": "transitrailmod:wire_panel_shut", "y": 270 },
+		"facing=west,lamp=false,shut=true": {"model": "transitrailmod:wire_panel_shut", "y": 270 }
     }
 }

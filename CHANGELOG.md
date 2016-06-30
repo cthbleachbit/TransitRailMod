@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+0.8
+---
+
+Added:
+* Wire Panel Corner
+* Wire Panel Extra model
+
+Fixed:
+* Issue #6: platform doors and panels breaking fix
+
+Changed:
+* The style changer now has damage values
+
 0.7
 ---
 

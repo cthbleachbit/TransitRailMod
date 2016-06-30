@@ -1,13 +1,36 @@
 package tk.cth451.transitrailmod.items;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
+import tk.cth451.transitrailmod.blocks.prototype.ArrowSign;
 
 public class StyleChanger extends Item {
 	
 	public StyleChanger(){
 		super();
-		setUnlocalizedName("style_changer");
-		setCreativeTab(TransitRailMod.tabTransitRail);
+		this.maxStackSize = 1;
+		this.setMaxDamage(64);
+		this.setUnlocalizedName("style_changer");
+		this.setCreativeTab(TransitRailMod.tabTransitRail);
+	}
+	
+	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
+	{
+		IBlockState state = worldIn.getBlockState(pos);
+		
+		if (state.getBlock() instanceof ArrowSign)
+		{
+			worldIn.setBlockState(pos, state.cycleProperty(ArrowSign.ARROW));
+			stack.damageItem(1, playerIn);
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

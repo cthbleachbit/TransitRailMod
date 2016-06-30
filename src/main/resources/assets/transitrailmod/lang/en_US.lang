@@ -14,4 +14,5 @@ tile.hung_arrow_sign.name=Hung Arrow Sign
 tile.platform_arrow_sign.name=Platform Arrow Sign
 tile.fluorescent_lamp.name=Fluorescent Lamp
 tile.wire_panel.name=Wire Panel
+tile.wire_panel_corner.name=Wire Panel Corner
 tile.platform_sign.name=Platform Sign

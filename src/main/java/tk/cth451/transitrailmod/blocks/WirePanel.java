@@ -20,15 +20,21 @@ import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
 import tk.cth451.transitrailmod.blocks.prototype.CustomDirectionBlock;
 import tk.cth451.transitrailmod.init.ModBlocks;
+import tk.cth451.transitrailmod.init.ModItems;
 
 public class WirePanel extends CustomDirectionBlock {
 	
 	public static final PropertyBool LAMP = PropertyBool.create("lamp");
+	public static final PropertyBool SHUT = PropertyBool.create("shut");
 	
 	public WirePanel(Material materialIn) {
 		super(Material.iron);
 		this.setUnlocalizedName("wire_panel");
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
+		this.setDefaultState(this.getDefaultState()
+				.withProperty(LAMP, false)
+				.withProperty(FACING, EnumFacing.NORTH)
+				.withProperty(SHUT, false));
 	}
 	
 	// Properties
@@ -69,23 +75,30 @@ public class WirePanel extends CustomDirectionBlock {
 	// Block States
 	@Override
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, LAMP});
+		return new BlockState(this, new IProperty[] {FACING, LAMP, SHUT});
 	}
 	
+	// meta: 3211
+	// 11: facing
+	// 2: lamp
+	// 3: shut
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int mFacing = ((EnumFacing) state.getValue(FACING)).getHorizontalIndex();
 		int mLamp = (Boolean) state.getValue(LAMP) ? 1 : 0;
-		return mLamp * 4 + mFacing;
+		int mShut = (Boolean) state.getValue(SHUT) ? 1 : 0;
+		return mShut * 8 + mLamp * 4 + mFacing;
 	}
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing pFacing = EnumFacing.getHorizontal(meta % 4);
-		boolean pLamp = meta % 4 > 0;
+		boolean pLamp = ((meta % 8) / 4) > 0;
+		boolean pShut = meta / 8 > 0;
 		return this.getDefaultState()
 				.withProperty(FACING, pFacing)
-				.withProperty(LAMP, pLamp);
+				.withProperty(LAMP, pLamp)
+				.withProperty(SHUT, pShut);
 	}
 	
 	// Interactions
@@ -94,19 +107,21 @@ public class WirePanel extends CustomDirectionBlock {
 		// set facing to the direction player is facing
 		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
 		return this.getFacingState(state, placer)
-				.withProperty(LAMP, this.checkLampPresent(worldIn, pos));
+				.withProperty(LAMP, this.checkLampPresent(worldIn, pos))
+				.withProperty(SHUT, this.checkIsExtendingAbove(worldIn,pos));
 	}
 	
 	@Override
 	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
 		EnumFacing sideToProvide = ((EnumFacing) state.getValue(FACING)).getOpposite();
-		worldIn.setBlockState(pos, state.withProperty(LAMP, this.checkLampPresent(worldIn, pos)));
+		state = state.withProperty(LAMP, this.checkLampPresent(worldIn, pos));
+		worldIn.setBlockState(pos, state);
 		worldIn.notifyBlockOfStateChange(pos.offset(sideToProvide), this);
 	}
 	
 	@Override
 	public int isProvidingWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-		if (this.checkLampPresent(worldIn, pos)) {
+		if (this.checkLampPresent(worldIn, pos) && !((Boolean) state.getValue(SHUT))) {
 			EnumFacing sideToProvide = ((EnumFacing) state.getValue(FACING));
 			return sideToProvide == side ? 15 : 0;
 		} else {
@@ -114,7 +129,23 @@ public class WirePanel extends CustomDirectionBlock {
 		}
 	}
 	
-	protected boolean checkLampPresent(IBlockAccess worldIn, BlockPos pos){
+	protected boolean checkLampPresent(IBlockAccess worldIn, BlockPos pos) {
 		return worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.fluorescent_lamp;
+	}
+	
+	protected boolean checkIsExtendingAbove(IBlockAccess worldIn, BlockPos pos) {
+		return worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.wire_panel;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (playerIn.getHeldItem() != null) {
+			if (playerIn.getHeldItem().getItem() == ModItems.style_changer){
+				worldIn.setBlockState(pos, state.cycleProperty(SHUT));
+				return true;
+			}
+		}
+		return false;
 	}
 }

@@ -15,5 +15,4 @@ public class LogoBlock extends Block {
 		setHarvestLevel("pickaxe", 1);
 		setCreativeTab(TransitRailMod.tabTransitRail);
 	}
-
 }

@@ -81,18 +81,6 @@ public abstract class ArrowSign extends CustomDirectionBlock {
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (playerIn.getHeldItem() != null) {
-			if (playerIn.getHeldItem().getItem() == ModItems.style_changer){
-				worldIn.setBlockState(pos, state.cycleProperty(ARROW));
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	@Override
 	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
 		return true;
 	}
