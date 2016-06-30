@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -80,13 +81,6 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 			}
 		}
     }
-	
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-		boolean original = super.shouldSideBeRendered(worldIn, pos, side);
-		boolean isSideConnected = (worldIn.getBlockState(pos.offset(side)).getBlock() == this);
-		return original && isSideConnected;
-	}
 	
 	// BlockStates
 	@Override

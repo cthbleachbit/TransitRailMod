@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -56,6 +57,13 @@ public abstract class ClosedPlatformBlock extends CustomDirectionBlock {
 	public EnumWorldBlockLayer getBlockLayer()
 	{
 		return EnumWorldBlockLayer.TRANSLUCENT;
+	}
+	
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
+		boolean original = super.shouldSideBeRendered(worldIn, pos, side);
+		boolean isSideConnected = (worldIn.getBlockState(pos.offset(side)).getBlock() != Blocks.air);
+		return original && isSideConnected;
 	}
 	
 	protected boolean isUpper(IBlockAccess worldIn, BlockPos pos){

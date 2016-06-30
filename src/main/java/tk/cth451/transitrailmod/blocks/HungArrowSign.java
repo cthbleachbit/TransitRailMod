@@ -30,11 +30,6 @@ public class HungArrowSign extends ArrowSign {
 	
 	// Properties
 	@Override
-	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-		return true;
-	}
-	
-	@Override
 	public boolean isFullCube()
     {
         return false;

@@ -54,13 +54,6 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 		}
     }
 	
-	@Override
-	public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side) {
-		boolean original = super.shouldSideBeRendered(worldIn, pos, side);
-		boolean isSideConnected = (worldIn.getBlockState(pos.offset(side)).getBlock() != Blocks.air);
-		return original && isSideConnected;
-	}
-	
 	// Block State Methods
 	@Override
 	public BlockState createBlockState() {
