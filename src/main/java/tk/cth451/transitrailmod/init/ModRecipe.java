@@ -17,7 +17,7 @@ public class ModRecipe {
 				'B', Items.paper);
 		
 		// closed platform door
-		GameRegistry.addRecipe(new ItemStack(ModItems.closed_platform_door_item, 8),
+		GameRegistry.addRecipe(new ItemStack(ModItems.closed_platform_door_item, 16),
 				"BCB",
 				"BAB",
 				"BAB",
@@ -26,7 +26,7 @@ public class ModRecipe {
 				'C', Items.redstone);
 		
 		// closed platform panel
-		GameRegistry.addRecipe(new ItemStack(ModItems.closed_platform_panel_item, 8),
+		GameRegistry.addRecipe(new ItemStack(ModItems.closed_platform_panel_item, 16),
 				"BBB",
 				"BAB",
 				"BAB",
@@ -34,7 +34,7 @@ public class ModRecipe {
 				'B', Items.iron_ingot);
 		
 		// platform gate
-		GameRegistry.addRecipe(new ItemStack(ModItems.platform_gate_item, 8),
+		GameRegistry.addRecipe(new ItemStack(ModItems.platform_gate_item, 16),
 				"   ",
 				"BAB",
 				"BAB",
@@ -42,7 +42,7 @@ public class ModRecipe {
 				'B', Items.iron_ingot);
 		
 		// platform panel
-		GameRegistry.addRecipe(new ItemStack(ModItems.platform_panel_item, 8),
+		GameRegistry.addRecipe(new ItemStack(ModItems.platform_panel_item, 16),
 				" C ",
 				"BAB",
 				"BAB",
@@ -78,7 +78,7 @@ public class ModRecipe {
 				'C', Blocks.iron_block);
 		
 		// wire panel
-		GameRegistry.addRecipe(new ItemStack(ModBlocks.wire_panel, 4),
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.wire_panel, 8),
 				"ABA",
 				"ABA",
 				"ABA",

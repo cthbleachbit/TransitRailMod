@@ -6,6 +6,10 @@ Change Log
 
 Added:
 * Wire Panel Corner
+* Wire Panel Extra model
+
+Fixed:
+* Issue #6: platform doors and panels breaking fix
 
 0.7
 ---
