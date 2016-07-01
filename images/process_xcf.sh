@@ -1,6 +1,7 @@
 #!/bin/bash
 
 rm -rf png
+rm -rf ../src/main/resources/assets/transitrailmod/textures/*
 mkdir `find -type d | sed -e "s|xcf|png|g"`
 
 for xcf_name in `find | grep -e "\w.xcf$"`; do
