@@ -3,11 +3,11 @@ package tk.cth451.transitrailmod.items;
 import net.minecraft.item.Item;
 import tk.cth451.transitrailmod.TransitRailMod;
 
-public class TicketingGateItem extends Item {
+public class TurnstileItem extends Item {
 	
-	public TicketingGateItem(){
+	public TurnstileItem(){
 		super();
-		setUnlocalizedName("ticketing_gate_item");
+		setUnlocalizedName("turnstile_item");
 		setCreativeTab(TransitRailMod.tabTransitRail);
 	}
 }

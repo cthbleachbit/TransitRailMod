@@ -1,7 +1,7 @@
 {
     "parent": "builtin/generated",
     "textures": {
-        "layer0": "transitrailmod:items/ticketing_gate_item"
+        "layer0": "transitrailmod:items/turnstile_item"
     },
     "display": {
         "thirdperson": {

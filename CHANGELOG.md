@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+0.9
+---
+
+Changes that requires attention:
+* Changed Item name from `ticketing_gate` to `turnstile`
+
+Minecraft will warn about missing items. Yet these things are not implemented previously and unavailable in survival. Just continue.
+
 0.8
 ---
 

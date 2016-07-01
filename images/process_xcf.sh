@@ -1,5 +1,8 @@
 #!/bin/bash
 
+rm -rf png
+mkdir `find -type d | sed -e "s|xcf|png|g"`
+
 for xcf_name in `find | grep -e "\w.xcf$"`; do
 	png_name=`echo $xcf_name | sed -e "s|\./xcf/||g" -e "s|\.xcf||g"`
 	echo $png_name
