@@ -5,7 +5,7 @@ item.closed_platform_door_item.name=站台移门
 item.closed_platform_panel_item.name=站台玻璃面板
 item.platform_panel_item.name=半高站台玻璃面板
 item.platform_gate_item.name=半高站台闸门
-item.ticketing_gate_item.name=验票闸门
+item.turnstile_item.name=验票闸门
 item.train_ticket.name=车票
 item.ticket_machine_item.name=售票机
 
