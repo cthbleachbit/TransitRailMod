@@ -25,7 +25,7 @@ public class TrainTicket extends Item {
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		int damage = stack.getItemDamage();
+		int damage = this.getMaxDamage() + 1 - stack.getItemDamage();
 		tooltip.add(damage + "/" + (this.getMaxDamage() + 1));
 	}
 	

@@ -15,7 +15,8 @@ public class StyleChanger extends Item {
 	public StyleChanger(){
 		super();
 		this.maxStackSize = 1;
-		this.setMaxDamage(64);
+		this.setMaxDamage(63);
+		// max 64 uses
 		this.setUnlocalizedName("style_changer");
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
 	}
