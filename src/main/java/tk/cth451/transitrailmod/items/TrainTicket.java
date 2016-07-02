@@ -19,19 +19,32 @@ public class TrainTicket extends Item {
 		setUnlocalizedName("train_ticket");
 		setCreativeTab(TransitRailMod.tabTransitRail);
 		this.maxStackSize = 1;
-		this.setMaxDamage(199);
-		// max 200 uses
+		this.setMaxDamage(200);
+		// max 100 rides (200 uses)
 	}
 	
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		int damage = this.getMaxDamage() + 1 - stack.getItemDamage();
-		tooltip.add(damage + "/" + (this.getMaxDamage() + 1));
+		int damage = stack.getItemDamage();
+		tooltip.add(isTicketInUse(damage) ? "In Use" : "Not In Use");
+		tooltip.add("Remaining Rides: " + getRidesRemaining(damage, this.getMaxDamage()));
 	}
 	
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
 		stack.damageItem(1, playerIn);
 		return true;
+	}
+	
+	// damage to rides conversion
+	// n rides = 2 n uses = 2 n - 1 max damage
+	// On entry, the damage should be added 1 if and only if the damage is an even number.
+	// On exit, the damage should be added 1 if and only if the damage is an odd number.
+	public static boolean isTicketInUse(int damage) {
+		return damage % 2 == 1;
+	}
+	
+	public static int getRidesRemaining(int damage, int maxUses) {
+		return (maxUses - damage) / 2; 
 	}
 }
