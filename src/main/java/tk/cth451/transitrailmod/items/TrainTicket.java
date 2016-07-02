@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
 import tk.cth451.transitrailmod.blocks.prototype.ArrowSign;
@@ -23,11 +24,17 @@ public class TrainTicket extends Item {
 		// max 100 rides (200 uses)
 	}
 	
+	// transitrailmod.ticket.in_use
+	// transitrailmod.ticket.not_in_use
+	// transitrailmod.ticket.remaining_rides
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 		int damage = stack.getItemDamage();
-		tooltip.add(isTicketInUse(damage) ? "In Use" : "Not In Use");
-		tooltip.add("Remaining Rides: " + getRidesRemaining(damage, this.getMaxDamage()));
+		String usageLangKey = isTicketInUse(damage) ? "transitrailmod.ticket.in_use" : "transitrailmod.ticket.not_in_use";
+		String usageToolTip = StatCollector.translateToLocal(usageLangKey);
+		tooltip.add(usageToolTip);
+		String ridesToolTip = StatCollector.translateToLocal("transitrailmod.ticket.remaining_rides");
+		tooltip.add(ridesToolTip + ": " + getRidesRemaining(damage, this.getMaxDamage()));
 	}
 	
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)

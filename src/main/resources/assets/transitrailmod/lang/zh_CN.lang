@@ -16,3 +16,7 @@ tile.fluorescent_lamp.name=日光灯
 tile.wire_panel.name=电缆架
 tile.wire_panel_corner.name=电缆架转角
 tile.platform_sign.name=站台标识
+
+transitrailmod.ticket.in_use=使用中
+transitrailmod.ticket.not_in_use=未使用
+transitrailmod.ticket.remaining_rides=剩余搭乘次数

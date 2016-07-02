@@ -16,3 +16,7 @@ tile.fluorescent_lamp.name=Fluorescent Lamp
 tile.wire_panel.name=Wire Panel
 tile.wire_panel_corner.name=Wire Panel Corner
 tile.platform_sign.name=Platform Sign
+
+transitrailmod.ticket.in_use=In Use
+transitrailmod.ticket.not_in_use=Not In Use
+transitrailmod.ticket.remaining_rides=Remaining Rides
