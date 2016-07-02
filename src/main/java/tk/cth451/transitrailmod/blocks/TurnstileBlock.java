@@ -123,7 +123,7 @@ public class TurnstileBlock extends CustomDirectionBlock{
 			case SOUTH :
 				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
 				break;
-			case WEST :
+			default : //WEST
 				this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
 		}
 	}
@@ -138,7 +138,7 @@ public class TurnstileBlock extends CustomDirectionBlock{
 					return getBBFromBounds(pos, 0.0F, 0.4375F, 0.4375F, 1.0F, 1.5F, 0.5625F);
 				case SOUTH :
 					return getBBFromBounds(pos, 0.0F, 0.4375F, 0.4375F, 1.0F, 1.5F, 0.5625F);
-				default :
+				default : // EAST WEST
 					return getBBFromBounds(pos, 0.4375F, 0.4375F, 0.0F, 0.5625F, 1.5F, 1.0F);
 			}
 		}
