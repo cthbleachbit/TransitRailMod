@@ -4,8 +4,14 @@ Change Log
 0.9
 ---
 
-Changes that requires attention:
-* Changed Item name from `ticketing_gate` to `turnstile`
+Added:
+* Turnstile Block
+
+Changed:
+* Train Ticket Balance Handling
+
+Removed:
+* `ticketing_gate_item`
 
 Minecraft will warn about missing items. Yet these things are not implemented previously and unavailable in survival. Just continue.
 

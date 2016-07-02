@@ -5,7 +5,6 @@ item.closed_platform_door_item.name=Platform Door
 item.closed_platform_panel_item.name=Platform Panel
 item.platform_panel_item.name=Half Height Platform Panel
 item.platform_gate_item.name=Half Height Platform Gate
-item.turnstile_item.name=Turnstile
 item.train_ticket.name=Ticket
 item.ticket_machine_item.name=Ticket Machine
 
@@ -16,6 +15,7 @@ tile.fluorescent_lamp.name=Fluorescent Lamp
 tile.wire_panel.name=Wire Panel
 tile.wire_panel_corner.name=Wire Panel Corner
 tile.platform_sign.name=Platform Sign
+tile.turnstile_block.name=Turnstile
 
 transitrailmod.ticket.in_use=In Use
 transitrailmod.ticket.not_in_use=Not In Use
