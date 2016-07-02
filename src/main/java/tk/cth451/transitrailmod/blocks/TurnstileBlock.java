@@ -1,13 +1,20 @@
 package tk.cth451.transitrailmod.blocks;
 
+import java.util.List;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.blocks.prototype.CustomDirectionBlock;
@@ -78,5 +85,57 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer() {
 		return EnumWorldBlockLayer.SOLID;
+	}
+	
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
+		IBlockState state = worldIn.getBlockState(pos);
+		switch (((EnumFacing) state.getValue(FACING))) {
+			case NORTH :
+				this.setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+				break;
+			case EAST :
+				this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
+				break;
+			case SOUTH :
+				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+				break;
+			case WEST :
+				this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
+		}
+	}
+	
+	protected AxisAlignedBB getBarBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
+		IBlockState state = worldIn.getBlockState(pos);
+		if ((Boolean) state.getValue(ACTIVE)){
+			return null;
+		} else {
+			switch (((EnumFacing) state.getValue(FACING))) {
+				case NORTH :
+					return getBBFromBounds(pos, 0.0F, 0.4375F, 0.4375F, 1.0F, 1.5F, 0.5625F);
+				case SOUTH :
+					return getBBFromBounds(pos, 0.0F, 0.4375F, 0.4375F, 1.0F, 1.5F, 0.5625F);
+				default :
+					return getBBFromBounds(pos, 0.4375F, 0.4375F, 0.0F, 0.5625F, 1.5F, 1.0F);
+			}
+		}
+	}
+	
+	private AxisAlignedBB getBBFromBounds (BlockPos pos, double x1, double y1, double z1, double x2, double y2, double z2) {
+		return new AxisAlignedBB(pos.getX() + x1, pos.getY() + y1, pos.getZ() + z1, pos.getX() + x2, pos.getY() + y2, pos.getZ() + z2);
+	}
+	
+	@Override
+	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
+			Entity collidingEntity) {
+		this.setBlockBoundsBasedOnState(worldIn, pos);
+		AxisAlignedBB axisalignedbb1 = this.getCollisionBoundingBox(worldIn, pos, state);
+		AxisAlignedBB barBound = this.getBarBoundsBasedOnState(worldIn, pos);
+		if (axisalignedbb1 != null && mask.intersectsWith(axisalignedbb1)) {
+			list.add(axisalignedbb1);
+		}
+		if (barBound != null && mask.intersectsWith(barBound)) {
+			list.add(barBound);
+		}
 	}
 }
