@@ -1,6 +1,7 @@
 package tk.cth451.transitrailmod.blocks;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -9,6 +10,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -29,6 +31,7 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	public TurnstileBlock(Material materialIn) {
 		super(Material.iron);
 		this.setUnlocalizedName("turnstile_block");
+		this.setTickRandomly(true);
 		this.setDefaultState(this.getDefaultState()
 				.withProperty(ACTIVE, false)
 				.withProperty(PASSING, EnumPassingDirection.INSIDE)
@@ -50,6 +53,16 @@ public class TurnstileBlock extends CustomDirectionBlock{
     {
         return false;
     }
+	
+	@Override
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		return true;
+	}
+	
+	@Override
+	public int tickRate(World worldIn) {
+		return 20;
+	}
 	
 	// Block State
 	@Override
@@ -78,6 +91,16 @@ public class TurnstileBlock extends CustomDirectionBlock{
 				.withProperty(ACTIVE, pActive)
 				.withProperty(PASSING, pPassing)
 				.withProperty(FACING, pFacing);
+	}
+	
+	// Interactions
+	
+	@Override
+	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {}
+	
+	@Override
+	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+		worldIn.setBlockState(pos, state.withProperty(ACTIVE, false));
 	}
 	
 	// Appearance

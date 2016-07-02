@@ -23,4 +23,8 @@ public enum EnumPassingDirection implements IStringSerializable {
 	public String toString() {
 		return this.getName();
 	}
+	
+	public boolean isInside() {
+		return this == INSIDE ? true : false;
+	}
 }
