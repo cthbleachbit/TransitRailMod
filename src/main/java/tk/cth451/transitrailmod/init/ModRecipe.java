@@ -39,6 +39,12 @@ public class ModRecipe {
 				"BAB",
 				'A', Blocks.glass,
 				'B', Items.iron_ingot);
+		GameRegistry.addRecipe(new ItemStack(ModItems.platform_gate_item, 16),
+				"BAB",
+				"BAB",
+				"   ",
+				'A', Blocks.glass,
+				'B', Items.iron_ingot);
 		
 		// platform panel
 		GameRegistry.addRecipe(new ItemStack(ModItems.platform_panel_item, 16),
@@ -57,6 +63,12 @@ public class ModRecipe {
 		
 		// hung arrow sign
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.hung_arrow_sign, 2),
+				"   ",
+				"BBB",
+				" A ",
+				'A', Items.arrow,
+				'B', Items.iron_ingot);
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.hung_arrow_sign, 2),
 				"BBB",
 				" A ",
 				"   ",
@@ -69,9 +81,23 @@ public class ModRecipe {
 		
 		// fluorescent lamp
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
+				"A  ",
+				"B  ",
+				"C  ",
+				'A', Blocks.glass,
+				'B', Blocks.glowstone,
+				'C', Blocks.iron_block);
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
 				" A ",
 				" B ",
 				" C ",
+				'A', Blocks.glass,
+				'B', Blocks.glowstone,
+				'C', Blocks.iron_block);
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
+				"  A",
+				"  B",
+				"  C",
 				'A', Blocks.glass,
 				'B', Blocks.glowstone,
 				'C', Blocks.iron_block);

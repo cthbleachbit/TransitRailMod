@@ -6,9 +6,11 @@ Change Log
 
 Added:
 * Turnstile Block
+* Slim Passenger Detector Block
 
 Changed:
-* Train Ticket Balance Handling
+* Train Ticket has maximum number of rides
+* Recipes are handled more freely now
 
 Removed:
 * `ticketing_gate_item`
