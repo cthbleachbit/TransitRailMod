@@ -90,5 +90,13 @@ public class ModRecipe {
 				new Object[] {ModBlocks.wire_panel});
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.wire_panel),
 				new Object[] {ModBlocks.wire_panel_corner});
+		
+		// turnstile block
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.turnstile_block, 8),
+				"AAB",
+				"  A",
+				"  A",
+				'A', Items.iron_ingot,
+				'B', Items.redstone);
 	}
 }

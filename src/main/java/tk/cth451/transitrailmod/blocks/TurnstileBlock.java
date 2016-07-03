@@ -68,7 +68,7 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	
 	@Override
 	public int tickRate(World worldIn) {
-		return 20;
+		return 30;
 	}
 	
 	// Block State
