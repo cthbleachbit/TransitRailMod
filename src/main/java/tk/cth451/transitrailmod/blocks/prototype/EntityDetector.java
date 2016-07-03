@@ -3,7 +3,6 @@ package tk.cth451.transitrailmod.blocks.prototype;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -18,8 +17,9 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import tk.cth451.transitrailmod.TransitRailMod;
 
-public abstract class EntityDetector extends Block {
+public abstract class EntityDetector extends CustomDirectionBlock {
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
@@ -27,6 +27,7 @@ public abstract class EntityDetector extends Block {
 	public EntityDetector(Material materialIn) {
 		super(materialIn);
 		this.setTickRandomly(true);
+		this.setCreativeTab(TransitRailMod.tabTransitRail);
 		this.setDefaultState(getDefaultState()
 				.withProperty(FACING, EnumFacing.NORTH)
 				.withProperty(POWERED, false));
@@ -77,30 +78,23 @@ public abstract class EntityDetector extends Block {
 	
 	// Interactions
 	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-		// set facing to the direction player is facing
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		EnumFacing thisFacing = placer.getHorizontalFacing();
-		return this.getActualState(state, worldIn, pos).withProperty(FACING, thisFacing);
-	}
-	
-	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		if (!worldIn.isRemote){
-			if ((Boolean) state.getValue(POWERED)) {
-				worldIn.setBlockState(pos, state.withProperty(POWERED, givePower(worldIn, pos) > 0));
-			}
+			this.updateState(state, worldIn, pos);
 		}
 	}
 	
 	@Override
 	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
 		if (!worldIn.isRemote){
-			if (!(Boolean) state.getValue(POWERED)) {
-				worldIn.setBlockState(pos, state.withProperty(POWERED, givePower(worldIn, pos) > 0));
-				
-			}
+			this.updateState(state, worldIn, pos);
 		}
+	}
+	
+	protected void updateState(IBlockState state, World worldIn, BlockPos pos) {
+		worldIn.setBlockState(pos, state.withProperty(POWERED, givePower(worldIn, pos) > 0));
+		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+		worldIn.notifyNeighborsOfStateChange(pos.offset(facing), this);
 	}
 	
 	protected AxisAlignedBB getSpaceToCheck(World worldIn, BlockPos pos){
@@ -115,17 +109,19 @@ public abstract class EntityDetector extends Block {
 	
 	protected int givePower(World worldIn, BlockPos pos){
 		AxisAlignedBB spaceToCheck = getSpaceToCheck(worldIn, pos);
-		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
 		List list = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, spaceToCheck);
-		worldIn.notifyBlockOfStateChange(pos.offset(facing), this);
-		worldIn.markBlockForUpdate(pos.offset(facing));
 		
 		worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
 		return list.isEmpty() ? 0 : 15;
 	}
 	
 	@Override
-	public int isProvidingStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+	public int isProvidingWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
 		return side.getOpposite() == (EnumFacing) state.getValue(FACING) ? givePower((World) worldIn, pos) : 0;
+	}
+	
+	@Override
+	public int isProvidingStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+		return this.isProvidingWeakPower(worldIn, pos, state, side);
 	}
 }
