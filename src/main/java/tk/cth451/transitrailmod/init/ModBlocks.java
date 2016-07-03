@@ -11,6 +11,7 @@ import tk.cth451.transitrailmod.blocks.ClosedPlatformDoorBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformPanelBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformTop;
 import tk.cth451.transitrailmod.blocks.FluorescentLamp;
+import tk.cth451.transitrailmod.blocks.FullPassengerDetector;
 import tk.cth451.transitrailmod.blocks.HungArrowSign;
 import tk.cth451.transitrailmod.blocks.LogoBlock;
 import tk.cth451.transitrailmod.blocks.PlatformArrowSign;
@@ -34,6 +35,7 @@ public class ModBlocks {
 	public static Block wire_panel_corner;
 	public static Block platform_sign;
 	public static Block turnstile_block;
+	public static Block full_passenger_detector;
 	
 	public static void init() {
 		closed_platform_top = new ClosedPlatformTop(Material.cloth);
@@ -49,6 +51,7 @@ public class ModBlocks {
 		wire_panel_corner = new WirePanelCorner(Material.iron);
 		//platform_sign = new PlatformSign(Material.iron);
 		turnstile_block = new TurnstileBlock(Material.iron);
+		full_passenger_detector = new FullPassengerDetector(Material.iron);
 	}
 	
 	public static void register() {
@@ -65,6 +68,7 @@ public class ModBlocks {
 		GameRegistry.registerBlock(wire_panel_corner, wire_panel_corner.getUnlocalizedName().substring(5));
 		//GameRegistry.registerBlock(platform_sign, platform_sign.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(turnstile_block, turnstile_block.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(full_passenger_detector, full_passenger_detector.getUnlocalizedName().substring(5));
 	}
 	
 	public static void registerRenders(){
@@ -81,6 +85,7 @@ public class ModBlocks {
 		registerRender(wire_panel_corner);
 		//registerRender(platform_sign);
 		registerRender(turnstile_block);
+		registerRender(full_passenger_detector);
 	}
 	
 	public static void registerRender(Block block){

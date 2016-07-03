@@ -89,7 +89,6 @@ public abstract class EntityDetector extends Block {
 		if (!worldIn.isRemote){
 			if ((Boolean) state.getValue(POWERED)) {
 				worldIn.setBlockState(pos, state.withProperty(POWERED, givePower(worldIn, pos) > 0));
-				worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
 			}
 		}
 	}
@@ -99,6 +98,7 @@ public abstract class EntityDetector extends Block {
 		if (!worldIn.isRemote){
 			if (!(Boolean) state.getValue(POWERED)) {
 				worldIn.setBlockState(pos, state.withProperty(POWERED, givePower(worldIn, pos) > 0));
+				
 			}
 		}
 	}
@@ -113,20 +113,14 @@ public abstract class EntityDetector extends Block {
 				pos.getZ() + 1);
 	}
 	
-	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		if ((Boolean) state.getValue(POWERED)) {
-			worldIn.notifyNeighborsOfStateChange(pos, this);
-		}
-		super.breakBlock(worldIn, pos, state);
-	}
-	
 	protected int givePower(World worldIn, BlockPos pos){
 		AxisAlignedBB spaceToCheck = getSpaceToCheck(worldIn, pos);
 		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
 		List list = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, spaceToCheck);
 		worldIn.notifyBlockOfStateChange(pos.offset(facing), this);
 		worldIn.markBlockForUpdate(pos.offset(facing));
+		
+		worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
 		return list.isEmpty() ? 0 : 15;
 	}
 	
