@@ -12,7 +12,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
 import tk.cth451.transitrailmod.blocks.TurnstileBlock;
-import tk.cth451.transitrailmod.blocks.prototype.ArrowSign;
 import tk.cth451.transitrailmod.enums.EnumPassingDirection;
 import tk.cth451.transitrailmod.init.ModBlocks;
 

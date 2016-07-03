@@ -10,8 +10,8 @@ import tk.cth451.transitrailmod.items.ClosedPlatformPanelItem;
 import tk.cth451.transitrailmod.items.PlatformGateItem;
 import tk.cth451.transitrailmod.items.PlatformPanelItem;
 import tk.cth451.transitrailmod.items.StyleChanger;
-import tk.cth451.transitrailmod.items.TrainTicket;
 import tk.cth451.transitrailmod.items.TicketMachineItem;
+import tk.cth451.transitrailmod.items.TrainTicket;
 
 public class ModItems {
 	public static Item style_changer;

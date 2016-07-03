@@ -3,7 +3,6 @@ package tk.cth451.transitrailmod.init;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModRecipe {
@@ -98,5 +97,9 @@ public class ModRecipe {
 				"  A",
 				'A', Items.iron_ingot,
 				'B', Items.redstone);
+		
+		// slim passenger detector
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.slim_passenger_detector, 4),
+				new Object[] {Items.iron_ingot, Items.redstone, Blocks.glass});
 	}
 }

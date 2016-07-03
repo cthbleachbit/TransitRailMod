@@ -16,6 +16,7 @@ tile.wire_panel.name=Wire Panel
 tile.wire_panel_corner.name=Wire Panel Corner
 tile.platform_sign.name=Platform Sign
 tile.turnstile_block.name=Turnstile
+tile.slim_passenger_detector.name=Slim Passenger Detector
 
 transitrailmod.ticket.in_use=In Use
 transitrailmod.ticket.not_in_use=Not In Use
