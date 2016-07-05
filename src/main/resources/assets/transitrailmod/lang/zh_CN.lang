@@ -6,7 +6,6 @@ item.closed_platform_panel_item.name=站台玻璃面板
 item.platform_panel_item.name=半高站台玻璃面板
 item.platform_gate_item.name=半高站台闸门
 item.train_ticket.name=车票
-item.ticket_machine_item.name=售票机
 
 tile.logo_block.name=Logo 方块
 tile.hung_arrow_sign.name=悬挂箭头标识
@@ -16,6 +15,7 @@ tile.wire_panel.name=电缆架
 tile.wire_panel_corner.name=电缆架转角
 tile.platform_sign.name=站台标识
 tile.turnstile_block.name=验票闸门
+tile.ticket_machine.name=售票机
 tile.slim_passenger_detector.name=小型乘客检测器
 
 transitrailmod.ticket.in_use=使用中

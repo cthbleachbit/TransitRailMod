@@ -10,7 +10,6 @@ import tk.cth451.transitrailmod.items.ClosedPlatformPanelItem;
 import tk.cth451.transitrailmod.items.PlatformGateItem;
 import tk.cth451.transitrailmod.items.PlatformPanelItem;
 import tk.cth451.transitrailmod.items.StyleChanger;
-import tk.cth451.transitrailmod.items.TicketMachineItem;
 import tk.cth451.transitrailmod.items.TrainTicket;
 
 public class ModItems {
@@ -20,7 +19,6 @@ public class ModItems {
 	public static Item platform_gate_item;
 	public static Item platform_panel_item;
 	public static Item train_ticket;
-	public static Item ticket_machine_item;
 	
 	public static void init(){
 		style_changer = new StyleChanger();
@@ -29,7 +27,6 @@ public class ModItems {
 		platform_gate_item = new PlatformGateItem();
 		platform_panel_item = new PlatformPanelItem();
 		train_ticket = new TrainTicket();
-		ticket_machine_item = new TicketMachineItem();
 	}
 	
 	public static void register(){
@@ -39,7 +36,6 @@ public class ModItems {
 		GameRegistry.registerItem(platform_gate_item, platform_gate_item.getUnlocalizedName().substring(5)); 
 		GameRegistry.registerItem(platform_panel_item, platform_panel_item.getUnlocalizedName().substring(5)); 
 		GameRegistry.registerItem(train_ticket, train_ticket.getUnlocalizedName().substring(5)); 
-		GameRegistry.registerItem(ticket_machine_item, ticket_machine_item.getUnlocalizedName().substring(5)); 
 	}
 	
 	public static void registerRenders(){
@@ -49,7 +45,6 @@ public class ModItems {
 		registerRender(platform_gate_item);
 		registerRender(platform_panel_item);
 		registerRender(train_ticket);
-		registerRender(ticket_machine_item);
 	}
 	
 	public static void registerRender(Item item){
