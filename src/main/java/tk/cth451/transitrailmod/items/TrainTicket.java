@@ -93,4 +93,15 @@ public class TrainTicket extends Item {
 	public static int getRidesRemaining(int damage, int maxUses) {
 		return (maxUses - damage) / 2; 
 	}
+	
+	public int getRidesRemaining(ItemStack stack) {
+		int dmg = stack.getItemDamage();
+		return this.getRidesRemaining(dmg, this.getMaxDamage());
+	}
+	
+	public void setRidesRemaining(ItemStack stack, int ridesRemaining) {
+		boolean isRiding = this.isTicketInUse(stack.getItemDamage());
+		int dmgAfter = this.getRidesRemaining(stack) * 2 + (isRiding ? 1 : 0);
+		stack.setItemDamage(dmgAfter);
+	}
 }

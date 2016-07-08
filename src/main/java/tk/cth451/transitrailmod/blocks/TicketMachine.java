@@ -7,9 +7,11 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import tk.cth451.transitrailmod.EnumGuiTypes;
 import tk.cth451.transitrailmod.TransitRailMod;
 
 public class TicketMachine extends Block {
@@ -28,13 +30,6 @@ public class TicketMachine extends Block {
 		return new BlockState(this, new IProperty[] {FACING});
 	}
 	
-	@Override
-	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
-		// set facing to the direction player is facing
-		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
-		return this.getFacingState(state, placer);
-	}
-	
 	protected IBlockState getFacingState(IBlockState state, EntityLivingBase placer){
 		EnumFacing thisFacing = placer.getHorizontalFacing();
 		return state.withProperty(FACING, thisFacing);
@@ -48,5 +43,25 @@ public class TicketMachine extends Block {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(FACING, EnumFacing.getHorizontal(meta));
+	}
+	
+	// Interactions
+	@Override
+	public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer){
+		// set facing to the direction player is facing
+		IBlockState state = super.onBlockPlaced(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer);
+		return this.getFacingState(state, placer);
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (!worldIn.isRemote) {
+			playerIn.openGui(TransitRailMod.instance,
+					EnumGuiTypes.TICKET_MACHINE.ordinal(),
+					worldIn,
+					pos.getX(), pos.getY(), pos.getZ());
+		}
+		return true;
 	}
 }
