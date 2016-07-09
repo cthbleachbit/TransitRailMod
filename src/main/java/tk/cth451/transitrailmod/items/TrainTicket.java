@@ -17,12 +17,15 @@ import tk.cth451.transitrailmod.init.ModBlocks;
 
 public class TrainTicket extends Item {
 	
+	public static final int MAX_USES = 200;
+	public static final int MAX_RIDES = MAX_USES / 2;
+	
 	public TrainTicket(){
 		super();
 		setUnlocalizedName("train_ticket");
 		setCreativeTab(TransitRailMod.tabTransitRail);
 		this.maxStackSize = 1;
-		this.setMaxDamage(200);
+		this.setMaxDamage(MAX_USES);
 		// max 100 rides (200 uses)
 	}
 	
@@ -33,12 +36,11 @@ public class TrainTicket extends Item {
 	// transitrailmod.ticket.insufficient_balance
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
-		int damage = stack.getItemDamage();
-		String usageLangKey = isTicketInUse(damage) ? "transitrailmod.ticket.in_use" : "transitrailmod.ticket.not_in_use";
+		String usageLangKey = isTicketInUse(stack) ? "transitrailmod.ticket.in_use" : "transitrailmod.ticket.not_in_use";
 		String usageToolTip = StatCollector.translateToLocal(usageLangKey);
 		tooltip.add(usageToolTip);
 		
-		int rides = getRidesRemaining(damage, this.getMaxDamage());
+		int rides = getRidesRemaining(stack);
 		String ridesToolTip = StatCollector.translateToLocal("transitrailmod.ticket.remaining_rides");
 		tooltip.add(ridesToolTip + ": " + rides);
 		
@@ -50,9 +52,8 @@ public class TrainTicket extends Item {
 	// Interactions
 	public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
 	{
-		int damage = stack.getItemDamage();
 		IBlockState state = worldIn.getBlockState(pos);
-		if (!(isTicketInUse(damage)) && !(getRidesRemaining(damage, this.getMaxDamage()) > 0)) {
+		if (!(isTicketInUse(stack)) && !(getRidesRemaining(stack) > 0)) {
 			return false;
 		} else {
 			if (state.getBlock() == ModBlocks.turnstile_block) {
@@ -64,9 +65,8 @@ public class TrainTicket extends Item {
 	}
 	
 	private boolean processTicket(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing facing) {
-		int damage = stack.getItemDamage();
 		IBlockState state = worldIn.getBlockState(pos);
-		boolean usage = isTicketInUse(damage);
+		boolean usage = isTicketInUse(stack);
 		boolean onTheRightSide = (EnumFacing) state.getValue(TurnstileBlock.FACING) == facing.getOpposite();
 		EnumPassingDirection direc = (EnumPassingDirection) state.getValue(TurnstileBlock.PASSING);
 		
@@ -86,22 +86,17 @@ public class TrainTicket extends Item {
 	// n rides = 2 n uses = 2 n - 1 max damage
 	// On entry, the damage should be added 1 if and only if the damage is an even number.
 	// On exit, the damage should be added 1 if and only if the damage is an odd number.
-	public static boolean isTicketInUse(int damage) {
-		return damage % 2 == 1;
+	public static boolean isTicketInUse(ItemStack stack) {
+		return stack.getItemDamage() % 2 == 1;
 	}
 	
-	public static int getRidesRemaining(int damage, int maxUses) {
-		return (maxUses - damage) / 2; 
-	}
-	
-	public int getRidesRemaining(ItemStack stack) {
+	public static int getRidesRemaining(ItemStack stack) {
 		int dmg = stack.getItemDamage();
-		return this.getRidesRemaining(dmg, this.getMaxDamage());
+		return (MAX_USES - dmg) / 2;
 	}
 	
-	public void setRidesRemaining(ItemStack stack, int ridesRemaining) {
-		boolean isRiding = this.isTicketInUse(stack.getItemDamage());
-		int dmgAfter = this.getRidesRemaining(stack) * 2 + (isRiding ? 1 : 0);
+	public static void setRidesRemaining(ItemStack stack, int ridesRemaining, boolean inUse) {
+		int dmgAfter = ridesRemaining * 2 + (inUse ? 1 : 0);
 		stack.setItemDamage(dmgAfter);
 	}
 }
