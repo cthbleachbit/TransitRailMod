@@ -7,7 +7,9 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import tk.cth451.transitrailmod.init.ModBlocks;
+import tk.cth451.transitrailmod.init.ModGuiHandler;
 import tk.cth451.transitrailmod.init.ModItems;
 import tk.cth451.transitrailmod.init.ModRecipe;
 import tk.cth451.transitrailmod.init.ModTileEntities;
@@ -40,6 +42,7 @@ public class TransitRailMod
 		ModRecipe.addItemsRecipe();
 		ModRecipe.addBlocksRecipe();
 		proxy.registerRenders();
+		NetworkRegistry.INSTANCE.registerGuiHandler(TransitRailMod.instance, new ModGuiHandler());
 	}
 	
 	@EventHandler
