@@ -5,6 +5,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IChatComponent;
+import tk.cth451.transitrailmod.ModOptions;
 import tk.cth451.transitrailmod.gui.container.TicketMachineContainer;
 import tk.cth451.transitrailmod.init.ModItems;
 
@@ -104,7 +105,7 @@ public class TicketMachineInput implements IInventory {
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
 		switch (index) {
 		case 2:
-			return stack.getItem() == Items.emerald;
+			return stack.getItem() == ModOptions.ITEM_TICKET_REFILL;
 		default: // 1
 			return stack.getItem() == ModItems.train_ticket;
 		}

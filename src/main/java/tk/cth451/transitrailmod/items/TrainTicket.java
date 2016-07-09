@@ -10,6 +10,7 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import tk.cth451.transitrailmod.ModOptions;
 import tk.cth451.transitrailmod.TransitRailMod;
 import tk.cth451.transitrailmod.blocks.TurnstileBlock;
 import tk.cth451.transitrailmod.enums.EnumPassingDirection;
@@ -17,16 +18,12 @@ import tk.cth451.transitrailmod.init.ModBlocks;
 
 public class TrainTicket extends Item {
 	
-	public static final int MAX_USES = 200;
-	public static final int MAX_RIDES = MAX_USES / 2;
-	
 	public TrainTicket(){
 		super();
 		setUnlocalizedName("train_ticket");
 		setCreativeTab(TransitRailMod.tabTransitRail);
 		this.maxStackSize = 1;
-		this.setMaxDamage(MAX_USES);
-		// max 100 rides (200 uses)
+		this.setMaxDamage(ModOptions.TICKET_MAX_USES);
 	}
 	
 	// Appearance
@@ -92,11 +89,12 @@ public class TrainTicket extends Item {
 	
 	public static int getRidesRemaining(ItemStack stack) {
 		int dmg = stack.getItemDamage();
-		return (MAX_USES - dmg) / 2;
+		return (ModOptions.TICKET_MAX_USES - dmg) / 2;
 	}
 	
-	public static void setRidesRemaining(ItemStack stack, int ridesRemaining, boolean inUse) {
+	public static ItemStack setRidesRemaining(ItemStack stack, int ridesRemaining, boolean inUse) {
 		int dmgAfter = ridesRemaining * 2 + (inUse ? 1 : 0);
 		stack.setItemDamage(dmgAfter);
+		return stack;
 	}
 }

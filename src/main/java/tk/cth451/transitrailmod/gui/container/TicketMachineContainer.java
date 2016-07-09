@@ -3,14 +3,16 @@ package tk.cth451.transitrailmod.gui.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import tk.cth451.transitrailmod.ModOptions;
 import tk.cth451.transitrailmod.gui.inventory.TicketMachineInput;
 import tk.cth451.transitrailmod.gui.inventory.TicketMachineOutput;
+import tk.cth451.transitrailmod.init.ModItems;
+import tk.cth451.transitrailmod.items.TrainTicket;
 
 public class TicketMachineContainer extends Container {
 	
 	public boolean isResultSlotEmpty;
-	public static final int VALUE_PER_EMERALD = 100;
 	
 	public TicketMachineInput invInput = new TicketMachineInput(this);
 	public TicketMachineOutput invOut = new TicketMachineOutput();
@@ -26,7 +28,11 @@ public class TicketMachineContainer extends Container {
 	}
 	
 	public void onChanged(IInventory inv){
-		Item ticket = inv.getStackInSlot(0).getItem();
-		Item emerald = inv.getStackInSlot(1).getItem();
+		ItemStack ticket = inv.getStackInSlot(0);
+		int num = inv.getStackInSlot(1).stackSize;
+		int rides = TrainTicket.getRidesRemaining(ticket) + num * ModOptions.RIDES_PER_ITEM;
+		boolean inUse = TrainTicket.isTicketInUse(ticket);
+		ItemStack ret = TrainTicket.setRidesRemaining(new ItemStack(ModItems.train_ticket), rides, inUse);
+		invOut.setInventorySlotContents(0, ret);
 	}
 }
