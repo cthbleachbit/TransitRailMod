@@ -34,10 +34,10 @@ public class TicketMachineContainer extends Container {
 		worldObj = worldIn;
 		invPlayer = playerIn;
 		
-		addSlotToContainer(new Slot(invInput, 0, 112 + 18, 7 + 0 * 18));
-		addSlotToContainer(new Slot(invInput, 1, 112 + 18, 7 + 1 * 18));
+		addSlotToContainer(new Slot(invInput, 0, 27, 29));
+		addSlotToContainer(new Slot(invInput, 1, 76, 29));
 		
-		outSlotNumber = addSlotToContainer(new Slot(invOutput, 0, 30 + 15, 35)).slotNumber;
+		outSlotNumber = addSlotToContainer(new Slot(invOutput, 0, 134, 29)).slotNumber;
 		
 		for(int playerSlotIndexY = 0; playerSlotIndexY < 3; ++playerSlotIndexY)
 		{
