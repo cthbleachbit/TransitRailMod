@@ -1,11 +1,11 @@
 package tk.cth451.transitrailmod.gui;
 
-import java.io.IOException;
+import org.lwjgl.opengl.GL11;
 
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.gui.container.TicketMachineContainer;
 
@@ -23,8 +23,13 @@ public class TicketMachineGui extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		// TODO Auto-generated method stub
-
+		GL11.glPushMatrix();
+		mc.renderEngine.bindTexture(
+				new ResourceLocation("transitrailmod:textures/gui/container/ticket_machine.png"));
+		int k = width / 2 - xSize / 2;
+		int l = height / 2 - ySize / 2;
+		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
+		GL11.glPopMatrix();
 	}
 
 }
