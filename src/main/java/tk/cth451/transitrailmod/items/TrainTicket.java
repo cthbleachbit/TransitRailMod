@@ -3,12 +3,12 @@ package tk.cth451.transitrailmod.items;
 import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.ModOptions;
 import tk.cth451.transitrailmod.TransitRailMod;
@@ -34,15 +34,15 @@ public class TrainTicket extends Item {
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List tooltip, boolean advanced) {
 		String usageLangKey = isTicketInUse(stack) ? "transitrailmod.ticket.in_use" : "transitrailmod.ticket.not_in_use";
-		String usageToolTip = StatCollector.translateToLocal(usageLangKey);
+		String usageToolTip = I18n.format(usageLangKey, new Object[0]);
 		tooltip.add(usageToolTip);
 		
 		int rides = getRidesRemaining(stack);
-		String ridesToolTip = StatCollector.translateToLocal("transitrailmod.ticket.remaining_rides");
+		String ridesToolTip = I18n.format("transitrailmod.ticket.remaining_rides", new Object[0]);
 		tooltip.add(ridesToolTip + ": " + rides);
 		
 		if (rides <= 0) {
-			tooltip.add(StatCollector.translateToLocal("transitrailmod.ticket.insufficient_balance"));
+			tooltip.add(I18n.format("transitrailmod.ticket.insufficient_balance", new Object[0]));
 		}
 	}
 	
@@ -93,7 +93,7 @@ public class TrainTicket extends Item {
 	}
 	
 	public static ItemStack setRidesRemaining(ItemStack stack, int ridesRemaining, boolean inUse) {
-		int dmgAfter = ridesRemaining * 2 + (inUse ? 1 : 0);
+		int dmgAfter = (ModOptions.TICKET_MAX_USES - ridesRemaining) * 2 - (inUse ? 1 : 0);
 		stack.setItemDamage(dmgAfter);
 		return stack;
 	}

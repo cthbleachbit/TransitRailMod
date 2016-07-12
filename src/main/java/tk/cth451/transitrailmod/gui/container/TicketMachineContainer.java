@@ -22,6 +22,8 @@ public class TicketMachineContainer extends Container {
 	public InventoryPlayer invPlayer;
 	private final World worldObj;
 	public String titleString = "ticketmachine.title";
+	public int inSlot1Number;
+	public int inSlot2Number;
 	public int outSlotNumber;
 	public int x = 0;
 	public int y = 0;
@@ -34,8 +36,8 @@ public class TicketMachineContainer extends Container {
 		worldObj = worldIn;
 		invPlayer = playerIn;
 		
-		addSlotToContainer(new Slot(invInput, 0, 27, 29));
-		addSlotToContainer(new Slot(invInput, 1, 76, 29));
+		inSlot1Number = addSlotToContainer(new Slot(invInput, 0, 27, 29)).slotNumber;
+		inSlot2Number = addSlotToContainer(new Slot(invInput, 1, 76, 29)).slotNumber;
 		
 		outSlotNumber = addSlotToContainer(new Slot(invOutput, 0, 134, 29)).slotNumber;
 		
@@ -59,31 +61,23 @@ public class TicketMachineContainer extends Container {
 	@Override
 	public ItemStack slotClick(int slotId, int clickedButton, int mode, EntityPlayer playerIn) {
 		ItemStack stack = super.slotClick(slotId, clickedButton, mode, playerIn);
-		onChanged(invInput);
+		if (!outputSlotEmpty() && slotId == this.outSlotNumber) {
+			invInput.clear();
+		} else if (slotId == this.inSlot1Number || slotId == this.inSlot2Number) {
+			onCraftMatrixChanged(invInput);
+		}
 		return stack;
 	}
 
 	@Override
 	public void onContainerClosed(EntityPlayer playerIn) {
-		if(invPlayer.getItemStack() != null)
-		{
-			playerIn.entityDropItem(invPlayer.getItemStack(), 0.5f);
-		}
-		if(!worldObj.isRemote)
-		{
-			ItemStack itemStack = invOutput.getStackInSlotOnClosing(0);
-			if(itemStack != null)
-			{
-				playerIn.entityDropItem(itemStack, 0.5f);
-			}
-
-			for(int i = 0; i < invInput.getSizeInventory(); i++ )
-			{
-				itemStack = invInput.getStackInSlotOnClosing(i);
-
-				if(itemStack != null)
-				{
-					playerIn.entityDropItem(itemStack, 0.5f);
+		super.onContainerClosed(playerIn);
+		
+		if(!this.worldObj.isRemote) {
+			for (int i = 0; i < invInput.getSizeInventory(); i++) {
+				ItemStack stack = invInput.getStackInSlot(i);
+				if (stack != null) {
+					playerIn.dropPlayerItemWithRandomChoice(stack, false);
 				}
 			}
 		}
@@ -91,16 +85,30 @@ public class TicketMachineContainer extends Container {
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 	
-	public void onChanged(IInventory inv){
-		ItemStack ticket = inv.getStackInSlot(0);
-		int num = inv.getStackInSlot(0).stackSize;
-		int rides = TrainTicket.getRidesRemaining(ticket) + num * ModOptions.RIDES_PER_ITEM;
-		boolean inUse = TrainTicket.isTicketInUse(ticket);
-		ItemStack ret = TrainTicket.setRidesRemaining(new ItemStack(ModItems.train_ticket), rides, inUse);
-		invOutput.setInventorySlotContents(0, ret);
+	@Override
+	public void onCraftMatrixChanged(IInventory inv){
+		if (!inputSlot1Empty() && !inputSlot2Empty() && outputSlotEmpty()){
+			ItemStack ticket = inv.getStackInSlot(0);
+			int num = inv.getStackInSlot(0).stackSize;
+			int rides = TrainTicket.getRidesRemaining(ticket) + num * ModOptions.RIDES_PER_ITEM;
+			boolean inUse = TrainTicket.isTicketInUse(ticket);
+			ItemStack ret = TrainTicket.setRidesRemaining(new ItemStack(ModItems.train_ticket), rides, inUse);
+			invOutput.setInventorySlotContents(0, ret);
+		} else {
+			invOutput.clear();
+		}
+	}
+	
+	private boolean inputSlot1Empty(){
+		return invInput.getStackInSlot(0) == null;
+	}
+	private boolean inputSlot2Empty(){
+		return invInput.getStackInSlot(1) == null;
+	}
+	private boolean outputSlotEmpty(){
+		return invOutput.getStackInSlot(0) == null;
 	}
 }
