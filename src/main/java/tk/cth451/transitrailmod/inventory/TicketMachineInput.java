@@ -1,4 +1,4 @@
-package tk.cth451.transitrailmod.gui.inventory;
+package tk.cth451.transitrailmod.inventory;
 
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;

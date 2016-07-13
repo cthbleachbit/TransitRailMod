@@ -1,4 +1,4 @@
-package tk.cth451.transitrailmod.gui.inventory;
+package tk.cth451.transitrailmod.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

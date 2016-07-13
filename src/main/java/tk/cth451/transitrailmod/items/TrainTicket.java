@@ -93,7 +93,7 @@ public class TrainTicket extends Item {
 	}
 	
 	public static ItemStack setRidesRemaining(ItemStack stack, int ridesRemaining, boolean inUse) {
-		int dmgAfter = (ModOptions.TICKET_MAX_USES - ridesRemaining) * 2 - (inUse ? 1 : 0);
+		int dmgAfter = (ModOptions.TICKET_MAX_USES - ridesRemaining * 2) - (inUse ? 1 : 0);
 		stack.setItemDamage(dmgAfter);
 		return stack;
 	}

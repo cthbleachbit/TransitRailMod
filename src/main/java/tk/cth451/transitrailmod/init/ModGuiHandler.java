@@ -8,8 +8,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import tk.cth451.transitrailmod.EnumGuiTypes;
 import tk.cth451.transitrailmod.References;
-import tk.cth451.transitrailmod.gui.TicketMachineGui;
-import tk.cth451.transitrailmod.gui.container.TicketMachineContainer;
+import tk.cth451.transitrailmod.client.gui.TicketMachineGui;
+import tk.cth451.transitrailmod.inventory.TicketMachineContainer;
 
 public class ModGuiHandler implements IGuiHandler {
 

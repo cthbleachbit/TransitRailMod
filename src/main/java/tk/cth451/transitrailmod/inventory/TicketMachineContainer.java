@@ -1,15 +1,14 @@
-package tk.cth451.transitrailmod.gui.container;
+package tk.cth451.transitrailmod.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.ModOptions;
-import tk.cth451.transitrailmod.gui.inventory.TicketMachineInput;
-import tk.cth451.transitrailmod.gui.inventory.TicketMachineOutput;
 import tk.cth451.transitrailmod.init.ModItems;
 import tk.cth451.transitrailmod.items.TrainTicket;
 
@@ -57,17 +56,6 @@ public class TicketMachineContainer extends Container {
 					8 + hotbarSlotIndex * 18, 142));
 		}
 	}
-	
-	@Override
-	public ItemStack slotClick(int slotId, int clickedButton, int mode, EntityPlayer playerIn) {
-		ItemStack stack = super.slotClick(slotId, clickedButton, mode, playerIn);
-		if (!outputSlotEmpty() && slotId == this.outSlotNumber) {
-			invInput.clear();
-		} else if (slotId == this.inSlot1Number || slotId == this.inSlot2Number) {
-			onCraftMatrixChanged(invInput);
-		}
-		return stack;
-	}
 
 	@Override
 	public void onContainerClosed(EntityPlayer playerIn) {
@@ -90,25 +78,41 @@ public class TicketMachineContainer extends Container {
 	
 	@Override
 	public void onCraftMatrixChanged(IInventory inv){
-		if (!inputSlot1Empty() && !inputSlot2Empty() && outputSlotEmpty()){
-			ItemStack ticket = inv.getStackInSlot(0);
-			int num = inv.getStackInSlot(0).stackSize;
-			int rides = TrainTicket.getRidesRemaining(ticket) + num * ModOptions.RIDES_PER_ITEM;
-			boolean inUse = TrainTicket.isTicketInUse(ticket);
-			ItemStack ret = TrainTicket.setRidesRemaining(new ItemStack(ModItems.train_ticket), rides, inUse);
-			invOutput.setInventorySlotContents(0, ret);
-		} else {
-			invOutput.clear();
-		}
+		invOutput.setInventorySlotContents(0, this.getRefilledTicket(invInput));
 	}
 	
-	private boolean inputSlot1Empty(){
-		return invInput.getStackInSlot(0) == null;
+	@Override
+	public boolean canMergeSlot(ItemStack p_94530_1_, Slot p_94530_2_) {
+		return p_94530_2_.inventory != this.invOutput && super.canMergeSlot(p_94530_1_, p_94530_2_);
 	}
-	private boolean inputSlot2Empty(){
-		return invInput.getStackInSlot(1) == null;
+	
+	// private methods
+	private boolean inputSlot1Qualified(){
+		ItemStack stack = invInput.getStackInSlot(0);
+		if (stack == null) {
+			return false;
+		}
+		return stack.getItem() == ModItems.train_ticket;
+	}
+	private boolean inputSlot2Qualified(){
+		ItemStack stack = invInput.getStackInSlot(1);
+		if (stack == null) {
+			return false;
+		}
+		return stack.getItem() == Items.emerald;
 	}
 	private boolean outputSlotEmpty(){
 		return invOutput.getStackInSlot(0) == null;
+	}
+	
+	protected ItemStack getRefilledTicket(TicketMachineInput input) {
+		if (inputSlot1Qualified() && inputSlot2Qualified()) {
+			ItemStack ticket = input.getStackInSlot(0);
+			int rides = TrainTicket.getRidesRemaining(ticket) + ModOptions.RIDES_PER_ITEM;
+			boolean inUse = TrainTicket.isTicketInUse(ticket);
+			return TrainTicket.setRidesRemaining(new ItemStack(ModItems.train_ticket), rides, inUse);
+		} else {
+			return null;
+		}
 	}
 }

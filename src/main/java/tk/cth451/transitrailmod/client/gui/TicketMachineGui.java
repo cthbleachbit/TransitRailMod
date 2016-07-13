@@ -1,4 +1,4 @@
-package tk.cth451.transitrailmod.gui;
+package tk.cth451.transitrailmod.client.gui;
 
 import org.lwjgl.opengl.GL11;
 
@@ -7,7 +7,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import tk.cth451.transitrailmod.gui.container.TicketMachineContainer;
+import tk.cth451.transitrailmod.inventory.TicketMachineContainer;
 
 public class TicketMachineGui extends GuiContainer {
 	
