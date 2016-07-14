@@ -14,8 +14,6 @@ import tk.cth451.transitrailmod.items.TrainTicket;
 
 public class TicketMachineContainer extends Container {
 	
-	public boolean isResultSlotEmpty;
-	
 	public TicketMachineInput invInput = new TicketMachineInput(this);
 	public TicketMachineOutput invOutput = new TicketMachineOutput();
 	public InventoryPlayer invPlayer;
@@ -89,8 +87,8 @@ public class TicketMachineContainer extends Container {
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-
-			if (index == 0) {
+			System.out.println(index);
+			if (index < 3) {
 				if (!this.mergeItemStack(itemstack1, 3, 39, true)) {
 					return null;
 				}
@@ -145,7 +143,6 @@ public class TicketMachineContainer extends Container {
 	private boolean outputSlotEmpty(){
 		return invOutput.getStackInSlot(0) == null;
 	}
-	
 	protected ItemStack getRefilledTicket(TicketMachineInput input) {
 		if (inputSlot1Qualified() && inputSlot2Qualified()) {
 			ItemStack ticket = input.getStackInSlot(0);
