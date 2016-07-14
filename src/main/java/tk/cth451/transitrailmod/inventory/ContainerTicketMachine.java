@@ -76,7 +76,7 @@ public class ContainerTicketMachine extends Container {
 	
 	@Override
 	public void onCraftMatrixChanged(IInventory inv){
-		invOutput.setInventorySlotContents(0, this.getRefilledTicket(invInput));
+		invOutput.setInventorySlotContents(0, this.getProcessedTicket(invInput));
 	}
 	
 	@Override
@@ -87,7 +87,6 @@ public class ContainerTicketMachine extends Container {
 		if (slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
-			System.out.println(index);
 			if (index < 3) {
 				if (!this.mergeItemStack(itemstack1, 3, 39, true)) {
 					return null;
@@ -126,28 +125,47 @@ public class ContainerTicketMachine extends Container {
 	}
 	
 	// private methods
-	private boolean inputSlot1Qualified(){
+	private boolean inputSlot1NotEmpty(){
+		ItemStack stack = invInput.getStackInSlot(0);
+		return stack != null;
+	}
+	
+	private boolean inputSlot1IsPaper(){
+		ItemStack stack = invInput.getStackInSlot(0);
+		if (stack == null) {
+			return false;
+		}
+		return stack.getItem() == Items.paper;
+	}
+	
+	private boolean inputSlot1IsTicket(){
 		ItemStack stack = invInput.getStackInSlot(0);
 		if (stack == null) {
 			return false;
 		}
 		return stack.getItem() == ModItems.train_ticket;
 	}
-	private boolean inputSlot2Qualified(){
+	
+	private boolean inputSlot2Valid(){
 		ItemStack stack = invInput.getStackInSlot(1);
 		if (stack == null) {
 			return false;
 		}
 		return stack.getItem() == Items.emerald;
 	}
-	private boolean outputSlotEmpty(){
-		return invOutput.getStackInSlot(0) == null;
-	}
-	protected ItemStack getRefilledTicket(InventoryTicketMachineInput input) {
-		if (inputSlot1Qualified() && inputSlot2Qualified()) {
-			ItemStack ticket = input.getStackInSlot(0);
-			int rides = TrainTicket.getRidesRemaining(ticket) + ModOptions.RIDES_PER_ITEM;
-			boolean inUse = TrainTicket.isTicketInUse(ticket);
+	
+	protected ItemStack getProcessedTicket(InventoryTicketMachineInput input) {
+		if (inputSlot1NotEmpty() && inputSlot2Valid()) {
+			int rides;
+			boolean inUse;
+			if (inputSlot1IsTicket()) {
+				ItemStack ticket = input.getStackInSlot(0);
+				rides = TrainTicket.getRidesRemaining(ticket) + ModOptions.RIDES_PER_ITEM;
+				inUse = TrainTicket.isTicketInUse(ticket);
+			} else {
+				rides = ModOptions.RIDES_PER_ITEM - ModOptions.TICKET_CONVERSION_FEE;
+				inUse = false;
+			}
 			return TrainTicket.setRidesRemaining(new ItemStack(ModItems.train_ticket), rides, inUse);
 		} else {
 			return null;

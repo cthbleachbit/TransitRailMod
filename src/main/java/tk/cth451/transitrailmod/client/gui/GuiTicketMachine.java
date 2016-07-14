@@ -26,7 +26,6 @@ public class GuiTicketMachine extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		this.fontRendererObj.drawString(I18n.format("container.ticket_machine.title", new Object[0]), 6, 6, 4210752);
-		
 	}
 	
 	@Override

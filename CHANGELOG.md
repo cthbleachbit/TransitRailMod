@@ -7,6 +7,7 @@ Change Log
 Added:
 * Turnstile Block
 * Slim Passenger Detector Block
+* Working Ticket Machine GUI
 
 Changed:
 * Train Ticket has maximum number of rides

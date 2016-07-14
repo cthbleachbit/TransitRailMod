@@ -11,6 +11,9 @@ public abstract class ModOptions {
 	public static final int RIDES_PER_ITEM = 60;
 	// 1 item = n rides
 	
+	public static final int TICKET_CONVERSION_FEE = 10;
+	// the cost of converting a piece of paper to a ticket
+	
 	public static final Item ITEM_TICKET_REFILL = Items.emerald;
 	// the item used to refill ticket
 }
