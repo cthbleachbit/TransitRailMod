@@ -22,3 +22,5 @@ transitrailmod.ticket.in_use=In Use
 transitrailmod.ticket.not_in_use=Not In Use
 transitrailmod.ticket.remaining_rides=Remaining Rides
 transitrailmod.ticket.insufficient_balance=Needs Refill
+
+container.ticket_machine.title=Buy Or Refill Ticket

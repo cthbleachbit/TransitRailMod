@@ -22,3 +22,5 @@ transitrailmod.ticket.in_use=使用中
 transitrailmod.ticket.not_in_use=未使用
 transitrailmod.ticket.remaining_rides=剩余搭乘次数
 transitrailmod.ticket.insufficient_balance=需要充值
+
+container.ticket_machine.title=购票或充值

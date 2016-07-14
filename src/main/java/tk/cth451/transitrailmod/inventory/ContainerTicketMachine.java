@@ -12,10 +12,10 @@ import tk.cth451.transitrailmod.ModOptions;
 import tk.cth451.transitrailmod.init.ModItems;
 import tk.cth451.transitrailmod.items.TrainTicket;
 
-public class TicketMachineContainer extends Container {
+public class ContainerTicketMachine extends Container {
 	
-	public TicketMachineInput invInput = new TicketMachineInput(this);
-	public TicketMachineOutput invOutput = new TicketMachineOutput();
+	public InventoryTicketMachineInput invInput = new InventoryTicketMachineInput(this);
+	public InventoryTicketMachineOutput invOutput = new InventoryTicketMachineOutput();
 	public InventoryPlayer invPlayer;
 	private final World worldObj;
 	public String titleString = "ticketmachine.title";
@@ -26,7 +26,7 @@ public class TicketMachineContainer extends Container {
 	public int y = 0;
 	public int z = 0;
 	
-	public TicketMachineContainer(InventoryPlayer playerIn, World worldIn, int xIn, int yIn, int zIn) {
+	public ContainerTicketMachine(InventoryPlayer playerIn, World worldIn, int xIn, int yIn, int zIn) {
 		x = xIn;
 		y = yIn;
 		z = zIn;
@@ -36,7 +36,7 @@ public class TicketMachineContainer extends Container {
 		inSlot1Number = addSlotToContainer(new Slot(invInput, 0, 27, 29)).slotNumber;
 		inSlot2Number = addSlotToContainer(new Slot(invInput, 1, 76, 29)).slotNumber;
 		
-		outSlotNumber = addSlotToContainer(new Slot(invOutput, 0, 134, 29)).slotNumber;
+		outSlotNumber = addSlotToContainer(new SlotTicketMachineOutput(playerIn.player, invInput, invOutput, 0, 134, 29)).slotNumber;
 		
 		for(int playerSlotIndexY = 0; playerSlotIndexY < 3; ++playerSlotIndexY)
 		{
@@ -143,7 +143,7 @@ public class TicketMachineContainer extends Container {
 	private boolean outputSlotEmpty(){
 		return invOutput.getStackInSlot(0) == null;
 	}
-	protected ItemStack getRefilledTicket(TicketMachineInput input) {
+	protected ItemStack getRefilledTicket(InventoryTicketMachineInput input) {
 		if (inputSlot1Qualified() && inputSlot2Qualified()) {
 			ItemStack ticket = input.getStackInSlot(0);
 			int rides = TrainTicket.getRidesRemaining(ticket) + ModOptions.RIDES_PER_ITEM;

@@ -10,7 +10,7 @@ import tk.cth451.transitrailmod.init.ModItems;
 // []
 // 1
 // 1 = Ticket out
-public class TicketMachineOutput implements IInventory {
+public class InventoryTicketMachineOutput implements IInventory {
 	
 	private final ItemStack[] invStack = new ItemStack[1];
 
