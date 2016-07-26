@@ -124,6 +124,14 @@ public class ModRecipe {
 				'A', Items.iron_ingot,
 				'B', Items.redstone);
 		
+		// glass fence
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.glass_fence, 8),
+				"   ",
+				"AAA",
+				"ABA",
+				'A', Items.iron_ingot,
+				'B', Blocks.glass);
+		
 		// slim passenger detector
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.slim_passenger_detector, 4),
 				new Object[] {Items.iron_ingot, Items.redstone, Blocks.glass});
