@@ -7,6 +7,9 @@ Change Log
 Added:
 * Glass Fence
 
+Changed:
+* GUI Item icons rotated
+
 0.9
 ---
 
