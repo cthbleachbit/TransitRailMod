@@ -11,6 +11,7 @@ import tk.cth451.transitrailmod.blocks.ClosedPlatformDoorBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformPanelBlock;
 import tk.cth451.transitrailmod.blocks.ClosedPlatformTop;
 import tk.cth451.transitrailmod.blocks.FluorescentLamp;
+import tk.cth451.transitrailmod.blocks.GlassFenceBlock;
 import tk.cth451.transitrailmod.blocks.HungArrowSign;
 import tk.cth451.transitrailmod.blocks.LogoBlock;
 import tk.cth451.transitrailmod.blocks.PlatformArrowSign;
@@ -37,6 +38,7 @@ public class ModBlocks {
 	public static Block platform_sign;
 	public static Block turnstile_block;
 	public static Block ticket_machine;
+	public static Block glass_fence;
 	public static Block slim_passenger_detector;
 	
 	public static void init() {
@@ -54,6 +56,7 @@ public class ModBlocks {
 		//platform_sign = new PlatformSign(Material.iron);
 		turnstile_block = new TurnstileBlock(Material.iron);
 		ticket_machine = new TicketMachine(Material.iron);
+		glass_fence = new GlassFenceBlock();
 		slim_passenger_detector = new SlimPassengerDetector(Material.iron);
 	}
 	
@@ -72,6 +75,7 @@ public class ModBlocks {
 		//GameRegistry.registerBlock(platform_sign, platform_sign.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(turnstile_block, turnstile_block.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(ticket_machine, ticket_machine.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(glass_fence, glass_fence.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(slim_passenger_detector, slim_passenger_detector.getUnlocalizedName().substring(5));
 	}
 	
@@ -90,6 +94,7 @@ public class ModBlocks {
 		//registerRender(platform_sign);
 		registerRender(turnstile_block);
 		registerRender(ticket_machine);
+		registerRender(glass_fence);
 		registerRender(slim_passenger_detector);
 	}
 	

@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+0.10
+---
+
+Added:
+* Glass Fence
+
 0.9
 ---
 
