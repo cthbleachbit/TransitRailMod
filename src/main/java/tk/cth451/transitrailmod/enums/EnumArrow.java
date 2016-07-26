@@ -1,4 +1,5 @@
 package tk.cth451.transitrailmod.enums;
+
 import net.minecraft.util.IStringSerializable;
 
 public enum EnumArrow implements IStringSerializable {

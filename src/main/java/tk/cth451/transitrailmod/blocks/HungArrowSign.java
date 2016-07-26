@@ -1,24 +1,11 @@
 package tk.cth451.transitrailmod.blocks;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.TransitRailMod;
 import tk.cth451.transitrailmod.blocks.prototype.ArrowSign;
-import tk.cth451.transitrailmod.enums.EnumArrow;
-import tk.cth451.transitrailmod.init.ModItems;
 
 public class HungArrowSign extends ArrowSign {
 		

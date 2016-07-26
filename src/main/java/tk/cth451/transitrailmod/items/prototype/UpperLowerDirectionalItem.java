@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import tk.cth451.transitrailmod.blocks.ClosedPlatformPanelBlock;
 
 public abstract class UpperLowerDirectionalItem extends Item {
 	public final Block block;

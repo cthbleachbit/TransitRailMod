@@ -1,6 +1,23 @@
 Change Log
 ==========
 
+0.9
+---
+
+Added:
+* Turnstile Block
+* Slim Passenger Detector Block
+* Working Ticket Machine GUI
+
+Changed:
+* Train Ticket has maximum number of rides
+* Recipes are handled more freely now
+
+Removed:
+* `ticketing_gate_item`
+
+Minecraft will warn about missing items. Yet these things are not implemented previously and unavailable in survival. Just continue.
+
 0.8
 ---
 

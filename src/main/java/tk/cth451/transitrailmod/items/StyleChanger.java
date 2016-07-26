@@ -8,14 +8,17 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
+import tk.cth451.transitrailmod.blocks.TurnstileBlock;
 import tk.cth451.transitrailmod.blocks.prototype.ArrowSign;
+import tk.cth451.transitrailmod.init.ModBlocks;
 
 public class StyleChanger extends Item {
 	
 	public StyleChanger(){
 		super();
 		this.maxStackSize = 1;
-		this.setMaxDamage(64);
+		this.setMaxDamage(63);
+		// max 64 uses
 		this.setUnlocalizedName("style_changer");
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
 	}
@@ -27,6 +30,10 @@ public class StyleChanger extends Item {
 		if (state.getBlock() instanceof ArrowSign)
 		{
 			worldIn.setBlockState(pos, state.cycleProperty(ArrowSign.ARROW));
+			stack.damageItem(1, playerIn);
+			return true;
+		} else if (state.getBlock() == ModBlocks.turnstile_block) {
+			worldIn.setBlockState(pos, state.cycleProperty(TurnstileBlock.PASSING));
 			stack.damageItem(1, playerIn);
 			return true;
 		} else {

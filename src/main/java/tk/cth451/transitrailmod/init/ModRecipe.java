@@ -3,7 +3,6 @@ package tk.cth451.transitrailmod.init;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModRecipe {
@@ -40,6 +39,12 @@ public class ModRecipe {
 				"BAB",
 				'A', Blocks.glass,
 				'B', Items.iron_ingot);
+		GameRegistry.addRecipe(new ItemStack(ModItems.platform_gate_item, 16),
+				"BAB",
+				"BAB",
+				"   ",
+				'A', Blocks.glass,
+				'B', Items.iron_ingot);
 		
 		// platform panel
 		GameRegistry.addRecipe(new ItemStack(ModItems.platform_panel_item, 16),
@@ -58,6 +63,12 @@ public class ModRecipe {
 		
 		// hung arrow sign
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.hung_arrow_sign, 2),
+				"   ",
+				"BBB",
+				" A ",
+				'A', Items.arrow,
+				'B', Items.iron_ingot);
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.hung_arrow_sign, 2),
 				"BBB",
 				" A ",
 				"   ",
@@ -70,9 +81,23 @@ public class ModRecipe {
 		
 		// fluorescent lamp
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
+				"A  ",
+				"B  ",
+				"C  ",
+				'A', Blocks.glass,
+				'B', Blocks.glowstone,
+				'C', Blocks.iron_block);
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
 				" A ",
 				" B ",
 				" C ",
+				'A', Blocks.glass,
+				'B', Blocks.glowstone,
+				'C', Blocks.iron_block);
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
+				"  A",
+				"  B",
+				"  C",
 				'A', Blocks.glass,
 				'B', Blocks.glowstone,
 				'C', Blocks.iron_block);
@@ -90,5 +115,17 @@ public class ModRecipe {
 				new Object[] {ModBlocks.wire_panel});
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.wire_panel),
 				new Object[] {ModBlocks.wire_panel_corner});
+		
+		// turnstile block
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.turnstile_block, 8),
+				"AAB",
+				"  A",
+				"  A",
+				'A', Items.iron_ingot,
+				'B', Items.redstone);
+		
+		// slim passenger detector
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.slim_passenger_detector, 4),
+				new Object[] {Items.iron_ingot, Items.redstone, Blocks.glass});
 	}
 }

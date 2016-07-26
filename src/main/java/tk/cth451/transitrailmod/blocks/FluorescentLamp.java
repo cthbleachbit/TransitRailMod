@@ -1,7 +1,5 @@
 package tk.cth451.transitrailmod.blocks;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -9,9 +7,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
@@ -32,7 +28,7 @@ public class FluorescentLamp extends CustomDirectionBlock {
 	public FluorescentLamp(Material materialIn) {
 		super(Material.glass);
 		this.setUnlocalizedName("fluorescent_lamp");
-		this.setLightLevel(0.95F);
+		this.setLightLevel(1F);
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
 		this.setDefaultState(getDefaultState()
 				.withProperty(ATTACH, EnumAttachTo.WALL)

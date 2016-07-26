@@ -1,0 +1,20 @@
+{
+	"variants": {
+		"active=false,facing=north,passing=inside": { "model": "transitrailmod:turnstile_inactive" },
+		"active=true,facing=north,passing=inside": { "model": "transitrailmod:turnstile_active" },
+		"active=false,facing=east,passing=inside": {"model": "transitrailmod:turnstile_inactive", "y": 90 },
+		"active=true,facing=east,passing=inside": {"model": "transitrailmod:turnstile_active", "y": 90 },
+		"active=false,facing=south,passing=inside": {"model": "transitrailmod:turnstile_inactive", "y": 180 },
+		"active=true,facing=south,passing=inside": {"model": "transitrailmod:turnstile_active", "y": 180 },
+		"active=false,facing=west,passing=inside": {"model": "transitrailmod:turnstile_inactive", "y": 270 },
+		"active=true,facing=west,passing=inside": {"model": "transitrailmod:turnstile_active", "y": 270 },
+		"active=false,facing=north,passing=outside": { "model": "transitrailmod:turnstile_inactive" },
+		"active=true,facing=north,passing=outside": { "model": "transitrailmod:turnstile_active" },
+		"active=false,facing=east,passing=outside": {"model": "transitrailmod:turnstile_inactive", "y": 90 },
+		"active=true,facing=east,passing=outside": {"model": "transitrailmod:turnstile_active", "y": 90 },
+		"active=false,facing=south,passing=outside": {"model": "transitrailmod:turnstile_inactive", "y": 180 },
+		"active=true,facing=south,passing=outside": {"model": "transitrailmod:turnstile_active", "y": 180 },
+		"active=false,facing=west,passing=outside": {"model": "transitrailmod:turnstile_inactive", "y": 270 },
+		"active=true,facing=west,passing=outside": {"model": "transitrailmod:turnstile_active", "y": 270 }
+    }
+}
