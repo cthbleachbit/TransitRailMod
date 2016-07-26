@@ -72,7 +72,6 @@ public class TrainTicket extends Item {
 				stack.damageItem(1, playerIn);
 			}
 			worldIn.setBlockState(pos, state.cycleProperty(TurnstileBlock.ACTIVE));
-			worldIn.scheduleUpdate(pos, ModBlocks.turnstile_block, ModBlocks.turnstile_block.tickRate(worldIn));
 			return true;
 		} else {
 			return false;

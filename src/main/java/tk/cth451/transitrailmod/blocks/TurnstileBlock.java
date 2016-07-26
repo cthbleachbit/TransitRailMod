@@ -10,6 +10,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -63,7 +64,7 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	
 	@Override
 	public int tickRate(World worldIn) {
-		return 30;
+		return 20;
 	}
 	
 	// Block State
@@ -132,6 +133,21 @@ public class TurnstileBlock extends CustomDirectionBlock{
 		}
 	}
 	
+	@Override
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+		if (!worldIn.isRemote){
+			AxisAlignedBB spaceToCheck = getSpaceToCheck(worldIn, pos);
+			List list = worldIn.getEntitiesWithinAABB(EntityLivingBase.class, spaceToCheck);
+			
+			worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
+			if (list.isEmpty()){
+				if ((Boolean) state.getValue(ACTIVE)){
+					worldIn.setBlockState(pos, state.withProperty(ACTIVE, false));
+				}
+			}
+		}
+	}
+	
 	protected AxisAlignedBB getBarBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
 		IBlockState state = worldIn.getBlockState(pos);
 		if ((Boolean) state.getValue(ACTIVE)){
@@ -150,6 +166,16 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	
 	private AxisAlignedBB getBBFromBounds (BlockPos pos, double x1, double y1, double z1, double x2, double y2, double z2) {
 		return new AxisAlignedBB(pos.getX() + x1, pos.getY() + y1, pos.getZ() + z1, pos.getX() + x2, pos.getY() + y2, pos.getZ() + z2);
+	}
+	
+	protected AxisAlignedBB getSpaceToCheck(World worldIn, BlockPos pos){
+		return new AxisAlignedBB(
+				pos.getX(),
+				pos.getY(),
+				pos.getZ(),
+				pos.getX() + 1,
+				pos.getY() + 1,
+				pos.getZ() + 1);
 	}
 	
 	@Override

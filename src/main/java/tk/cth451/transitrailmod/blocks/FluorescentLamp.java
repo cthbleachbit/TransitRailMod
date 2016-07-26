@@ -28,7 +28,7 @@ public class FluorescentLamp extends CustomDirectionBlock {
 	public FluorescentLamp(Material materialIn) {
 		super(Material.glass);
 		this.setUnlocalizedName("fluorescent_lamp");
-		this.setLightLevel(0.95F);
+		this.setLightLevel(1F);
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
 		this.setDefaultState(getDefaultState()
 				.withProperty(ATTACH, EnumAttachTo.WALL)
