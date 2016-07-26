@@ -17,6 +17,7 @@ import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
+import tk.cth451.transitrailmod.init.ModBlocks;
 
 public class GlassFenceBlock extends BlockFence {
 	
@@ -39,5 +40,14 @@ public class GlassFenceBlock extends BlockFence {
 	@Override
 	public EnumWorldBlockLayer getBlockLayer() {
 		return EnumWorldBlockLayer.CUTOUT;
+	}
+	
+	@Override
+	public boolean canConnectTo(IBlockAccess worldIn, BlockPos pos) {
+		Block block = worldIn.getBlockState(pos).getBlock();
+		if (block == Blocks.glass || block == ModBlocks.turnstile_block) {
+			return true;
+		}
+		return super.canConnectTo(worldIn, pos);
 	}
 }
