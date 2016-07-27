@@ -15,7 +15,7 @@ tile.wire_panel.name=Wire Panel
 tile.wire_panel_corner.name=Wire Panel Corner
 tile.platform_sign.name=Platform Sign
 tile.turnstile_block.name=Turnstile
-tile.ticket_machine.name=Ticket Machineen
+tile.ticket_machine.name=Ticket Machine
 tile.glass_fence.name=Glass Fence
 tile.slim_passenger_detector.name=Slim Passenger Detector
 

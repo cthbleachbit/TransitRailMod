@@ -9,6 +9,7 @@ Added:
 
 Changed:
 * GUI Item icons rotated
+* Fixed ticket machine name typo updated render
 
 0.9
 ---

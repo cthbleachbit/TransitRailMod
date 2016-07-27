@@ -27,6 +27,16 @@ public class TicketMachine extends Block {
 	}
 	
 	@Override
+	public boolean isFullCube() {
+		return false;
+	}
+	
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+	
+	@Override
 	protected BlockState createBlockState() {
 		return new BlockState(this, new IProperty[] {FACING});
 	}
