@@ -20,7 +20,7 @@ public class ModRecipe {
 				"BCB",
 				"BAB",
 				"BAB",
-				'A', new ItemStack(Blocks.stained_glass, 1, 0),
+				'A', Blocks.glass,
 				'B', Items.iron_ingot,
 				'C', Items.redstone);
 		
@@ -29,7 +29,7 @@ public class ModRecipe {
 				"BBB",
 				"BAB",
 				"BAB",
-				'A', new ItemStack(Blocks.stained_glass, 1, 0),
+				'A', Blocks.glass,
 				'B', Items.iron_ingot);
 		
 		// platform gate

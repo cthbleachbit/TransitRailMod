@@ -10,8 +10,9 @@ Added:
 Changed:
 * GUI Item icons rotated
 * Fixed ticket machine name typo and updated texture
-* Texture UV update: Fluoresecnt Lamp in ground state and extending state
+* Texture UV update: Fluoresecnt Lamp
 * Texture UV update: Platform Gates Upper part
+* Platform panels no longer use white stained glass
 
 0.9
 ---
