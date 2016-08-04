@@ -13,6 +13,7 @@ Changed:
 * Texture UV update: Fluoresecnt Lamp
 * Texture UV update: Platform Gates Upper part
 * Platform panels no longer use white stained glass
+* Logo changed slightly
 
 0.9
 ---
