@@ -14,6 +14,7 @@ import tk.cth451.transitrailmod.blocks.FluorescentLamp;
 import tk.cth451.transitrailmod.blocks.GlassFenceBlock;
 import tk.cth451.transitrailmod.blocks.HungArrowSign;
 import tk.cth451.transitrailmod.blocks.LogoBlock;
+import tk.cth451.transitrailmod.blocks.NoiseBarrierBlock;
 import tk.cth451.transitrailmod.blocks.PlatformArrowSign;
 import tk.cth451.transitrailmod.blocks.PlatformGateBlock;
 import tk.cth451.transitrailmod.blocks.PlatformPanelBlock;
@@ -39,6 +40,8 @@ public class ModBlocks {
 	public static Block turnstile_block;
 	public static Block ticket_machine;
 	public static Block glass_fence;
+	public static Block noise_barrier;
+	public static Block noise_barrier_with_lamp;
 	public static Block slim_passenger_detector;
 	
 	public static void init() {
@@ -57,6 +60,8 @@ public class ModBlocks {
 		turnstile_block = new TurnstileBlock(Material.iron);
 		ticket_machine = new TicketMachine(Material.iron);
 		glass_fence = new GlassFenceBlock();
+		noise_barrier = new NoiseBarrierBlock(false);
+		noise_barrier_with_lamp = new NoiseBarrierBlock(true);
 		slim_passenger_detector = new SlimPassengerDetector(Material.iron);
 	}
 	
@@ -76,6 +81,8 @@ public class ModBlocks {
 		GameRegistry.registerBlock(turnstile_block, turnstile_block.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(ticket_machine, ticket_machine.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(glass_fence, glass_fence.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(noise_barrier, noise_barrier.getUnlocalizedName().substring(5));
+		GameRegistry.registerBlock(noise_barrier_with_lamp, noise_barrier_with_lamp.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(slim_passenger_detector, slim_passenger_detector.getUnlocalizedName().substring(5));
 	}
 	
@@ -95,6 +102,8 @@ public class ModBlocks {
 		registerRender(turnstile_block);
 		registerRender(ticket_machine);
 		registerRender(glass_fence);
+		registerRender(noise_barrier);
+		registerRender(noise_barrier_with_lamp);
 		registerRender(slim_passenger_detector);
 	}
 	

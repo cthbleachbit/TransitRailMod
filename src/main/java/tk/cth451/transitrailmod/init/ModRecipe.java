@@ -138,6 +138,18 @@ public class ModRecipe {
 				'A', Items.iron_ingot,
 				'B', Blocks.glass);
 		
+		// noise barrier
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.noise_barrier, 8),
+				"ABA",
+				"ABA",
+				"ABA",
+				'A', Items.iron_ingot,
+				'B', Blocks.glass);
+		
+		// noise barrier with light
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.noise_barrier_with_lamp, 1),
+				new Object[] {ModBlocks.noise_barrier, ModBlocks.fluorescent_lamp});
+		
 		// slim passenger detector
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.slim_passenger_detector, 4),
 				new Object[] {Items.iron_ingot, Items.redstone, Blocks.glass});

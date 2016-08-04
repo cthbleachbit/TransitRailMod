@@ -17,6 +17,8 @@ tile.platform_sign.name=Platform Sign
 tile.turnstile_block.name=Turnstile
 tile.ticket_machine.name=Ticket Machine
 tile.glass_fence.name=Glass Fence
+tile.noise_barrier.name=Noise Barrier
+tile.noise_barrier_with_lamp.name=Noise Barrier With Lamp
 tile.slim_passenger_detector.name=Slim Passenger Detector
 
 transitrailmod.ticket.in_use=In Use

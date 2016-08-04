@@ -6,6 +6,7 @@ Change Log
 
 Added:
 * Glass Fence
+* Noise Barrier
 
 Changed:
 * GUI Item icons rotated
