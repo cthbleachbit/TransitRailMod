@@ -12,7 +12,8 @@ Changed:
 * GUI Item icons rotated
 * Fixed ticket machine name typo and updated texture
 * Texture UV update: Fluoresecnt Lamp
-* Texture UV update: Platform Gates Upper part
+* Texture UV update: Platform Gate
+* Texture UV update: Platform Panel
 * Platform panels no longer use white stained glass
 * Logo changed slightly
 
