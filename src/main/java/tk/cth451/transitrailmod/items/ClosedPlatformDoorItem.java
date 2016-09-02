@@ -32,7 +32,7 @@ public class ClosedPlatformDoorItem extends Item {
 		if (facing != EnumFacing.UP) {
 			return EnumActionResult.PASS;
 		} else {
-			if (!worldIn.getBlockState(pos).getBlock().isNormalCube()){
+			if (!worldIn.getBlockState(pos).getBlock().isNormalCube(worldIn.getBlockState(pos), worldIn, pos)){
 				return EnumActionResult.PASS;
 			} else {
 				IBlockState block1 = worldIn.getBlockState(pos.up());
