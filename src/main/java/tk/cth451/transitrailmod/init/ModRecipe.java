@@ -20,7 +20,7 @@ public class ModRecipe {
 				"BCB",
 				"BAB",
 				"BAB",
-				'A', new ItemStack(Blocks.stained_glass, 1, 0),
+				'A', Blocks.glass,
 				'B', Items.iron_ingot,
 				'C', Items.redstone);
 		
@@ -29,7 +29,7 @@ public class ModRecipe {
 				"BBB",
 				"BAB",
 				"BAB",
-				'A', new ItemStack(Blocks.stained_glass, 1, 0),
+				'A', Blocks.glass,
 				'B', Items.iron_ingot);
 		
 		// platform gate
@@ -123,6 +123,32 @@ public class ModRecipe {
 				"  A",
 				'A', Items.iron_ingot,
 				'B', Items.redstone);
+		
+		// glass fence
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.glass_fence, 8),
+				"   ",
+				"AAA",
+				"ABA",
+				'A', Items.iron_ingot,
+				'B', Blocks.glass);
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.glass_fence, 8),
+				"AAA",
+				"ABA",
+				"   ",
+				'A', Items.iron_ingot,
+				'B', Blocks.glass);
+		
+		// noise barrier
+		GameRegistry.addRecipe(new ItemStack(ModBlocks.noise_barrier, 8),
+				"ABA",
+				"ABA",
+				"ABA",
+				'A', Items.iron_ingot,
+				'B', Blocks.glass);
+		
+		// noise barrier with light
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.noise_barrier_with_lamp, 1),
+				new Object[] {ModBlocks.noise_barrier, ModBlocks.fluorescent_lamp});
 		
 		// slim passenger detector
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.slim_passenger_detector, 4),

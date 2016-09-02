@@ -1,6 +1,22 @@
 Change Log
 ==========
 
+0.10
+---
+
+Added:
+* Glass Fence
+* Noise Barrier
+
+Changed:
+* GUI Item icons rotated
+* Fixed ticket machine name typo and updated texture
+* Texture UV update: Fluoresecnt Lamp
+* Texture UV update: Platform Gate
+* Texture UV update: Platform Panel
+* Platform panels no longer use white stained glass
+* Logo changed slightly
+
 0.9
 ---
 

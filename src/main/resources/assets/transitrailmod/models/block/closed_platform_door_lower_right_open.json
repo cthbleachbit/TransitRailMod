@@ -1,9 +1,9 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "particle": "blocks/glass_white",
+        "particle": "blocks/glass",
         "0": "blocks/iron_block",
-        "1": "blocks/glass_white"
+        "1": "blocks/glass"
     },
     "elements": [
         {
@@ -45,8 +45,8 @@
         },
         {
             "name": "Glass",
-            "from": [ 16.0, 2.0, 0.0 ], 
-            "to": [ 28.0, 16.0, 1.0 ], 
+            "from": [ 16.0, 2.0, 1.0 ], 
+            "to": [ 28.0, 16.0, 2.0 ], 
             "faces": {
                 "north": { "texture": "#1", "uv": [ 2.0, 1.0, 14.0, 15.0 ] },
                 "south": { "texture": "#1", "uv": [ 2.0, 1.0, 14.0, 15.0 ] }

@@ -88,7 +88,7 @@ public class FluorescentLamp extends CustomDirectionBlock {
 		if (worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.wire_panel) {
 			pPanel = !((Boolean) worldIn.getBlockState(pos.down()).getValue(WirePanel.SHUT));
 		} else {
-			pPanel = false;
+			pPanel = worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.glass_fence;
 		}
 		
 		if (pPanel || pAbove) {

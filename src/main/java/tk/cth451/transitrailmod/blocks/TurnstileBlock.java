@@ -164,6 +164,21 @@ public class TurnstileBlock extends CustomDirectionBlock{
 		}
 	}
 	
+	// extra bounding box on top of side panel
+	protected AxisAlignedBB getSideBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
+		IBlockState state = worldIn.getBlockState(pos);
+		switch (((EnumFacing) state.getValue(FACING))) {
+			case NORTH :
+				return getBBFromBounds(pos, 0.75F, 1.0F, 0.0F, 1.0F, 1.5F, 1.0F);
+			case EAST :
+				return getBBFromBounds(pos, 0.0F, 1.0F, 0.75F, 1.0F, 1.5F, 1.0F);
+			case SOUTH :
+				return getBBFromBounds(pos, 0.0F, 1.0F, 0.0F, 0.25F, 1.5F, 1.0F);
+			default : // WEST
+				return getBBFromBounds(pos, 0.0F, 1.0F, 0.0F, 1.0F, 1.5F, 0.25F);
+		}
+	}
+	
 	private AxisAlignedBB getBBFromBounds (BlockPos pos, double x1, double y1, double z1, double x2, double y2, double z2) {
 		return new AxisAlignedBB(pos.getX() + x1, pos.getY() + y1, pos.getZ() + z1, pos.getX() + x2, pos.getY() + y2, pos.getZ() + z2);
 	}
@@ -184,11 +199,15 @@ public class TurnstileBlock extends CustomDirectionBlock{
 		this.setBlockBoundsBasedOnState(worldIn, pos);
 		AxisAlignedBB axisalignedbb1 = this.getCollisionBoundingBox(worldIn, pos, state);
 		AxisAlignedBB barBound = this.getBarBoundsBasedOnState(worldIn, pos);
+		AxisAlignedBB sideBound = this.getSideBoundsBasedOnState(worldIn, pos);
 		if (axisalignedbb1 != null && mask.intersectsWith(axisalignedbb1)) {
 			list.add(axisalignedbb1);
 		}
 		if (barBound != null && mask.intersectsWith(barBound)) {
 			list.add(barBound);
+		}
+		if (mask.intersectsWith(sideBound)) {
+			list.add(sideBound);
 		}
 	}
 }

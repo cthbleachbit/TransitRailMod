@@ -50,7 +50,7 @@ public abstract class ClosedPlatformBlock extends CustomDirectionBlock {
 	@SideOnly(Side.CLIENT)
 	public EnumWorldBlockLayer getBlockLayer()
 	{
-		return EnumWorldBlockLayer.TRANSLUCENT;
+		return EnumWorldBlockLayer.CUTOUT;
 	}
 	
 	@Override

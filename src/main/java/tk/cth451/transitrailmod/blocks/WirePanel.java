@@ -125,7 +125,7 @@ public class WirePanel extends CustomDirectionBlock {
 	}
 	
 	protected boolean checkLampPresent(IBlockAccess worldIn, BlockPos pos) {
-		return worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.fluorescent_lamp;
+		return worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.fluorescent_lamp ? true : worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.noise_barrier_with_lamp;
 	}
 	
 	protected boolean checkIsExtendingAbove(IBlockAccess worldIn, BlockPos pos) {
