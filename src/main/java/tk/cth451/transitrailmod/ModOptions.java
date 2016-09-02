@@ -14,6 +14,6 @@ public abstract class ModOptions {
 	public static final int TICKET_CONVERSION_FEE = 10;
 	// the cost of converting a piece of paper to a ticket
 	
-	public static final Item ITEM_TICKET_REFILL = Items.emerald;
+	public static final Item ITEM_TICKET_REFILL = Items.EMERALD;
 	// the item used to refill ticket
 }
