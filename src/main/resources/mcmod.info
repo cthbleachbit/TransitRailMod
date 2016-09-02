@@ -3,7 +3,7 @@
   "modid": "transitrailmod",
   "name": "Transit Rail Mod",
   "description": "cth451's transit railway mod",
-  "version": "0.10-dev",
+  "version": "0.10",
   "mcversion": "${mcversion}",
   "url": "https://github.com/cthbleachbit/TransitRailMod",
   "updateUrl": "",
