@@ -3,7 +3,7 @@ package tk.cth451.transitrailmod.init;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import tk.cth451.transitrailmod.References;
@@ -45,24 +45,24 @@ public class ModBlocks {
 	public static Block slim_passenger_detector;
 	
 	public static void init() {
-		closed_platform_top = new ClosedPlatformTop(Material.cloth);
-		closed_platform_door_block = new ClosedPlatformDoorBlock(Material.glass);
-		closed_platform_panel_block = new ClosedPlatformPanelBlock(Material.glass);
-		platform_gate_block = new PlatformGateBlock(Material.glass);
-		platform_panel_block = new PlatformPanelBlock(Material.iron);
-		logo_block = new LogoBlock(Material.iron);
-		hung_arrow_sign = new HungArrowSign(Material.iron);
-		platform_arrow_sign = new PlatformArrowSign(Material.iron);
-		fluorescent_lamp = new FluorescentLamp(Material.glass);
-		wire_panel = new WirePanel(Material.iron);
-		wire_panel_corner = new WirePanelCorner(Material.iron);
-		//platform_sign = new PlatformSign(Material.iron);
-		turnstile_block = new TurnstileBlock(Material.iron);
-		ticket_machine = new TicketMachine(Material.iron);
+		closed_platform_top = new ClosedPlatformTop(Material.IRON);
+		closed_platform_door_block = new ClosedPlatformDoorBlock(Material.GLASS);
+		closed_platform_panel_block = new ClosedPlatformPanelBlock(Material.GLASS);
+		platform_gate_block = new PlatformGateBlock(Material.GLASS);
+		platform_panel_block = new PlatformPanelBlock(Material.IRON);
+		logo_block = new LogoBlock(Material.IRON);
+		hung_arrow_sign = new HungArrowSign(Material.IRON);
+		platform_arrow_sign = new PlatformArrowSign(Material.IRON);
+		fluorescent_lamp = new FluorescentLamp(Material.GLASS);
+		wire_panel = new WirePanel(Material.IRON);
+		wire_panel_corner = new WirePanelCorner(Material.IRON);
+		//platform_sign = new PlatformSign(Material.IRON);
+		turnstile_block = new TurnstileBlock(Material.IRON);
+		ticket_machine = new TicketMachine(Material.IRON);
 		glass_fence = new GlassFenceBlock();
 		noise_barrier = new NoiseBarrierBlock(false);
 		noise_barrier_with_lamp = new NoiseBarrierBlock(true);
-		slim_passenger_detector = new SlimPassengerDetector(Material.iron);
+		slim_passenger_detector = new SlimPassengerDetector(Material.IRON);
 	}
 	
 	public static void register() {

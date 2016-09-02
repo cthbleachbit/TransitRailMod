@@ -12,103 +12,103 @@ public class ModRecipe {
 				"BBB",
 				" A ",
 				" A ",
-				'A', Items.stick,
-				'B', Items.paper);
+				'A', Items.STICK,
+				'B', Items.PAPER);
 		
 		// closed platform door
 		GameRegistry.addRecipe(new ItemStack(ModItems.closed_platform_door_item, 16),
 				"BCB",
 				"BAB",
 				"BAB",
-				'A', Blocks.glass,
-				'B', Items.iron_ingot,
-				'C', Items.redstone);
+				'A', Blocks.GLASS,
+				'B', Items.IRON_INGOT,
+				'C', Items.REDSTONE);
 		
 		// closed platform panel
 		GameRegistry.addRecipe(new ItemStack(ModItems.closed_platform_panel_item, 16),
 				"BBB",
 				"BAB",
 				"BAB",
-				'A', Blocks.glass,
-				'B', Items.iron_ingot);
+				'A', Blocks.GLASS,
+				'B', Items.IRON_INGOT);
 		
 		// platform gate
 		GameRegistry.addRecipe(new ItemStack(ModItems.platform_gate_item, 16),
 				"   ",
 				"BAB",
 				"BAB",
-				'A', Blocks.glass,
-				'B', Items.iron_ingot);
+				'A', Blocks.GLASS,
+				'B', Items.IRON_INGOT);
 		GameRegistry.addRecipe(new ItemStack(ModItems.platform_gate_item, 16),
 				"BAB",
 				"BAB",
 				"   ",
-				'A', Blocks.glass,
-				'B', Items.iron_ingot);
+				'A', Blocks.GLASS,
+				'B', Items.IRON_INGOT);
 		
 		// platform panel
 		GameRegistry.addRecipe(new ItemStack(ModItems.platform_panel_item, 16),
 				" C ",
 				"BAB",
 				"BAB",
-				'A', Blocks.glass,
-				'B', Items.iron_ingot,
-				'C', Items.redstone);
+				'A', Blocks.GLASS,
+				'B', Items.IRON_INGOT,
+				'C', Items.REDSTONE);
 	}
 	
 	public static void addBlocksRecipe(){
 		// logo block
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.logo_block, 2),
-				new Object[] {Blocks.iron_block, Items.paper});
+				new Object[] {Blocks.IRON_BLOCK, Items.PAPER});
 		
 		// hung arrow sign
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.hung_arrow_sign, 2),
 				"   ",
 				"BBB",
 				" A ",
-				'A', Items.arrow,
-				'B', Items.iron_ingot);
+				'A', Items.ARROW,
+				'B', Items.IRON_INGOT);
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.hung_arrow_sign, 2),
 				"BBB",
 				" A ",
 				"   ",
-				'A', Items.arrow,
-				'B', Items.iron_ingot);
+				'A', Items.ARROW,
+				'B', Items.IRON_INGOT);
 		
 		// platform arrow sign
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.platform_arrow_sign, 2),
-				new Object[] {Blocks.iron_block, Items.arrow});
+				new Object[] {Blocks.IRON_BLOCK, Items.ARROW});
 		
 		// fluorescent lamp
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
 				"A  ",
 				"B  ",
 				"C  ",
-				'A', Blocks.glass,
-				'B', Blocks.glowstone,
-				'C', Blocks.iron_block);
+				'A', Blocks.GLASS,
+				'B', Blocks.GLOWSTONE,
+				'C', Blocks.IRON_BLOCK);
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
 				" A ",
 				" B ",
 				" C ",
-				'A', Blocks.glass,
-				'B', Blocks.glowstone,
-				'C', Blocks.iron_block);
+				'A', Blocks.GLASS,
+				'B', Blocks.GLOWSTONE,
+				'C', Blocks.IRON_BLOCK);
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.fluorescent_lamp, 16),
 				"  A",
 				"  B",
 				"  C",
-				'A', Blocks.glass,
-				'B', Blocks.glowstone,
-				'C', Blocks.iron_block);
+				'A', Blocks.GLASS,
+				'B', Blocks.GLOWSTONE,
+				'C', Blocks.IRON_BLOCK);
 		
 		// wire panel
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.wire_panel, 8),
 				"ABA",
 				"ABA",
 				"ABA",
-				'A', Items.iron_ingot,
-				'B', Items.redstone);
+				'A', Items.IRON_INGOT,
+				'B', Items.REDSTONE);
 		
 		// wire panel corner, 1 to 1 conversion with wire panel
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.wire_panel_corner),
@@ -121,30 +121,30 @@ public class ModRecipe {
 				"AAB",
 				"  A",
 				"  A",
-				'A', Items.iron_ingot,
-				'B', Items.redstone);
+				'A', Items.IRON_INGOT,
+				'B', Items.REDSTONE);
 		
 		// glass fence
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.glass_fence, 8),
 				"   ",
 				"AAA",
 				"ABA",
-				'A', Items.iron_ingot,
-				'B', Blocks.glass);
+				'A', Items.IRON_INGOT,
+				'B', Blocks.GLASS);
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.glass_fence, 8),
 				"AAA",
 				"ABA",
 				"   ",
-				'A', Items.iron_ingot,
-				'B', Blocks.glass);
+				'A', Items.IRON_INGOT,
+				'B', Blocks.GLASS);
 		
 		// noise barrier
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.noise_barrier, 8),
 				"ABA",
 				"ABA",
 				"ABA",
-				'A', Items.iron_ingot,
-				'B', Blocks.glass);
+				'A', Items.IRON_INGOT,
+				'B', Blocks.GLASS);
 		
 		// noise barrier with light
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.noise_barrier_with_lamp, 1),
@@ -152,6 +152,6 @@ public class ModRecipe {
 		
 		// slim passenger detector
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.slim_passenger_detector, 4),
-				new Object[] {Items.iron_ingot, Items.redstone, Blocks.glass});
+				new Object[] {Items.IRON_INGOT, Items.REDSTONE, Blocks.GLASS});
 	}
 }
