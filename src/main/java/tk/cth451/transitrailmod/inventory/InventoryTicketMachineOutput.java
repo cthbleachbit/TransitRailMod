@@ -1,11 +1,9 @@
 package tk.cth451.transitrailmod.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IChatComponent;
-import tk.cth451.transitrailmod.init.ModItems;
+import net.minecraft.util.text.ITextComponent;
 
 // []
 // 1
@@ -21,13 +19,11 @@ public class InventoryTicketMachineOutput implements IInventory {
 
 	@Override
 	public boolean hasCustomName() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public IChatComponent getDisplayName() {
-		// TODO Auto-generated method stub
+	public ITextComponent getDisplayName() {
 		return null;
 	}
 
@@ -52,16 +48,16 @@ public class InventoryTicketMachineOutput implements IInventory {
 		}
 	}
 
-	@Override
-	public ItemStack getStackInSlotOnClosing(int index) {
-		if (invStack[index] != null) {
-			ItemStack ret = invStack[index];
-			invStack[index] = null;
-			return ret;
-		} else {
-			return null;
-		}
-	}
+//	@Override
+//	public ItemStack getStackInSlotOnClosing(int index) {
+//		if (invStack[index] != null) {
+//			ItemStack ret = invStack[index];
+//			invStack[index] = null;
+//			return ret;
+//		} else {
+//			return null;
+//		}
+//	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
@@ -110,6 +106,11 @@ public class InventoryTicketMachineOutput implements IInventory {
 		for (int i = 0; i < invStack.length; i++) {
 			invStack[i] = null;
 		}
+	}
+
+	@Override
+	public ItemStack removeStackFromSlot(int index) {
+		return null;
 	}
 
 }

@@ -4,12 +4,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.EnumGuiTypes;
@@ -20,25 +22,25 @@ public class TicketMachine extends Block {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
 	public TicketMachine(Material materialIn) {
-		super(Material.iron);
+		super(Material.IRON);
 		this.setUnlocalizedName("ticket_machine");
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
 		this.setDefaultState(this.getDefaultState().withProperty(FACING, EnumFacing.NORTH));
 	}
 	
 	@Override
-	public boolean isFullCube() {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 	
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 	
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING});
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING});
 	}
 	
 	protected IBlockState getFacingState(IBlockState state, EntityLivingBase placer){
@@ -71,7 +73,7 @@ public class TicketMachine extends Block {
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
+			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
 			playerIn.openGui(TransitRailMod.instance,
 					EnumGuiTypes.TICKET_MACHINE.ordinal(),

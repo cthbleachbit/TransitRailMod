@@ -1,15 +1,17 @@
 package tk.cth451.transitrailmod.blocks;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
@@ -23,7 +25,7 @@ public class WirePanel extends CustomDirectionBlock {
 	public static final PropertyBool SHUT = PropertyBool.create("shut");
 	
 	public WirePanel(Material materialIn) {
-		super(Material.iron);
+		super(Material.IRON);
 		this.setUnlocalizedName("wire_panel");
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
 		this.setDefaultState(this.getDefaultState()
@@ -33,27 +35,27 @@ public class WirePanel extends CustomDirectionBlock {
 	}
 	
 	// Properties
-	public boolean isOpaqueCube() {
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 	
 	@Override
-	public boolean isFullCube()
-    {
-        return false;
-    }
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING); 
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		EnumFacing facing = (EnumFacing) state.getValue(FACING); 
 		if (facing == EnumFacing.NORTH) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.5F);
+			return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.5F);
 		} else if (facing == EnumFacing.EAST) {
-			this.setBlockBounds(0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+			return new AxisAlignedBB(0.5F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		} else if (facing == EnumFacing.SOUTH) {
-			this.setBlockBounds(0.0F, 0.0F, 0.5F, 1.0F, 1.0F, 1.0F);
+			return new AxisAlignedBB(0.0F, 0.0F, 0.5F, 1.0F, 1.0F, 1.0F);
 		} else { // WEST
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.5F, 1.0F, 1.0F);
+			return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.5F, 1.0F, 1.0F);
 		}
 	}
 	
@@ -63,14 +65,14 @@ public class WirePanel extends CustomDirectionBlock {
 	}
 	
 	@Override
-	public boolean canProvidePower() {
+	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
 	
 	// Block States
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, LAMP, SHUT});
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING, LAMP, SHUT});
 	}
 	
 	// meta: 3211
@@ -107,17 +109,18 @@ public class WirePanel extends CustomDirectionBlock {
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+		IBlockState state = world.getBlockState(pos);
 		EnumFacing sideToProvide = ((EnumFacing) state.getValue(FACING)).getOpposite();
-		state = state.withProperty(LAMP, this.checkLampPresent(worldIn, pos));
-		worldIn.setBlockState(pos, state);
-		worldIn.notifyBlockOfStateChange(pos.offset(sideToProvide), this);
+		state = state.withProperty(LAMP, this.checkLampPresent(world, pos));
+		((World) world).setBlockState(pos, state);
+		((World) world).notifyBlockOfStateChange(pos.offset(sideToProvide), this);
 	}
 	
 	@Override
-	public int isProvidingWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-		if (this.checkLampPresent(worldIn, pos) && !((Boolean) state.getValue(SHUT))) {
-			EnumFacing sideToProvide = ((EnumFacing) state.getValue(FACING));
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		if (this.checkLampPresent(blockAccess, pos) && !((Boolean) blockState.getValue(SHUT))) {
+			EnumFacing sideToProvide = ((EnumFacing) blockState.getValue(FACING));
 			return sideToProvide == side ? 15 : 0;
 		} else {
 			return 0;
@@ -134,9 +137,9 @@ public class WirePanel extends CustomDirectionBlock {
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (playerIn.getHeldItem() != null) {
-			if (playerIn.getHeldItem().getItem() == ModItems.style_changer){
+			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (playerIn.getHeldItemMainhand() != null) {
+			if (playerIn.getHeldItemMainhand().getItem() == ModItems.style_changer){
 				worldIn.setBlockState(pos, state.cycleProperty(SHUT));
 				return true;
 			}

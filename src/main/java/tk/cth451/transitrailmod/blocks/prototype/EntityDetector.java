@@ -7,14 +7,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tk.cth451.transitrailmod.TransitRailMod;
@@ -35,8 +35,8 @@ public abstract class EntityDetector extends CustomDirectionBlock {
 	
 	// Block State
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, POWERED});
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING, POWERED});
 	}
 	
 	@Override
@@ -67,7 +67,7 @@ public abstract class EntityDetector extends CustomDirectionBlock {
     }
 	
 	@Override
-	public boolean canProvidePower() {
+	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
 	
@@ -116,12 +116,12 @@ public abstract class EntityDetector extends CustomDirectionBlock {
 	}
 	
 	@Override
-	public int isProvidingWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-		return side.getOpposite() == (EnumFacing) state.getValue(FACING) ? givePower((World) worldIn, pos) : 0;
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		return side.getOpposite() == (EnumFacing) blockState.getValue(FACING) ? givePower((World) blockAccess, pos) : 0;
 	}
 	
 	@Override
-	public int isProvidingStrongPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
-		return this.isProvidingWeakPower(worldIn, pos, state, side);
+	public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		return this.getWeakPower(blockState, blockAccess, pos, side);
 	}
 }

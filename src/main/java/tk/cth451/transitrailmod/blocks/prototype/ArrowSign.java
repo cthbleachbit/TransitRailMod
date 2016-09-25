@@ -3,13 +3,13 @@ package tk.cth451.transitrailmod.blocks.prototype;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -21,7 +21,7 @@ public abstract class ArrowSign extends CustomDirectionBlock {
 	public static final PropertyEnum ARROW = PropertyEnum.create("arrow", EnumArrow.class);
 	
 	public ArrowSign(Material materialIn) {
-		super(Material.iron);
+		super(Material.IRON);
 		this.setLightLevel(1.0F);
 		this.setDefaultState(getDefaultState()
 				.withProperty(ARROW, EnumArrow.ARROW_UP)
@@ -30,8 +30,8 @@ public abstract class ArrowSign extends CustomDirectionBlock {
 	
 	// Block state
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {ARROW, FACING});
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {ARROW, FACING});
 	}
 	
 	// meta 1122
@@ -52,21 +52,21 @@ public abstract class ArrowSign extends CustomDirectionBlock {
 	}
 	
 	// Properties
+	
 	@Override
-	public boolean isTranslucent() {
+	public boolean isTranslucent(IBlockState state) {
 		return true;
 	}
 	
 	@Override
-	public boolean isOpaqueCube() {
-        return false;
-    }
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
-	{
-		return EnumWorldBlockLayer.CUTOUT;
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT;
 	}
 	
 	// Interactions

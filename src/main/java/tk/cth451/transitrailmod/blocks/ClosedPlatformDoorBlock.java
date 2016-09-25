@@ -6,11 +6,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,7 +25,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	public static final PropertyBool LEFT = PropertyBool.create("left"); 
 	
 	public ClosedPlatformDoorBlock(Material materialIn) {
-		super(Material.glass);
+		super(Material.GLASS);
 		this.setUnlocalizedName("closed_platform_door_block");
 		this.setDefaultState(getDefaultState()
 				.withProperty(FACING, EnumFacing.NORTH)
@@ -35,48 +36,47 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	
 	// Properties
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-    {
-		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
-		boolean isOpen = (Boolean) worldIn.getBlockState(pos).getValue(POWERED);
-		boolean leftOrNot = this.isLeft(worldIn, pos, facing);
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		EnumFacing facing = (EnumFacing) state.getValue(FACING);
+		boolean isOpen = (Boolean) state.getValue(POWERED);
+		boolean leftOrNot = this.isLeft(source, pos, facing);
 		if (!isOpen) {
 			if (facing == EnumFacing.NORTH) {
-				this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+				return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
 			} else if (facing == EnumFacing.EAST) {
-				this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+				return new AxisAlignedBB(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 			} else if (facing == EnumFacing.SOUTH) {
-				this.setBlockBounds(0.0F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
-			} else if (facing == EnumFacing.WEST) {
-				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 1.0F);
+				return new AxisAlignedBB(0.0F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+			} else { // if (facing == EnumFacing.WEST) 
+				return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 1.0F);
 			}
 		} else if (leftOrNot) {
 			if (facing == EnumFacing.NORTH) {
-				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 0.125F);
+				return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 0.125F);
 			} else if (facing == EnumFacing.EAST) {
-				this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+				return new AxisAlignedBB(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
 			} else if (facing == EnumFacing.SOUTH) {
-				this.setBlockBounds(0.875F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
-			} else if (facing == EnumFacing.WEST) {
-				this.setBlockBounds(0.0F, 0.0F, 0.875F, 0.125F, 1.0F, 1.0F);
+				return new AxisAlignedBB(0.875F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+			} else { // if (facing == EnumFacing.WEST) 
+				return new AxisAlignedBB(0.0F, 0.0F, 0.875F, 0.125F, 1.0F, 1.0F);
 			}
 		} else {
 			if (facing == EnumFacing.NORTH) {
-				this.setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
+				return new AxisAlignedBB(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
 			} else if (facing == EnumFacing.EAST) {
-				this.setBlockBounds(0.875F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
+				return new AxisAlignedBB(0.875F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
 			} else if (facing == EnumFacing.SOUTH) {
-				this.setBlockBounds(0.0F, 0.0F, 0.875F, 0.125F, 1.0F, 1.0F);
-			} else if (facing == EnumFacing.WEST) {
-				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 0.125F);
+				return new AxisAlignedBB(0.0F, 0.0F, 0.875F, 0.125F, 1.0F, 1.0F);
+			} else  { // if (facing == EnumFacing.WEST) 
+				return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 0.125F);
 			}
 		}
-    }
+	}
 	
 	// BlockStates
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, UPPER, POWERED, LEFT});
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING, UPPER, POWERED, LEFT});
 	}
 	
 	@Override
@@ -126,7 +126,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 	
 	// Redstone
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 		boolean flagUpper = isUpper(worldIn, pos);
 		// check whether the block triggered is the upper part
 		
@@ -142,7 +142,7 @@ public class ClosedPlatformDoorBlock extends ClosedPlatformBlock {
 				worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
 				worldIn.markBlockRangeForRenderUpdate(pos, pos);
 			}
-			super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
+			super.neighborChanged(state, worldIn, pos1, blockIn);
 		} else {
 			this.destroyParts(flagUpper, worldIn, pos);
 		}

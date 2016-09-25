@@ -8,9 +8,9 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public abstract class CustomDirectionBlock extends Block {
@@ -34,9 +34,8 @@ public abstract class CustomDirectionBlock extends Block {
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
-			Entity collidingEntity) {
-		this.setBlockBoundsBasedOnState(worldIn, pos);
-		super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox,
+			List<AxisAlignedBB> collidingBoxes, Entity entityIn) {
+		addCollisionBoxToList(pos, entityBox, collidingBoxes, state.getCollisionBoundingBox(worldIn, pos));
 	}
 }

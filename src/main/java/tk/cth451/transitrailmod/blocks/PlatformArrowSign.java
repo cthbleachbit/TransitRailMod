@@ -7,7 +7,7 @@ import tk.cth451.transitrailmod.blocks.prototype.ArrowSign;
 public class PlatformArrowSign extends ArrowSign {
 	
 	public PlatformArrowSign(Material materialIn) {
-		super(Material.iron);
+		super(Material.IRON);
 		this.setUnlocalizedName("platform_arrow_sign");
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
 	}

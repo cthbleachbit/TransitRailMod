@@ -6,9 +6,9 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,26 +24,24 @@ public abstract class PlatformBlock extends CustomDirectionBlock {
 	
 	// Common Properties
 	@Override
-	public boolean isTranslucent() {
+	public boolean isTranslucent(IBlockState state) {
 		return true;
 	}
 	
 	@Override
-	public boolean isOpaqueCube() {
-        return false;
-    }
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
-	public boolean isFullCube()
-    {
-        return false;
-    }
+	public boolean isFullBlock(IBlockState state) {
+		return false;
+	}
 	
 	@Override
     @SideOnly(Side.CLIENT)
-    public EnumWorldBlockLayer getBlockLayer()
-    {
-        return EnumWorldBlockLayer.CUTOUT;
+    public BlockRenderLayer getBlockLayer() {
+    	return BlockRenderLayer.CUTOUT;
     }
 	
 	public boolean isUpper(IBlockAccess worldIn, BlockPos pos){
@@ -65,7 +63,7 @@ public abstract class PlatformBlock extends CustomDirectionBlock {
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 		BlockPos posToCheck = this.isUpper(worldIn, pos) ? pos.down() : pos.up();
 		if (worldIn.getBlockState(posToCheck).getBlock() != this) {
 			worldIn.setBlockToAir(pos);

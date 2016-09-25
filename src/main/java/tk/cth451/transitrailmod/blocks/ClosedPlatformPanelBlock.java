@@ -6,11 +6,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,7 +23,7 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	
 	public ClosedPlatformPanelBlock(Material materialIn) {
-		super(Material.glass);
+		super(Material.GLASS);
 		this.setUnlocalizedName("closed_platform_panel_block");
 		this.setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(UPPER, false));
 	}
@@ -30,24 +31,23 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 	// Properties
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-    {
-		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		EnumFacing facing = (EnumFacing) source.getBlockState(pos).getValue(FACING);
 		if (facing == EnumFacing.NORTH) {
-			this.setBlockBounds(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.25F);
+			return new AxisAlignedBB(0.0F, 0.0F, 0.125F, 1.0F, 1.0F, 0.25F);
 		} else if (facing == EnumFacing.EAST) {
-			this.setBlockBounds(0.75F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
+			return new AxisAlignedBB(0.75F, 0.0F, 0.0F, 0.875F, 1.0F, 1.0F);
 		} else if (facing == EnumFacing.SOUTH) {
-			this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 0.875F);
-		} else if (facing == EnumFacing.WEST) {
-			this.setBlockBounds(0.125F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+			return new AxisAlignedBB(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 0.875F);
+		} else { // if (facing == EnumFacing.WEST) {
+			return new AxisAlignedBB(0.125F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
 		}
-    }
+	}
 	
 	// Block State Methods
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, UPPER});
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {FACING, UPPER});
 	}
 	
 
@@ -85,7 +85,7 @@ public class ClosedPlatformPanelBlock extends ClosedPlatformBlock {
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 		boolean flagUpper = isUpper(worldIn, pos);
 		// check whether the block triggered is the upper part
 		BlockPos pos1 = flagUpper ? pos.down() : pos.up();

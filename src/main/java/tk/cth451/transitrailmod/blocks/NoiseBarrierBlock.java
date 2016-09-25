@@ -3,16 +3,14 @@ package tk.cth451.transitrailmod.blocks;
 import java.util.List;
 
 import net.minecraft.block.BlockFence;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -21,7 +19,7 @@ public class NoiseBarrierBlock extends BlockFence {
 	public final boolean lamp;
 	
 	public NoiseBarrierBlock(boolean lampIn) {
-		super(Material.glass);
+		super(Material.GLASS, MapColor.IRON);
 		lamp = lampIn;
 		this.setUnlocalizedName(lamp ? "noise_barrier_with_lamp" : "noise_barrier");
 		this.setLightLevel(lamp ? 1.0F : 0F);
@@ -34,19 +32,18 @@ public class NoiseBarrierBlock extends BlockFence {
 	}
 	
 	@Override
-	public boolean isOpaqueCube() {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 	
 	@Override
-	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.CUTOUT;
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT;
 	}
 	
 	// Bounding boxes
 	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list, Entity collidingEntity)
-	{
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
 		boolean flag = this.canConnectTo(worldIn, pos.north());
 		boolean flag1 = this.canConnectTo(worldIn, pos.south());
 		boolean flag2 = this.canConnectTo(worldIn, pos.west());
@@ -65,8 +62,7 @@ public class NoiseBarrierBlock extends BlockFence {
 		}
 		
 		if (flag || flag1) {
-			this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
-			super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+			return new AxisAlignedBB(f, 0.0F, f2, f1, 1.0F, f3);
 		}
 
 		f2 = 0.4375F;
@@ -81,8 +77,7 @@ public class NoiseBarrierBlock extends BlockFence {
 		}
 
 		if (flag2 || flag3 || !flag && !flag1) {
-			this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
-			super.addCollisionBoxesToList(worldIn, pos, state, mask, list, collidingEntity);
+			return new AxisAlignedBB(f, 0.0F, f2, f1, 1.0F, f3);
 		}
 
 		if (flag) {
@@ -93,36 +88,6 @@ public class NoiseBarrierBlock extends BlockFence {
 			f3 = 1.0F;
 		}
 
-		this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
-	}
-	
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos)
-	{
-		boolean flag = this.canConnectTo(worldIn, pos.north());
-		boolean flag1 = this.canConnectTo(worldIn, pos.south());
-		boolean flag2 = this.canConnectTo(worldIn, pos.west());
-		boolean flag3 = this.canConnectTo(worldIn, pos.east());
-		float f = 0.4375F;
-		float f1 = 0.5625F;
-		float f2 = 0.4375F;
-		float f3 = 0.5625F;
-
-		if (flag) {
-			f2 = 0.0F;
-		}
-
-		if (flag1) {
-			f3 = 1.0F;
-		}
-
-		if (flag2) {
-			f = 0.0F;
-		}
-
-		if (flag3) {
-			f1 = 1.0F;
-		}
-
-		this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
+		return new AxisAlignedBB(f, 0.0F, f2, f1, 1.0F, f3);
 	}
 }

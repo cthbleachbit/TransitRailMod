@@ -7,15 +7,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -31,7 +30,7 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	public static final PropertyEnum PASSING = PropertyEnum.create("passing", EnumPassingDirection.class);
 	
 	public TurnstileBlock(Material materialIn) {
-		super(Material.iron);
+		super(Material.IRON);
 		this.setUnlocalizedName("turnstile_block");
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
 		this.setTickRandomly(true);
@@ -42,20 +41,19 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	}
 	
 	@Override
-	public boolean isTranslucent() {
-		return true;
+	public boolean isTranslucent(IBlockState state) {
+		return false;
 	}
 	
 	@Override
-	public boolean isOpaqueCube() {
-        return false;
-    }
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
-	public boolean isFullCube()
-    {
-        return false;
-    }
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
 	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
@@ -69,8 +67,8 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	
 	// Block State
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {ACTIVE, PASSING, FACING});
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {ACTIVE, PASSING, FACING});
 	}
 	
 	// meta: 3211
@@ -110,26 +108,16 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	
 	// Appearance
 	@Override
-	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.SOLID;
-	}
-	
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-		IBlockState state = worldIn.getBlockState(pos);
+	public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
 		switch (((EnumFacing) state.getValue(FACING))) {
 			case NORTH :
-				this.setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-				break;
+				return new AxisAlignedBB(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 			case EAST :
-				this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
-				break;
+				return new AxisAlignedBB(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
 			case SOUTH :
-				this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
-				break;
+				return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
 			default : //WEST
-				this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
+				return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
 		}
 	}
 	
@@ -194,20 +182,18 @@ public class TurnstileBlock extends CustomDirectionBlock{
 	}
 	
 	@Override
-	public void addCollisionBoxesToList(World worldIn, BlockPos pos, IBlockState state, AxisAlignedBB mask, List list,
-			Entity collidingEntity) {
-		this.setBlockBoundsBasedOnState(worldIn, pos);
-		AxisAlignedBB axisalignedbb1 = this.getCollisionBoundingBox(worldIn, pos, state);
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+		return this.getSelectedBoundingBox(state, worldIn, pos);
+	}
+	
+	@Override
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox,
+			List<AxisAlignedBB> collidingBoxes, Entity entityIn) {
+		super.addCollisionBoxToList(state, worldIn, pos, entityBox, collidingBoxes, entityIn);
+		AxisAlignedBB axisalignedbb1 = this.getCollisionBoundingBox(state, worldIn, pos);
 		AxisAlignedBB barBound = this.getBarBoundsBasedOnState(worldIn, pos);
 		AxisAlignedBB sideBound = this.getSideBoundsBasedOnState(worldIn, pos);
-		if (axisalignedbb1 != null && mask.intersectsWith(axisalignedbb1)) {
-			list.add(axisalignedbb1);
-		}
-		if (barBound != null && mask.intersectsWith(barBound)) {
-			list.add(barBound);
-		}
-		if (mask.intersectsWith(sideBound)) {
-			list.add(sideBound);
-		}
+		collidingBoxes.add(barBound);
+		collidingBoxes.add(sideBound);
 	}
 }

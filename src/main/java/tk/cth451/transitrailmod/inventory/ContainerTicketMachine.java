@@ -63,7 +63,7 @@ public class ContainerTicketMachine extends Container {
 			for (int i = 0; i < invInput.getSizeInventory(); i++) {
 				ItemStack stack = invInput.getStackInSlot(i);
 				if (stack != null) {
-					playerIn.dropPlayerItemWithRandomChoice(stack, false);
+					playerIn.dropItem(stack, false);
 				}
 			}
 		}
@@ -135,7 +135,7 @@ public class ContainerTicketMachine extends Container {
 		if (stack == null) {
 			return false;
 		}
-		return stack.getItem() == Items.paper;
+		return stack.getItem() == Items.PAPER;
 	}
 	
 	private boolean inputSlot1IsTicket(){
@@ -151,7 +151,7 @@ public class ContainerTicketMachine extends Container {
 		if (stack == null) {
 			return false;
 		}
-		return stack.getItem() == Items.emerald;
+		return stack.getItem() == Items.EMERALD;
 	}
 	
 	protected ItemStack getProcessedTicket(InventoryTicketMachineInput input) {

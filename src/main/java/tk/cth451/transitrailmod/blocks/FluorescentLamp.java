@@ -5,12 +5,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,7 +27,7 @@ public class FluorescentLamp extends CustomDirectionBlock {
 	public static final PropertyEnum ATTACH = PropertyEnum.create("attach", EnumAttachTo.class);
 	
 	public FluorescentLamp(Material materialIn) {
-		super(Material.glass);
+		super(Material.GLASS);
 		this.setUnlocalizedName("fluorescent_lamp");
 		this.setLightLevel(1F);
 		this.setCreativeTab(TransitRailMod.tabTransitRail);
@@ -37,32 +38,30 @@ public class FluorescentLamp extends CustomDirectionBlock {
 	
 	// Properties
 	@Override
-	public boolean isTranslucent() {
+	public boolean isTranslucent(IBlockState state) {
 		return true;
 	}
 	
 	@Override
-	public boolean isOpaqueCube() {
-        return false;
-    }
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
-	public boolean isFullCube()
-    {
-        return false;
-    }
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer()
-	{
-		return EnumWorldBlockLayer.CUTOUT;
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.CUTOUT;
 	}
 	
 	// Block States
 	@Override
-	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {ATTACH, FACING});
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {ATTACH, FACING});
 	}
 	
 	// meta 1122
@@ -95,9 +94,9 @@ public class FluorescentLamp extends CustomDirectionBlock {
 			state = state.withProperty(ATTACH, EnumAttachTo.EXTENDING);
 		} else {
 			EnumFacing thisFacing = (EnumFacing) state.getValue(FACING);
-			boolean pWall = worldIn.getBlockState(pos.offset(thisFacing)).getBlock().isSideSolid(worldIn, pos.offset(thisFacing), thisFacing.getOpposite());
-			boolean pGround = worldIn.getBlockState(pos.down()).getBlock().isSideSolid(worldIn, pos.down(), EnumFacing.UP);
-			boolean pCeiling = worldIn.getBlockState(pos.up()).getBlock().isSideSolid(worldIn, pos.up(), EnumFacing.DOWN);
+			boolean pWall = worldIn.getBlockState(pos.offset(thisFacing)).getBlock().isSideSolid(state, worldIn, pos.offset(thisFacing), thisFacing.getOpposite());
+			boolean pGround = worldIn.getBlockState(pos.down()).getBlock().isSideSolid(state, worldIn, pos.down(), EnumFacing.UP);
+			boolean pCeiling = worldIn.getBlockState(pos.up()).getBlock().isSideSolid(state, worldIn, pos.up(), EnumFacing.DOWN);
 			
 			if (pWall) {
 				state = state.withProperty(ATTACH, EnumAttachTo.WALL);
@@ -123,44 +122,36 @@ public class FluorescentLamp extends CustomDirectionBlock {
 	}
 	
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 		worldIn.setBlockState(pos, this.getAttached(worldIn, pos, state));
 	}
 	
 	// Appearance
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-		IBlockState state = worldIn.getBlockState(pos);
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.GROUND) {
-			this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
+			return new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
 		} else if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.EXTENDING){
-			this.setBlockBounds(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
+			return new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
 		} else if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.CEILING) {
 			switch ((EnumFacing) state.getValue(FACING)) {
 				case NORTH:
-					this.setBlockBounds(0.0F, 0.875F, 0.375F, 1.0F, 1.0F, 0.625F);
-					break;
+					return new AxisAlignedBB(0.0F, 0.875F, 0.375F, 1.0F, 1.0F, 0.625F);
 				case SOUTH:
-					this.setBlockBounds(0.0F, 0.875F, 0.375F, 1.0F, 1.0F, 0.625F);
-					break;
+					return new AxisAlignedBB(0.0F, 0.875F, 0.375F, 1.0F, 1.0F, 0.625F);
 				default: // EAST and WEST
-					this.setBlockBounds(0.375F, 0.875F, 0.0F, 0.625F, 1.0F, 1.0F);
-					break;
+					return new AxisAlignedBB(0.375F, 0.875F, 0.0F, 0.625F, 1.0F, 1.0F);
 			}
-		} else if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.WALL) {
+		} else { // if ((EnumAttachTo) state.getValue(ATTACH) == EnumAttachTo.WALL) {
 			switch ((EnumFacing) state.getValue(FACING)) {
 			case NORTH:
-				this.setBlockBounds(0.0F, 0.4375F, 0.0F, 1.0F, 0.625F, 0.125F);
-				break;
+				return new AxisAlignedBB(0.0F, 0.4375F, 0.0F, 1.0F, 0.625F, 0.125F);
 			case EAST:
-				this.setBlockBounds(0.875F, 0.4375F, 0.0F, 1.0F, 0.625F, 1.0F);
-				break;
+				return new AxisAlignedBB(0.875F, 0.4375F, 0.0F, 1.0F, 0.625F, 1.0F);
 			case SOUTH:
-				this.setBlockBounds(0.0F, 0.4375F, 0.875F, 1.0F, 0.625F, 1.0F);
-				break;
+				return new AxisAlignedBB(0.0F, 0.4375F, 0.875F, 1.0F, 0.625F, 1.0F);
 			default: // WEST
-				this.setBlockBounds(0.0F, 0.4375F, 0.0F, 0.125F, 0.625F, 1.0F);
-				break;
+				return new AxisAlignedBB(0.0F, 0.4375F, 0.0F, 0.125F, 0.625F, 1.0F);
 			}
 		}
 	}

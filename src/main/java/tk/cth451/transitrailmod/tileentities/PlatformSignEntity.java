@@ -11,9 +11,10 @@ public class PlatformSignEntity extends TileEntity{
 	}
 	
 	@Override
-	public void writeToNBT(NBTTagCompound compound) {
-		super.writeToNBT(compound);
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+		compound = super.writeToNBT(compound);
 		compound.setString("content", dataContent);
+		return compound;
 	}
 	
 	@Override

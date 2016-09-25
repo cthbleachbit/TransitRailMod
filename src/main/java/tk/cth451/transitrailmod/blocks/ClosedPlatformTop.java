@@ -4,19 +4,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumWorldBlockLayer;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import tk.cth451.transitrailmod.blocks.prototype.CustomDirectionBlock;
 import tk.cth451.transitrailmod.init.ModBlocks;
 import tk.cth451.transitrailmod.init.ModItems;
@@ -26,59 +24,47 @@ public class ClosedPlatformTop extends CustomDirectionBlock {
 	public static final PropertyBool POWERED = PropertyBool.create("powered");
 	
 	public ClosedPlatformTop(Material materialIn) {
-		super(Material.iron);
+		super(Material.IRON);
 		this.setLightLevel(1F);
 		// Full brightness
 		this.setUnlocalizedName("closed_platform_top");
-		this.setDefaultState(
-				this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(POWERED, false));
+		this.setDefaultState(this.blockState.getBaseState()
+				.withProperty(FACING, EnumFacing.NORTH)
+				.withProperty(POWERED, false));
 	}
 
 	// Properties
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-		EnumFacing facing = (EnumFacing) worldIn.getBlockState(pos).getValue(FACING);
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		EnumFacing facing = (EnumFacing) source.getBlockState(pos).getValue(FACING);
 		if (facing == EnumFacing.NORTH) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
+			return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.25F);
 		} else if (facing == EnumFacing.EAST) {
-			this.setBlockBounds(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+			return new AxisAlignedBB(0.75F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		} else if (facing == EnumFacing.SOUTH) {
-			this.setBlockBounds(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
-		} else if (facing == EnumFacing.WEST) {
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
+			return new AxisAlignedBB(0.0F, 0.0F, 0.75F, 1.0F, 1.0F, 1.0F);
+		} else { // if (facing == EnumFacing.WEST) {
+			return new AxisAlignedBB(0.0F, 0.0F, 0.0F, 0.25F, 1.0F, 1.0F);
 		}
 	}
 
 	@Override
-	public boolean isTranslucent() {
+	public boolean isTranslucent(IBlockState state) {
 		return true;
 	}
 	
 	@Override
-	public int getMobilityFlag()
-    {
-        return 1;
-    }
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 	
 	@Override
-	public boolean isOpaqueCube() {
-        return false;
-    }
-	
-	@Override
-	public boolean isFullCube()
-    {
-        return false;
-    }
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public EnumWorldBlockLayer getBlockLayer() {
-		return EnumWorldBlockLayer.SOLID;
+	public boolean isFullCube(IBlockState state) {
+		return false;
 	}
 
 	@Override
-	public boolean canProvidePower() {
+	public boolean canProvidePower(IBlockState state) {
 		return true;
 	}
 
@@ -94,8 +80,8 @@ public class ClosedPlatformTop extends CustomDirectionBlock {
 	}
 
 	@Override
-	public BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] { FACING, POWERED });
+	public BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] { FACING, POWERED });
 	}
 
 	// meta: 0211
@@ -110,7 +96,7 @@ public class ClosedPlatformTop extends CustomDirectionBlock {
 
 	// Interactions
 	@Override
-	public boolean removedByPlayer(World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
 		// TODO: A dirty hack here.
 		boolean isCreative = player.capabilities.isCreativeMode;
 
@@ -132,7 +118,7 @@ public class ClosedPlatformTop extends CustomDirectionBlock {
 	
 	// Redstone
 	@Override
-	public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
 		Boolean flag = worldIn.isBlockPowered(pos);
 		if (flag != (Boolean) state.getValue(POWERED)) {
 			worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(flag)), 2);
@@ -142,9 +128,9 @@ public class ClosedPlatformTop extends CustomDirectionBlock {
 	}
 
 	@Override
-	public int isProvidingWeakPower(IBlockAccess worldIn, BlockPos pos, IBlockState state, EnumFacing side) {
+	public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		if (side == EnumFacing.DOWN) {
-			return (Boolean) state.getValue(POWERED) ? 15 : 0;
+			return (Boolean) blockState.getValue(POWERED) ? 15 : 0;
 		} else {
 			return 0;
 		}
@@ -152,7 +138,7 @@ public class ClosedPlatformTop extends CustomDirectionBlock {
 
 	// When middle click, get the block below.
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		Item item = null;
 		Block blockBelow = this.getBlockBelow(world, pos);
 
