@@ -1,0 +1,6 @@
+{
+  "item.transit.fare_ticket": "Fare Ticket",
+  "item.transit.fare_ticket.balance_tooltip": "Balance: %d",
+  "item.transit.fare_ticket.unlimited_tooltip": "Unlimited Pass!",
+  "item.transit.fare_ticket.in_use_tooltip": "In-use"
+}

@@ -3,6 +3,7 @@ package me.cth451.transit;
 import me.cth451.transit.items.FareTicketItem;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.item.Item;
+import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
