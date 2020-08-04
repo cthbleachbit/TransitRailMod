@@ -1,0 +1,30 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "transit:fare_ticket",
+      "data": {
+        "require": {
+          "balance": "$0..",
+          "in_use": false
+        }
+      }
+    },
+    {
+      "item": "transit:fare_ticket",
+      "data": {
+        "require": {
+          "balance": "$0..",
+          "in_use": false
+        }
+      }
+    }
+  ],
+  "result": {
+    "item": "transit:fare_ticket",
+    "data": {
+      "balance": "$ i0.balance + i1.balance + 1",
+      "in_use": false
+    }
+  }
+}

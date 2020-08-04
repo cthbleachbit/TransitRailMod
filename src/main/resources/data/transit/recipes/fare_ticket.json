@@ -1,0 +1,21 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:string"
+    }
+  ],
+  "result": {
+    "item": "transit:fare_ticket",
+    "data": {
+      "balance": 1,
+      "in_use": false
+    }
+  }
+}

@@ -27,7 +27,6 @@ public class FareTicketItem extends Item {
 
     @Override
     public void onCraft(ItemStack stack, World world, PlayerEntity player) {
-        stack.getOrCreateTag().putInt("balance", 0);
         stack.getOrCreateTag().putBoolean("in_use", false);
     }
 
@@ -76,81 +75,5 @@ public class FareTicketItem extends Item {
 
         context.getPlayer().playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL, 1.0F, 1.0F);
         return ActionResult.SUCCESS;
-    }
-
-    public class TicketCombineRecipe implements CraftingRecipe {
-
-        @Override
-        public boolean matches(CraftingInventory inv, World world) {
-            ArrayList<ItemStack> items = new ArrayList<>();
-            for (int i = 0; i < inv.getHeight(); i++) {
-                for (int j = 0; j < inv.getWidth(); j++) {
-                    int slot = i * inv.getWidth() + j;
-                    ItemStack stack = inv.getStack(slot);
-                    if (stack.getItem().equals(TransitRailMod.FARE_TICKET)) {
-                        items.add(inv.getStack(slot));
-                    } else if (!stack.isEmpty()) {
-                        return false;
-                    }
-                }
-            }
-            System.out.println("Success matching");
-            return true;
-        }
-
-        @Override
-        public ItemStack craft(CraftingInventory inv) {
-            return null;
-        }
-
-        @Override
-        public boolean fits(int width, int height) {
-            return false;
-        }
-
-        @Override
-        public ItemStack getOutput() {
-            return null;
-        }
-
-        @Override
-        public DefaultedList<ItemStack> getRemainingStacks(CraftingInventory inventory) {
-            return null;
-        }
-
-        @Override
-        public DefaultedList<Ingredient> getPreviewInputs() {
-            return null;
-        }
-
-        @Override
-        public boolean isIgnoredInRecipeBook() {
-            return true;
-        }
-
-        @Override
-        public String getGroup() {
-            return null;
-        }
-
-        @Override
-        public ItemStack getRecipeKindIcon() {
-            return null;
-        }
-
-        @Override
-        public Identifier getId() {
-            return null;
-        }
-
-        @Override
-        public RecipeSerializer<?> getSerializer() {
-            return null;
-        }
-
-        @Override
-        public RecipeType<?> getType() {
-            return null;
-        }
     }
 }
