@@ -1,9 +1,4 @@
-# Fabric Example Mod
+TransitRailMod: Complete Fabric Rewrite
+==============
 
-## Setup
-
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+A mod featuring platform doors and other elements of transit railway systems. Currently in the progress of rewriting into a Fabric mod.
