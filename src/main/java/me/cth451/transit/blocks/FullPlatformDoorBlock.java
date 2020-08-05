@@ -1,7 +1,6 @@
 package me.cth451.transit.blocks;
 
 import net.minecraft.block.*;
-import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.block.piston.PistonBehavior;
@@ -80,6 +79,8 @@ public class FullPlatformDoorBlock extends Block {
                 open_offset = hinge_left ? new Vec3d(0d, 0d, 14d) : new Vec3d(0d, 0d, -14d);
                 selected_shape = WEST_SHAPE;
         }
+        // It's not immediately obvious that 1 unit in VoxelShape offset is not the same as 1 unit when the shape is
+        // constructed. The offset vector must be scaled by 1/16 to obtain intended effect.
         open_offset = powered ? open_offset.multiply(0.0625d) : new Vec3d(0d, 0d, 0d);
         return selected_shape.offset(open_offset.x, open_offset.y, open_offset.z);
     }

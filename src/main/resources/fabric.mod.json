@@ -4,13 +4,13 @@
   "version": "${version}",
 
   "name": "Transit Rail Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "Transit railway in Minecraft",
   "authors": [
     "Tianhao Chai <cth451@gmail.com>"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/cthbleachbit/TransitRailMod",
+    "sources": "https://github.com/cthbleachbit/TransitRailMod"
   },
 
   "license": "CC0-1.0",
