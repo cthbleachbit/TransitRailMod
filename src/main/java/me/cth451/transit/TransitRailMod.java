@@ -1,5 +1,6 @@
 package me.cth451.transit;
 
+import me.cth451.transit.blocks.FullPlatformDoorBlock;
 import me.cth451.transit.blocks.FullPlatformPanelBlock;
 import me.cth451.transit.items.FareCard;
 import net.fabricmc.api.ClientModInitializer;
@@ -22,16 +23,21 @@ public class TransitRailMod implements ModInitializer, ClientModInitializer {
     public static final Item FARE_CARD = new FareCard(new Item.Settings());
     public static final Block FULL_PLATFORM_PANEL_BLOCK = new FullPlatformPanelBlock(FabricBlockSettings.of(Material.METAL, MaterialColor.IRON));
     public static final Item FULL_PLATFORM_PANEL_ITEM = new TallBlockItem(FULL_PLATFORM_PANEL_BLOCK, new Item.Settings().group(ItemGroup.TRANSPORTATION));
+    public static final Block FULL_PLATFORM_DOOR_BLOCK = new FullPlatformDoorBlock(FabricBlockSettings.of(Material.METAL, MaterialColor.IRON));
+    public static final Item FULL_PLATFORM_DOOR_ITEM = new TallBlockItem(FULL_PLATFORM_DOOR_BLOCK, new Item.Settings().group(ItemGroup.TRANSPORTATION));
 
     @Override
     public void onInitialize() {
         Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "fare_card"), FARE_CARD);
         Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "full_platform_panel"), FULL_PLATFORM_PANEL_BLOCK);
         Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "full_platform_panel"), FULL_PLATFORM_PANEL_ITEM);
+        Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "full_platform_door"), FULL_PLATFORM_DOOR_BLOCK);
+        Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "full_platform_door"), FULL_PLATFORM_DOOR_ITEM);
     }
 
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(FULL_PLATFORM_PANEL_BLOCK, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(FULL_PLATFORM_DOOR_BLOCK, RenderLayer.getCutout());
     }
 }

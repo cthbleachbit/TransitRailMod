@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=north,half=upper,hinge=left,powered=false": {
+      "model": "transit:block/full_platform_door_upper_left_closed"
+    },
+    "facing=north,half=lower,hinge=left,powered=false": {
+      "model": "transit:block/full_platform_door_lower_closed"
+    },
+    "facing=east,half=upper,hinge=left,powered=false": {
+      "model": "transit:block/full_platform_door_upper_left_closed",
+      "y": 90
+    },
+    "facing=east,half=lower,hinge=left,powered=false": {
+      "model": "transit:block/full_platform_door_lower_closed",
+      "y": 90
+    },
+    "facing=south,half=upper,hinge=left,powered=false": {
+      "model": "transit:block/full_platform_door_upper_left_closed",
+      "y": 180
+    },
+    "facing=south,half=lower,hinge=left,powered=false": {
+      "model": "transit:block/full_platform_door_lower_closed",
+      "y": 180
+    },
+    "facing=west,half=upper,hinge=left,powered=false": {
+      "model": "transit:block/full_platform_door_upper_left_closed",
+      "y": 270
+    },
+    "facing=west,half=lower,hinge=left,powered=false": {
+      "model": "transit:block/full_platform_door_lower_closed",
+      "y": 270
+    },
+    "facing=north,half=upper,hinge=left,powered=true": {
+      "model": "transit:block/full_platform_door_upper_left_open"
+    },
+    "facing=north,half=lower,hinge=left,powered=true": {
+      "model": "transit:block/full_platform_door_lower_left_open"
+    },
+    "facing=east,half=upper,hinge=left,powered=true": {
+      "model": "transit:block/full_platform_door_upper_left_open",
+      "y": 90
+    },
+    "facing=east,half=lower,hinge=left,powered=true": {
+      "model": "transit:block/full_platform_door_lower_left_open",
+      "y": 90
+    },
+    "facing=south,half=upper,hinge=left,powered=true": {
+      "model": "transit:block/full_platform_door_upper_left_open",
+      "y": 180
+    },
+    "facing=south,half=lower,hinge=left,powered=true": {
+      "model": "transit:block/full_platform_door_lower_left_open",
+      "y": 180
+    },
+    "facing=west,half=upper,hinge=left,powered=true": {
+      "model": "transit:block/full_platform_door_upper_left_open",
+      "y": 270
+    },
+    "facing=west,half=lower,hinge=left,powered=true": {
+      "model": "transit:block/full_platform_door_lower_left_open",
+      "y": 270
+    },
+    "facing=north,half=upper,hinge=right,powered=false": {
+      "model": "transit:block/full_platform_door_upper_right_closed"
+    },
+    "facing=north,half=lower,hinge=right,powered=false": {
+      "model": "transit:block/full_platform_door_lower_closed"
+    },
+    "facing=east,half=upper,hinge=right,powered=false": {
+      "model": "transit:block/full_platform_door_upper_right_closed",
+      "y": 90
+    },
+    "facing=east,half=lower,hinge=right,powered=false": {
+      "model": "transit:block/full_platform_door_lower_closed",
+      "y": 90
+    },
+    "facing=south,half=upper,hinge=right,powered=false": {
+      "model": "transit:block/full_platform_door_upper_right_closed",
+      "y": 180
+    },
+    "facing=south,half=lower,hinge=right,powered=false": {
+      "model": "transit:block/full_platform_door_lower_closed",
+      "y": 180
+    },
+    "facing=west,half=upper,hinge=right,powered=false": {
+      "model": "transit:block/full_platform_door_upper_right_closed",
+      "y": 270
+    },
+    "facing=west,half=lower,hinge=right,powered=false": {
+      "model": "transit:block/full_platform_door_lower_closed",
+      "y": 270
+    },
+    "facing=north,half=upper,hinge=right,powered=true": {
+      "model": "transit:block/full_platform_door_upper_right_open"
+    },
+    "facing=north,half=lower,hinge=right,powered=true": {
+      "model": "transit:block/full_platform_door_lower_right_open"
+    },
+    "facing=east,half=upper,hinge=right,powered=true": {
+      "model": "transit:block/full_platform_door_upper_right_open",
+      "y": 90
+    },
+    "facing=east,half=lower,hinge=right,powered=true": {
+      "model": "transit:block/full_platform_door_lower_right_open",
+      "y": 90
+    },
+    "facing=south,half=upper,hinge=right,powered=true": {
+      "model": "transit:block/full_platform_door_upper_right_open",
+      "y": 180
+    },
+    "facing=south,half=lower,hinge=right,powered=true": {
+      "model": "transit:block/full_platform_door_lower_right_open",
+      "y": 180
+    },
+    "facing=west,half=upper,hinge=right,powered=true": {
+      "model": "transit:block/full_platform_door_upper_right_open",
+      "y": 270
+    },
+    "facing=west,half=lower,hinge=right,powered=true": {
+      "model": "transit:block/full_platform_door_lower_right_open",
+      "y": 270
+    }
+  }
+}
