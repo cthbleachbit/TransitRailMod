@@ -12,7 +12,7 @@
     }
   ],
   "result": {
-    "item": "transit:fare_ticket",
+    "item": "transit:fare_card",
     "data": {
       "balance": 1,
       "in_use": false

@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class FareTicketItem extends Item {
-    public FareTicketItem(Settings settings) {
+public class FareCard extends Item {
+    public FareCard(Settings settings) {
         super(settings.group(ItemGroup.TRANSPORTATION).maxCount(1));
     }
 
@@ -26,16 +26,16 @@ public class FareTicketItem extends Item {
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         int balance = stack.getOrCreateTag().getInt("balance");
         if (balance == -1) {
-            tooltip.add(new TranslatableText("item.transit.fare_ticket.unlimited_tooltip"));
+            tooltip.add(new TranslatableText("item.transit.fare_card.unlimited_tooltip"));
         } else {
             if (balance < 0) {
                 stack.getOrCreateTag().putInt("balance", 0);
                 balance = 0;
             }
-            tooltip.add(new TranslatableText("item.transit.fare_ticket.balance_tooltip", balance));
+            tooltip.add(new TranslatableText("item.transit.fare_card.balance_tooltip", balance));
         }
         if (stack.getOrCreateTag().getBoolean("in_use")) {
-            tooltip.add(new TranslatableText("item.transit.fare_ticket.in_use_tooltip"));
+            tooltip.add(new TranslatableText("item.transit.fare_card.in_use_tooltip"));
         }
     }
 

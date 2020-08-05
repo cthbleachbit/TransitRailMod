@@ -2,26 +2,30 @@
   "type": "crafting_shapeless",
   "ingredients": [
     {
-      "item": "transit:fare_ticket",
+      "item": "transit:fare_card",
       "data": {
         "require": {
-          "balance": "$0..",
-          "in_use": false
+          "balance": "$0.."
+        },
+        "deny": {
+          "in_use": true
         }
       }
     },
     {
-      "item": "transit:fare_ticket",
+      "item": "transit:fare_card",
       "data": {
         "require": {
-          "balance": "$0..",
-          "in_use": false
+          "balance": "$0..."
+        },
+        "deny": {
+          "in_use": true
         }
       }
     }
   ],
   "result": {
-    "item": "transit:fare_ticket",
+    "item": "transit:fare_card",
     "data": {
       "balance": "$ i0.balance + i1.balance + 1",
       "in_use": false

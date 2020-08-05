@@ -1,6 +1,7 @@
 {
-  "item.transit.fare_ticket": "Fare Ticket",
-  "item.transit.fare_ticket.balance_tooltip": "Balance: %d",
-  "item.transit.fare_ticket.unlimited_tooltip": "Unlimited Pass!",
-  "item.transit.fare_ticket.in_use_tooltip": "In-use"
+  "item.transit.fare_card": "Fare Card",
+  "item.transit.fare_card.balance_tooltip": "Balance: %d",
+  "item.transit.fare_card.unlimited_tooltip": "Unlimited Pass!",
+  "item.transit.fare_card.in_use_tooltip": "In-use",
+  "item.transit.full_platform_panel_item": "Platform Door Panel"
 }
