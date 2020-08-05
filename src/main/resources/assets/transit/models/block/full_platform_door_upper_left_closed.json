@@ -4,7 +4,8 @@
         "particle": "minecraft:block/glass",
         "0": "minecraft:block/iron_block",
         "1": "minecraft:block/glass",
-        "2": "transit:block/material/orange_dim"
+        "2": "transit:block/material/orange_dim",
+        "3": "transit:block/material/door_arrow_left"
     },
     "elements": [
         {
@@ -51,6 +52,15 @@
             "faces": {
                 "north": { "texture": "#1", "uv": [ 2.0, 1.0, 14.0, 15.0 ] },
                 "south": { "texture": "#1", "uv": [ 2.0, 1.0, 14.0, 15.0 ] }
+            }
+        },
+        {
+            "name": "Overlay",
+            "from": [ 0.0, 0.0, 1.5 ],
+            "to": [ 16.0, 16.0, 1.5 ],
+            "faces": {
+                "north": { "texture": "#3", "uv": [ 16.0, 0.0, 0.0, 16.0 ] },
+                "south": { "texture": "#3", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
             }
         },
         {

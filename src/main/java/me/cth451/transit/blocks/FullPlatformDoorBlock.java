@@ -168,8 +168,8 @@ public class FullPlatformDoorBlock extends Block {
 
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
         boolean bl = world.isReceivingRedstonePower(pos) || world.isReceivingRedstonePower(pos.offset(state.get(HALF) == DoubleBlockHalf.LOWER ? Direction.UP : Direction.DOWN));
-        if (block != this && bl != (Boolean)state.get(POWERED)) {
-            world.setBlockState(pos, (BlockState)((BlockState)state.with(POWERED, bl)), 2);
+        if (block != this && bl != state.get(POWERED)) {
+            world.setBlockState(pos, state.with(POWERED, bl), 2);
         }
     }
 

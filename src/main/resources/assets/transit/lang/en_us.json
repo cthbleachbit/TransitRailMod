@@ -3,5 +3,6 @@
   "item.transit.fare_card.balance_tooltip": "Balance: %d",
   "item.transit.fare_card.unlimited_tooltip": "Unlimited Pass!",
   "item.transit.fare_card.in_use_tooltip": "In-use",
-  "block.transit.full_platform_panel": "Platform Door Panel"
+  "block.transit.full_platform_panel": "Full-Height Platform Door Panel",
+  "block.transit.full_platform_door": "Full-Height Platform Door"
 }
