@@ -85,7 +85,7 @@ public class FullPlatformDoorBlock extends Block {
     }
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
-        DoubleBlockHalf doubleBlockHalf = (DoubleBlockHalf)state.get(HALF);
+        DoubleBlockHalf doubleBlockHalf = state.get(HALF);
         if (direction.getAxis() == Direction.Axis.Y && doubleBlockHalf == DoubleBlockHalf.LOWER == (direction == Direction.UP)) {
             return newState.isOf(this) && newState.get(HALF) != doubleBlockHalf ? state.with(FACING, newState.get(FACING)).with(HINGE, newState.get(HINGE)).with(POWERED, newState.get(POWERED)) : Blocks.AIR.getDefaultState();
         } else {

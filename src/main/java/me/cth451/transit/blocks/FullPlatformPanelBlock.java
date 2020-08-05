@@ -60,8 +60,6 @@ public class FullPlatformPanelBlock extends Block {
 
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState newState, WorldAccess world, BlockPos pos, BlockPos posFrom) {
         DoubleBlockHalf half = state.get(HALF);
-        System.err.println(state.getBlock());
-        System.err.println(newState.getBlock());
         if (direction.getAxis() == Direction.Axis.Y && half == DoubleBlockHalf.LOWER == (direction == Direction.UP)) {
             return newState.isOf(this) && newState.get(HALF) != half ? state.with(FACING, newState.get(FACING)) : Blocks.AIR.getDefaultState();
         } else {
