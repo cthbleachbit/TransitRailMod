@@ -44,6 +44,7 @@ public class FareCard extends Item {
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+        // TODO: change this when the turnstile block is added to this mod.
         if (context.getWorld().getBlockState(context.getBlockPos()).getBlock().getClass() != GlassBlock.class) {
             return ActionResult.PASS;
         }
@@ -60,7 +61,7 @@ public class FareCard extends Item {
 
         // Handle entry / exit
         if (balance == 0) {
-            return ActionResult.FAIL;
+            return ActionResult.PASS;
         }
 
         if (in_use) {
