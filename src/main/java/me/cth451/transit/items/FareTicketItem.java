@@ -49,7 +49,9 @@ public class FareTicketItem extends Item {
 
         // Handle unlimited pass or someone in creative mode
         if (balance == -1 || context.getPlayer().isCreative()) {
-            context.getPlayer().playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+            if (context.getWorld().isClient()) {
+                context.getPlayer().playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+            }
             return ActionResult.SUCCESS;
         }
 
@@ -61,11 +63,16 @@ public class FareTicketItem extends Item {
         if (in_use) {
             context.getStack().getOrCreateTag().putInt("balance", balance - 1);
             context.getStack().getOrCreateTag().putBoolean("in_use", false);
+            if (context.getWorld().isClient()) {
+                context.getPlayer().playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL, 1.0F, 1.0F);
+            }
         } else {
             context.getStack().getOrCreateTag().putBoolean("in_use", true);
+            if (context.getWorld().isClient()) {
+                context.getPlayer().playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL, 1.0F, 2.0F);
+            }
         }
 
-        context.getPlayer().playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL, 1.0F, 1.0F);
         return ActionResult.SUCCESS;
     }
 }

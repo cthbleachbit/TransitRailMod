@@ -3,10 +3,10 @@
   "id": "transit",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "Transit Rail Mod",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
-    "Me!"
+    "Tianhao Chai <cth451@gmail.com>"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
@@ -22,9 +22,6 @@
       "me.cth451.transit.TransitRailMod"
     ]
   },
-  "mixins": [
-    "transit.mixins.json"
-  ],
 
   "depends": {
     "fabricloader": ">=0.7.4",
