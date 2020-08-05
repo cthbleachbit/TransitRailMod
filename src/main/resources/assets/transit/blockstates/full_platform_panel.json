@@ -1,33 +1,33 @@
 {
 	"variants": {
 		"facing=north,half=upper": {
-			"model": "transit:block/full_platform_panel_upper"
+			"model": "transit:block/full_platform_panel/upper"
 		},
 		"facing=north,half=lower": {
-			"model": "transit:block/full_platform_panel_lower"
+			"model": "transit:block/full_platform_panel/lower"
 		},
 		"facing=east,half=upper": {
-			"model": "transit:block/full_platform_panel_upper",
+			"model": "transit:block/full_platform_panel/upper",
 			"y": 90
 		},
 		"facing=east,half=lower": {
-			"model": "transit:block/full_platform_panel_lower",
+			"model": "transit:block/full_platform_panel/lower",
 			"y": 90
 		},
 		"facing=south,half=upper": {
-			"model": "transit:block/full_platform_panel_upper",
+			"model": "transit:block/full_platform_panel/upper",
 			"y": 180
 		},
 		"facing=south,half=lower": {
-			"model": "transit:block/full_platform_panel_lower",
+			"model": "transit:block/full_platform_panel/lower",
 			"y": 180
 		},
 		"facing=west,half=upper": {
-			"model": "transit:block/full_platform_panel_upper",
+			"model": "transit:block/full_platform_panel/upper",
 			"y": 270
 		},
 		"facing=west,half=lower": {
-			"model": "transit:block/full_platform_panel_lower",
+			"model": "transit:block/full_platform_panel/lower",
 			"y": 270
 		}
 	}
