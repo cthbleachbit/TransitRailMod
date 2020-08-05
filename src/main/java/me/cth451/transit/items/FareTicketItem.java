@@ -1,23 +1,15 @@
 package me.cth451.transit.items;
 
-import me.cth451.transit.TransitRailMod;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.GlassBlock;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.datafixer.fix.RecipeFix;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;
-import net.minecraft.recipe.*;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
-import org.lwjgl.system.CallbackI;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FareTicketItem extends Item {
