@@ -1,0 +1,34 @@
+{
+	"variants": {
+		"facing=north,half=upper": {
+			"model": "transit:block/full_platform_panel_upper"
+		},
+		"facing=north,half=lower": {
+			"model": "transit:block/full_platform_panel_lower"
+		},
+		"facing=east,half=upper": {
+			"model": "transit:block/full_platform_panel_upper",
+			"y": 90
+		},
+		"facing=east,half=lower": {
+			"model": "transit:block/full_platform_panel_lower",
+			"y": 90
+		},
+		"facing=south,half=upper": {
+			"model": "transit:block/full_platform_panel_upper",
+			"y": 180
+		},
+		"facing=south,half=lower": {
+			"model": "transit:block/full_platform_panel_lower",
+			"y": 180
+		},
+		"facing=west,half=upper": {
+			"model": "transit:block/full_platform_panel_upper",
+			"y": 270
+		},
+		"facing=west,half=lower": {
+			"model": "transit:block/full_platform_panel_lower",
+			"y": 270
+		}
+	}
+}

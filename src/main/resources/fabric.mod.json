@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "me.cth451.transit.TransitRailMod"
+    ],
+    "client": [
+      "me.cth451.transit.TransitRailMod"
     ]
   },
 
