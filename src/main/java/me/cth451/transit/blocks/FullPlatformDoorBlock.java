@@ -73,11 +73,11 @@ public class FullPlatformDoorBlock extends Block {
                 selected_shape = SOUTH_SHAPE;
                 break;
             case EAST:
-                open_offset = hinge_left ? new Vec3d(0d, 0d, 14d) : new Vec3d(0d, 0d, -14d);
+                open_offset = hinge_left ? new Vec3d(0d, 0d, -14d) : new Vec3d(0d, 0d, 14d);
                 selected_shape = EAST_SHAPE;
                 break;
             case WEST:
-                open_offset = hinge_left ? new Vec3d(0d, 0d, -14d) : new Vec3d(0d, 0d, 14d);
+                open_offset = hinge_left ? new Vec3d(0d, 0d, 14d) : new Vec3d(0d, 0d, -14d);
                 selected_shape = WEST_SHAPE;
         }
         open_offset = powered ? open_offset.multiply(0.0625d) : new Vec3d(0d, 0d, 0d);
