@@ -1,13 +1,12 @@
 package me.cth451.transit.items;
 
-import net.minecraft.block.GlassBlock;
+import me.cth451.transit.blocks.Turnstile;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
@@ -49,38 +48,11 @@ public class FareCard extends Item {
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         // TODO: change this when the turnstile block is added to this mod.
-        if (context.getWorld().getBlockState(context.getBlockPos()).getBlock().getClass() != GlassBlock.class) {
+        if (context.getWorld().getBlockState(context.getBlockPos()).getBlock().getClass() != Turnstile.class) {
             return ActionResult.PASS;
         }
         int balance = context.getStack().getOrCreateTag().getInt(KEY_BALANCE);
         boolean in_use = context.getStack().getOrCreateTag().getBoolean(KEY_IN_USE);
-
-        // Handle unlimited pass or someone in creative mode
-        if (balance == -1 || context.getPlayer().isCreative()) {
-            if (context.getWorld().isClient()) {
-                context.getPlayer().playSound(SoundEvents.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
-            }
-            return ActionResult.SUCCESS;
-        }
-
-        // Handle entry / exit
-        if (balance == 0) {
-            return ActionResult.PASS;
-        }
-
-        if (in_use) {
-            context.getStack().getOrCreateTag().putInt(KEY_BALANCE, balance - 1);
-            context.getStack().getOrCreateTag().putBoolean(KEY_IN_USE, false); 
-            if (context.getWorld().isClient()) {
-                context.getPlayer().playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL, 1.0F, 1.0F);
-            }
-        } else {
-            context.getStack().getOrCreateTag().putBoolean(KEY_IN_USE  , true);
-            if (context.getWorld().isClient()) {
-                context.getPlayer().playSound(SoundEvents.BLOCK_NOTE_BLOCK_BELL, 1.0F, 2.0F);
-            }
-        }
-
         return ActionResult.SUCCESS;
     }
 }
