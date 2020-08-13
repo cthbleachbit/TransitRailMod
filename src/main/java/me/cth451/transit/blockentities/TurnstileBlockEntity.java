@@ -2,6 +2,7 @@ package me.cth451.transit.blockentities;
 
 import me.cth451.transit.TransitRailMod;
 import me.cth451.transit.blocks.Turnstile;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
@@ -56,8 +57,10 @@ public class TurnstileBlockEntity extends BlockEntity implements Tickable {
         if (!this.world.isClient) {
             if (timedOut) {
                 System.err.println("Timed out");
-                BlockState newState = this.world.getBlockState(this.getPos()).with(Turnstile.OPEN, false);
+                BlockState newState = this.world.getBlockState(this.getPos()).with(Turnstile.POWERED, false);
+                Block turnstile = newState.getBlock();
                 this.world.setBlockState(this.getPos(), newState, 3);
+                turnstile.neighborUpdate(newState, world, pos, turnstile, pos, false);
                 this.markDirty();
             }
         }

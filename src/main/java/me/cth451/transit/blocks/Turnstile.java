@@ -26,17 +26,17 @@ import static me.cth451.transit.items.FareCard.KEY_IN_USE;
 import static me.cth451.transit.items.FareCard.KEY_BALANCE;
 
 public class Turnstile extends HorizontalFacingBlock implements BlockEntityProvider {
-    public static final BooleanProperty OPEN;
+    public static final BooleanProperty POWERED;
     public static final EnumProperty<TowardEnum> TOWARD;
 
     public Turnstile(Settings settings) {
         super(settings);
-        this.setDefaultState(this.getStateManager().getDefaultState().with(OPEN, false).with(TOWARD, TowardEnum.IN));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(POWERED, false).with(TOWARD, TowardEnum.IN));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN, TOWARD);
+        builder.add(FACING, POWERED, TOWARD);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Turnstile extends HorizontalFacingBlock implements BlockEntityProvi
         World world = ctx.getWorld();
         BlockPos blockPos = ctx.getBlockPos();
         Direction direction = ctx.getPlayerFacing();
-        return this.getDefaultState().with(FACING, direction).with(OPEN, false);
+        return this.getDefaultState().with(FACING, direction).with(POWERED, false);
     }
 
     @Override
@@ -56,13 +56,31 @@ public class Turnstile extends HorizontalFacingBlock implements BlockEntityProvi
         return new TurnstileBlockEntity();
     }
 
+    public boolean emitsRedstonePower(BlockState state) {
+        return true;
+    }
+
     private void openGateAndStartCountdown(BlockState state, World world, BlockPos pos) {
         TurnstileBlockEntity entity = (TurnstileBlockEntity) world.getBlockEntity(pos);
         // Open the gate
-        world.setBlockState(pos, state.with(OPEN, true));
+        world.setBlockState(pos, state.with(POWERED, true));
         // Tell the entity to start count down
         assert entity != null;
         entity.startTick();
+        this.neighborUpdate(state, world, pos, this, pos, false);
+    }
+
+    public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
+        return state.get(POWERED) ? 15 : 0;
+    }
+
+    public int getStrongRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction direction) {
+        return state.get(POWERED) && Direction.UP == direction ? 15 : 0;
+    }
+
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+        //world.updateNeighbor(pos, this, pos.offset(Direction.DOWN));
     }
 
     @Override
@@ -118,7 +136,7 @@ public class Turnstile extends HorizontalFacingBlock implements BlockEntityProvi
     }
 
     static {
-        OPEN = Properties.OPEN;
+        POWERED = Properties.POWERED;
         TOWARD = EnumProperty.of("towards", TowardEnum.class);
     }
 
