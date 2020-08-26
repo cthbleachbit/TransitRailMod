@@ -5,10 +5,12 @@ import me.cth451.transit.enums.TowardEnum;
 import me.cth451.transit.items.FareCard;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -16,9 +18,12 @@ import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
@@ -81,6 +86,22 @@ public class Turnstile extends HorizontalFacingBlock implements BlockEntityProvi
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
         //world.updateNeighbor(pos, this, pos.offset(Direction.DOWN));
+    }
+
+    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
+        if (!(world instanceof ServerWorld)) {
+            return;
+        }
+
+        // Ignore vehicles and non-players
+        if (entity.hasVehicle() || entity.hasPassengers() || !(entity instanceof PlayerEntity)) {
+            return;
+        }
+
+        // On actual collision
+        if (VoxelShapes.matchesAnywhere(VoxelShapes.cuboid(entity.getBoundingBox().offset((double)(-pos.getX()), (double)(-pos.getY()), (double)(-pos.getZ()))), state.getOutlineShape(world, pos), BooleanBiFunction.AND)) {
+            // TODO: Toggle the open/close state of the turnstile
+        }
     }
 
     @Override

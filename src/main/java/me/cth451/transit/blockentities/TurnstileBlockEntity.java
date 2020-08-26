@@ -9,7 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Tickable;
 
 public class TurnstileBlockEntity extends BlockEntity implements Tickable {
-    private class SyncInt {
+    private static class SyncInt {
         public int value;
     }
 
